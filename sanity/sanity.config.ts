@@ -8,7 +8,7 @@ const devOnlyPlugins = [getStartedPlugin()]
 
 export default defineConfig({
   name: 'default',
-  title: 'peru-caribou',
+  title: 'UIN23-eksamen-group25',
 
   projectId: 'toiktntw',
   dataset: 'production',
