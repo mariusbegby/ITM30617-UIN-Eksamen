@@ -1,7 +1,11 @@
 // Route: /
-
 export default function Dashboard() {
     return (
-        <h1>Dashboard Komponent</h1>
+        <>
+            <main>
+                <h1>Dashboard Komponent</h1>
+            </main>
+            <aside></aside>
+        </>
     );
 }
