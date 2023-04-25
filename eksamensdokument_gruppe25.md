@@ -10,7 +10,7 @@ Gruppen (jeg) har gått for høyeste vanskelighetsgrad, karakter A-krav.
 
 ## Redegjørelser og forutsetninger
 
-Foreløpig ingen.
+- Ved kall til RAWG.io API, har jeg valgt å sende med stores=1 som query-parameter. Dette for å kun hente spill med Steam som butikk. Jeg merket at når jeg ikke filtrerte på Steam som butikk, fikk jeg mange spill med navn "test test test", og mye manglende data på JSON-objektet fra API. Jeg tok derfor avgjørelsen med å legge på dette query-parameteret for å få mer kvalitetsdata fra API.
 
 ## Utfordinger
 
