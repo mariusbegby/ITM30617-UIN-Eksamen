@@ -4,7 +4,7 @@ export default function MyGamesWidget() {
             <header>
             <h2>My Games-Library - ? Games</h2>
             </header>
-            <div id='mygames-widget-gameslist'>
+            <div className='gameslist'>
                 <article>
                     <figure>
                         <img

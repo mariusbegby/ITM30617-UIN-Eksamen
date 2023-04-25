@@ -7,7 +7,7 @@ export default function GameShopWidget() {
                     Visit Shop
                 </a>
             </header>
-            <div id='gameshop-widget-gameslist'>
+            <div id='gameshop-widget-gameslist' className='gameslist'>
                 <article>
                     <figure>
                         <img src='https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg?t=1668125812' alt='' />
