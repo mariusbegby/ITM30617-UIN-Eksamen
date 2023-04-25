@@ -1,14 +1,24 @@
+import React, { useState, useMemo } from 'react';
 import GameCard from './GameCard';
+import { apiKey } from '../apiKey';
 
-const gameObject = {
-    title: 'Grand Theft Auto V',
-    slug: 'grand-theft-auto-v',
-    tags: ['Action', 'RPG'],
-    imageUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg?t=1678296348',
-    bought: false
+const getRecentGames = async () => {
+    const response = await fetch(
+        'https://rawg.io/api/games?stores=1&page_size=3&ordering=-released&key=' + apiKey
+    );
+    const data = await response.json();
+
+    return data.results;
 };
 
 export default function GameShopWidget() {
+    const [recentGames, setRecentGames] = useState([]);
+
+    useMemo(async () => {
+        let results = await getRecentGames();
+        setRecentGames(results);
+    }, []);
+
     return (
         <section id='gameshop-widget'>
             <header>
@@ -18,9 +28,11 @@ export default function GameShopWidget() {
                 </a>
             </header>
             <div id='gameshop-widget-gameslist' className='gameslist'>
-                <GameCard key='1' gameObject={gameObject}></GameCard>
-                <GameCard key='2' gameObject={gameObject}></GameCard>
-                <GameCard key='3' gameObject={gameObject}></GameCard>
+                {recentGames.map((game) => {
+                    return (
+                        <GameCard key={game.id} gameObject={game}></GameCard>
+                    );
+                })}
             </div>
         </section>
     );
