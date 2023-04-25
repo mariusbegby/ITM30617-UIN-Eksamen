@@ -59,7 +59,7 @@
 @media only screen and (min-width: 1200px) {
     #myfavourites-widget {
         border-left: 2px solid $dark-grey;
-        padding-left: 1.5rem;
+        padding-left: 1rem;
 
         #myfavourites-widget-gameslist {
             flex-direction: column;
@@ -72,7 +72,11 @@
                 max-width: 100%;
             }
         }
+    }
+}
 
-
+@media only screen and (min-width: 1400px) {
+    #myfavourites-widget {
+        padding-left: 2rem;
     }
 }

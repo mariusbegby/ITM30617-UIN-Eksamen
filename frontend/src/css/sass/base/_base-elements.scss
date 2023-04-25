@@ -20,9 +20,11 @@ p {
     color: $white;
 }
 
-h2 {
+h1, h2 {
     text-transform: uppercase;
+    margin-top: 0;
 }
+
 
 main {
     margin: 1.5rem 1rem;
