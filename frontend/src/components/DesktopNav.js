@@ -10,7 +10,7 @@ export default function DesktopNav() {
                     />
                     <li>
                         <a href='/' id='logo-title'>
-                            MACs GameHub
+                            <h2>MACs GameHub</h2>
                         </a>
                     </li>
                 </ul>

@@ -1,4 +1,4 @@
-header {
+#navbar-header {
     grid-area: header;
     justify-content: space-between;
     position: sticky;
@@ -6,6 +6,7 @@ header {
     z-index: 999;
     background-color: $black;
     padding: 1rem;
+    min-width: 400px;
 
     i {
         color: $white;
@@ -31,6 +32,13 @@ header {
             filter: brightness(80%);
             transition: 0.15s;
         }
+    }
+
+    h2 {
+        margin: 0;
+        color: $white;
+        font-size: 1.25em;
+        text-transform: none;
     }
 
     #header-logo {

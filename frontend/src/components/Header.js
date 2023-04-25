@@ -3,7 +3,7 @@ import DesktopNav from './DesktopNav';
 
 export default function Header() {
     return (
-        <header>
+        <header id='navbar-header'>
             <nav id='nav-mobile'>
                 <MobileNav></MobileNav>
             </nav>
