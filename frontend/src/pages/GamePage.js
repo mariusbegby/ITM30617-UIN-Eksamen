@@ -13,6 +13,7 @@ const gameObject = {
     publisher: 'Rockstar Games',
     platforms: ['PC', 'Xbox One', 'Playstation 4'],
     rating: 4.5,
+    storeUrl: '/',
     favorited: true,
     bought: true
 };
@@ -56,6 +57,8 @@ export default function GamePage() {
                         <p key={index}>{tag}</p>
                     ))}
                 </div>
+
+                <a href={gameObject.storeUrl} className="link-button">Buy</a>
             </section>
         </main>
     );
