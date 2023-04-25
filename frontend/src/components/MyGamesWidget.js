@@ -1,29 +1,35 @@
+import React, { useState, useMemo } from 'react';
 import GameCard from './GameCard';
+import { apiKey } from '../apiKey';
 
-const gameObject = {
-    title: 'Grand Theft Auto V',
-    slug: 'grand-theft-auto-v',
-    tags: ['Action', 'RPG'],
-    imageUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg?t=1678296348',
-    bought: true
+const getMyGames = async () => {
+    const response = await fetch(
+        'https://rawg.io/api/games?page_size=4&genres=action&key=' + apiKey
+    );
+    const data = await response.json();
+
+    return data.results;
 };
 
 export default function MyGamesWidget() {
+    const [myGames, setMyGames] = useState([]);
+
+    useMemo(async () => {
+        let results = await getMyGames();
+        setMyGames(results);
+    }, []);
+
     return (
         <section id='mygames-widget'>
             <header>
                 <h2>My Games-Library - ? Games</h2>
             </header>
             <div className='gameslist'>
-                <GameCard key='1' gameObject={gameObject}></GameCard>
-                <GameCard key='2' gameObject={gameObject}></GameCard>
-                <GameCard key='3' gameObject={gameObject}></GameCard>
-                <GameCard key='4' gameObject={gameObject}></GameCard>
-                <GameCard key='5' gameObject={gameObject}></GameCard>
-                <GameCard key='6' gameObject={gameObject}></GameCard>
-                <GameCard key='7' gameObject={gameObject}></GameCard>
-                <GameCard key='8' gameObject={gameObject}></GameCard>
-                <GameCard key='9' gameObject={gameObject}></GameCard>
+                {myGames.map((game) => {
+                    return (
+                        <GameCard key={game.id} gameObject={game}></GameCard>
+                    );
+                })}
             </div>
         </section>
     );
