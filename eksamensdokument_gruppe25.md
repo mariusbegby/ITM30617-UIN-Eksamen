@@ -6,7 +6,7 @@
 
 ## Vanskelighetsgrad
 
-Gruppen (jeg) har gått for høyeste vanskelighetsgrad, karakter A-krav.
+Jeg har gått for høyeste vanskelighetsgrad, karakter A-krav.
 
 ## Redegjørelser og forutsetninger
 
