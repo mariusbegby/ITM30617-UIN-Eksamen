@@ -1,3 +1,40 @@
 footer {
     grid-area: footer;
+    justify-content: space-between;
+    z-index: 999;
+    background-color: $black;
+    padding: 1rem;
+    margin: 0;
+    margin-top: 2rem;
+
+    a {
+        color: $white;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1em;
+
+        &:hover {
+            text-decoration: underline;
+            filter: brightness(80%);
+            transition: 0.15s;
+        }
+    }
+
+    section {
+        grid-column: 2 / 4;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    footer {
+        display: grid;
+        grid-template-columns: 0.5fr 2fr 2fr 0.5fr;
+    }
+
+}
+
+@media only screen and (min-width: 1950px) {
+    footer {
+        grid-template-columns: 1fr 2fr 2fr 1fr;
+    }
 }
