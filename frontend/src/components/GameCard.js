@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function GameCard({ gameObject }) {
     return (
         <article className='gamecard'>
-            <Link to='/'>
+            <Link to={'/game/' + gameObject.slug}>
                 <figure>
                     <img src={gameObject.imageUrl} alt='' />
                 </figure>
