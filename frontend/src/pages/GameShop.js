@@ -26,7 +26,7 @@ export default function GameShop() {
             <header>
                 <h1>Gameshop</h1>
             </header>
-            <section class='gameslist'>
+            <section className='gameslist'>
                 {recentGames.map((game) => {
                     return (
                         <GameCard key={game.id} gameObject={game}></GameCard>
