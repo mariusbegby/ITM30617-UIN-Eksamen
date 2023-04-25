@@ -1,65 +1,138 @@
 // Route: /game/[gametitle-as-slug]
+import React, { useState, useMemo, useEffect, useContext } from 'react';
+import { FavouritesContext } from '../contexts/FavouritesContext';
+import { useParams } from 'react-router-dom';
+import { apiKey } from '../apiKey';
 
-const gameObject = {
-    title: 'Grand Theft Auto V',
-    slug: 'grand-theft-auto-v',
-    tags: ['Action', 'RPG', 'Multiplayer', 'Open World'],
-    genres: ['Action', 'RPG'],
-    imageUrl:
-        'https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg?t=1678296348',
-    summary:
-        'Summary lorem ipsum dolor sit amet lorem. Ipsum dolor sit amet lorem ipsum dolor sit amet.',
-    published: '2013-09-17T00:00:00.000Z',
-    publisher: 'Rockstar Games',
-    platforms: ['PC', 'Xbox One', 'Playstation 4'],
-    rating: 4.5,
-    storeUrl: '/',
-    favorited: true,
-    bought: true
+const getGameInfo = async (slug) => {
+    const response = await fetch(
+        'https://rawg.io/api/games/' + slug + '?key=' + apiKey
+    );
+    const data = await response.json();
+
+    return data;
 };
 
 export default function GamePage() {
+    const { id } = useParams();
+
+    const [gameInfo, setGameInfo] = useState(null);
+    const [isFavorited, setIsFavorited] = useState(false);
+    const { favourites, setFavourites } = useContext(FavouritesContext);
+
+    useMemo(async () => {
+        let result = await getGameInfo(id);
+        setGameInfo(result);
+        console.log(result);
+    }, [id]);
+
+    useEffect(() => {
+        setIsFavorited(!!favourites.find((game) => game.slug === id));
+
+        const fetchGameInfo = async () => {
+            let result = await getGameInfo(id);
+            setGameInfo(result);
+            console.log(result);
+        };
+    
+        fetchGameInfo();
+    }, [id, favourites]);
+
+    const toggleFavourite = async () => {
+        setFavourites((prevFavourites) => {
+            if (prevFavourites.find((game) => game.id === gameInfo.id)) {
+                return prevFavourites.filter((game) => game.id !== gameInfo.id);
+            } else {
+                return [...prevFavourites, gameInfo];
+            }
+        });
+    };
+
     return (
         <main id='game-page'>
-            <section>
-                <figure>
-                    <img src={gameObject.imageUrl} alt='' />
-                </figure>
-            </section>
-            <section>
-                <header>
-                    <h1>{gameObject.title}</h1>
-                    <div id="rating-favourite-section">
-                        <span className='textfont-strong rating-tag'>★ {gameObject.rating}</span>
-                        <button className={gameObject.favorited ? 'textfont-strong favourite-button favourited' : 'textfont-strong favourite-button'}>{gameObject.favorited ? '❤ Favourited' : '❤ Favourite'}</button>
-                    </div>
-                </header>
-                <p className='textfont-strong'>{gameObject.summary}</p>
-                <p>
-                    <span className='textfont-strong'>Genres: </span>{' '}
-                    {gameObject.genres.join(', ')}
-                </p>
-                <p>
-                    <span className='textfont-strong'>Published: </span>
-                    {new Date(gameObject.published).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
-                <p>
-                    <span className='textfont-strong'>Publisher: </span>
-                    {gameObject.publisher}
-                </p>
-                <p>
-                    <span className='textfont-strong'>Platforms: </span>
-                    {gameObject.platforms.join(', ')}
-                </p>
-                <div className='tag-section'>
-                    <span className='textfont-strong'>Tags: </span>
-                    {gameObject.tags.map((tag, index) => (
-                        <p key={index}>{tag}</p>
-                    ))}
-                </div>
+            {gameInfo ? (
+                <>
+                    <section>
+                        <figure>
+                            <img
+                                src={
+                                    gameInfo.background_image
+                                        ? gameInfo.background_image
+                                        : '/placeholder.png'
+                                }
+                                alt=''
+                            />
+                        </figure>
+                    </section>
+                    <section>
+                        <header>
+                            <h1>{gameInfo.name}</h1>
+                            <div id='rating-favourite-section'>
+                                <span className='textfont-strong rating-tag'>
+                                    ★ {gameInfo.rating}
+                                </span>
+                                <button
+                                    className={
+                                        isFavorited
+                                            ? 'textfont-strong favourite-button favourited'
+                                            : 'textfont-strong favourite-button'
+                                    }
+                                    onClick={toggleFavourite}>
+                                    {isFavorited
+                                        ? '❤ Favourited'
+                                        : '❤ Favourite'}
+                                </button>
+                            </div>
+                        </header>
+                        <p>
+                            <i>{gameInfo.description_raw}</i>
+                        </p>
+                        <p>
+                            <span className='textfont-strong'>Genres: </span>{' '}
+                            {gameInfo.genres
+                                .slice(0, 5)
+                                .map((genre) => genre.name)
+                                .join(', ')}
+                        </p>
+                        <p>
+                            <span className='textfont-strong'>Published: </span>
+                            {new Date(gameInfo.released).toLocaleDateString(
+                                'en-US',
+                                {
+                                    weekday: 'long',
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                }
+                            )}
+                        </p>
+                        <p>
+                            <span className='textfont-strong'>Publisher: </span>
+                            {gameInfo.publishers[0]?.name
+                                ? gameInfo.publishers[0].name
+                                : 'Unknown'}
+                        </p>
+                        <p>
+                            <span className='textfont-strong'>Platforms: </span>
+                            {gameInfo.platforms
+                                .map((platform) => platform.platform.name)
+                                .join(', ')}
+                        </p>
+                        <div className='tag-section'>
+                            <span className='textfont-strong'>Tags: </span>
+                            {gameInfo.tags.slice(0, 5).map((tag, index) => (
+                                <p key={index}>{tag.name}</p>
+                            ))}
+                        </div>
 
-                <a href={gameObject.storeUrl} className="link-button">Buy</a>
-            </section>
+                        <a href={gameInfo.storeUrl} className='link-button'>
+                            Buy
+                        </a>
+                    </section>
+                </>
+            ) : (
+                <></>
+            )}
         </main>
     );
 }
