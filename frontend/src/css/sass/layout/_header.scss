@@ -102,7 +102,7 @@
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1400px) {
     #nav-desktop {
         display: grid;
         grid-template-columns: 0.5fr 2fr 2fr 0.5fr;
@@ -110,4 +110,10 @@
             '. header-left header-right .';
     }
 
+}
+
+@media only screen and (min-width: 1950px) {
+    #nav-desktop {
+        grid-template-columns: 1fr 2fr 2fr 1fr;
+    }
 }
