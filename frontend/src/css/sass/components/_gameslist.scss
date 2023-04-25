@@ -6,6 +6,13 @@
     row-gap: 2rem;
     justify-content: space-between;
 
+    &:after {
+        content: "";
+        flex: auto;
+        flex-basis: 30%;
+        max-width: calc(33% - 1.16rem);
+    }
+
     h3 {
         margin: 0;
     }
