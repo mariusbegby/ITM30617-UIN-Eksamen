@@ -5,7 +5,7 @@ export default function MobileNav() {
                 <li>
                     <a href='/'>
                         <img
-                            src='logo192.png'
+                            src='/logo192.png'
                             id='header-logo'
                             alt='MACs GameHub logo'
                         />
