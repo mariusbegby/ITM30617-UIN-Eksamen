@@ -1,0 +1,12 @@
+.link-button {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: $black;
+    border-radius: $radius;
+    color: $white;
+    text-decoration: none;
+    font-weight: 700;
+    &:hover {
+        text-decoration: underline;
+    }
+}

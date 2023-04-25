@@ -4,7 +4,6 @@
     grid-template-rows: auto auto auto auto;
     grid-template-areas:
         'header'
-        'aside'
         'main'
         'footer';
 }
@@ -15,7 +14,7 @@
         grid-template-rows: auto auto auto auto;
         grid-template-areas:
             'header header header header'
-            'main main main aside'
+            'main main main main'
             'footer footer footer footer';
     }
 }
@@ -26,7 +25,18 @@
         grid-template-rows: auto auto auto auto;
         grid-template-areas:
             'header header header header header header'
-            '. main main main aside .'
+            '. main main main main .'
+            'footer footer footer footer footer footer';
+    }
+}
+
+@media only screen and (min-width: 1950px) {
+    #grid-container {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+            'header header header header header header'
+            '. main main main main .'
             'footer footer footer footer footer footer';
     }
 }
