@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-html, body {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-}
-
-h1, h2, h3 {
-    font-weight: 700;
-}
+@import "utilities/examvariables";
+@import "utilities/variables";
+@import "base/reset";
+@import "base/base-elements";
+@import "layout/grid-container";
+@import "layout/header";
+@import "layout/footer";
+@import "layout/main";
+@import "layout/aside";
+@import "pages/dashboard";
+@import "components/gameshop-widget";
+@import "components/myfavourites-widget";
+@import "components/mygames-widget";
+@import "components/buttons";

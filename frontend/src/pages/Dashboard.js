@@ -1,7 +1,14 @@
 // Route: /
+import GameShopWidget from '../components/GameShopWidget';
+import MyGamesWidget from '../components/MyGamesWidget';
+import MyFavouritesWidget from '../components/MyFavouritesWidget';
 
 export default function Dashboard() {
     return (
-        <h1>Dashboard Komponent</h1>
+        <main id='dashboard-page'>
+            <GameShopWidget></GameShopWidget>
+            <MyGamesWidget></MyGamesWidget>
+            <MyFavouritesWidget></MyFavouritesWidget>
+        </main>
     );
 }

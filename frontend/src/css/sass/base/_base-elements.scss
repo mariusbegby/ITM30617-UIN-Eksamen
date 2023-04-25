@@ -1,0 +1,33 @@
+html, body {
+    font-family: $textfont;
+    font-weight: 400;
+}
+
+body {
+    background-color: $white;
+    font-size: $rootsize;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $black;
+    font-family: $headerfont;
+    font-weight: 700;
+}
+
+p { 
+    color: $white;
+}
+
+h2 {
+    text-transform: uppercase;
+}
+
+main {
+    margin: 1.5rem 1rem;
+}
+
+footer {
+    margin: 1.5rem 1rem;
+}

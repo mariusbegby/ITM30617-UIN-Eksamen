@@ -1,0 +1,113 @@
+#navbar-header {
+    grid-area: header;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: $black;
+    padding: 1rem;
+    min-width: 400px;
+
+    i {
+        color: $white;
+    }
+
+    ul {
+        display: flex;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        align-items: center;
+    }
+
+    a {
+        color: $white;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1em;
+
+        &:hover {
+            text-decoration: underline;
+            filter: brightness(80%);
+            transition: 0.15s;
+        }
+    }
+
+    h2 {
+        margin: 0;
+        color: $white;
+        font-size: 1.25em;
+        text-transform: none;
+    }
+
+    #header-logo {
+        height: 2.5rem;
+        display: block;
+    }
+}
+
+#header-centered {
+    ul {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+}
+
+#nav-desktop {
+    display: none;
+}
+
+@media only screen and (min-width: 750px) {
+    #nav-mobile {
+        display: none;
+    }
+
+    #nav-desktop {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-areas:
+            'header-left header-right';
+    }
+
+    #header-left {
+        width: 100%;
+        grid-area: header-left;
+        display: flex;
+        padding-right: 2rem;
+
+        ul {
+            gap: 1rem;
+        }
+    }
+
+    #header-right {
+        width: 100%;
+        grid-area: header-right;
+        display: flex;
+
+        ul {
+            gap: 2rem;
+            justify-content: flex-end;
+        }
+    }
+
+    #logo-title {
+        font-size: 1.25em;
+    }
+
+    #header-logo {
+        height: 4rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    #nav-desktop {
+        display: grid;
+        grid-template-columns: 0.5fr 2fr 2fr 0.5fr;
+        grid-template-areas:
+            '. header-left header-right .';
+    }
+
+}
