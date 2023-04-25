@@ -1,7 +1,9 @@
 #grid-container {
+    min-height: 100vh;
+    position: relative;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: 4.5rem auto auto;
     grid-template-areas:
         'header'
         'main'
@@ -11,7 +13,6 @@
 @media only screen and (min-width: 1000px) {
     #grid-container {
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto auto auto auto;
         grid-template-areas:
             'header header header header'
             'main main main main'
@@ -22,7 +23,6 @@
 @media only screen and (min-width: 1400px) {
     #grid-container {
         grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 0.5fr;
-        grid-template-rows: auto auto auto auto;
         grid-template-areas:
             'header header header header header header'
             '. main main main main .'
@@ -33,7 +33,6 @@
 @media only screen and (min-width: 1950px) {
     #grid-container {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto auto auto auto;
         grid-template-areas:
             'header header header header header header'
             '. main main main main .'

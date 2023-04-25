@@ -4,7 +4,7 @@ export default function DesktopNav() {
             <section id='header-left'>
                 <ul>
                     <img
-                        src='logo192.png'
+                        src='/logo192.png'
                         id='header-logo'
                         alt='MACs GameHub logo'
                     />
