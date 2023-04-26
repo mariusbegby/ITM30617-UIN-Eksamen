@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 
-export default function GameCard({ gameObject }) {
-    let gameImageUrl = gameObject.background_image ? gameObject.background_image : '/placeholder.png';
+export default function GameCard({ gameObject, canBePurchased = false }) {
+    let gameImageUrl = gameObject.background_image
+        ? gameObject.background_image
+        : '/placeholder.png';
 
     return (
-        
         <article className='gamecard'>
             <Link to={'/game/' + gameObject.slug}>
                 <figure>
@@ -17,12 +18,14 @@ export default function GameCard({ gameObject }) {
                             <p key={index}>{tag.name}</p>
                         ))}
                     </div>
-                    {gameObject.bought ? (
-                        ''
-                    ) : (
-                        <button className='link-button' href={'/game/' + gameObject.slug}>
+                    {canBePurchased ? (
+                        <button
+                            className='link-button'
+                            href={'/game/' + gameObject.slug}>
                             Buy
                         </button>
+                    ) : (
+                        ''
                     )}
                 </section>
             </Link>

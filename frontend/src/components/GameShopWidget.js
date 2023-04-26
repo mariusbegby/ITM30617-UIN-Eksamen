@@ -30,7 +30,7 @@ export default function GameShopWidget() {
             <div id='gameshop-widget-gameslist' className='gameslist'>
                 {recentGames.map((game) => {
                     return (
-                        <GameCard key={game.id} gameObject={game}></GameCard>
+                        <GameCard key={game.id} gameObject={game} canBePurchased={true}></GameCard>
                     );
                 })}
             </div>
