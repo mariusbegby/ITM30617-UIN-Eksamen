@@ -25,4 +25,5 @@ Jeg har gått for høyeste vanskelighetsgrad, karakter A-krav.
 - Sjekke dokumentasjon for RAWG.io API: https://api.rawg.io/docs/
 - Generere ikon/logo (favicon) for nettsiden (for å unngå opphavsrett-trøbbel), med hjelp av AI: https://openai.com/product/dall-e-2
 - Et par linjer kode for å løse problem med space-between for siste rad i flexbox når raden ikke er full: https://stackoverflow.com/questions/18744164/flex-box-align-last-row-to-grid
-- Sjekke diverse sytax, bruk og oppsett av React-metoder/hooks etc. som f.eks. useEffect: https://react.dev/
+- Sjekke diverse syntax, bruk og oppsett av React-metoder/hooks etc. som f.eks. useEffect: https://react.dev/
+- Sjekke syntax, bruk og oppsett av Santiy schemas: https://www.sanity.io/docs/schema-types
