@@ -4,7 +4,7 @@ import { apiKey } from '../apiKey';
 
 const getRecentGames = async () => {
     const response = await fetch(
-        'https://rawg.io/api/games?stores=1&page_size=3&ordering=-released&key=' + apiKey
+        'https://rawg.io/api/games?stores=1&page_size=3&ordering=-updated&key=' + apiKey
     );
     const data = await response.json();
 
