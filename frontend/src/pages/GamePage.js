@@ -83,7 +83,6 @@ export default function GamePage() {
                         <p>
                             <span className='textfont-strong'>Genres: </span>{' '}
                             {gameInfo.genres
-                                .slice(0, 5)
                                 .map((genre) => genre.name)
                                 .join(', ')}
                         </p>
@@ -113,7 +112,7 @@ export default function GamePage() {
                         </p>
                         <div className='tag-section'>
                             <span className='textfont-strong'>Tags: </span>
-                            {gameInfo.tags.slice(0, 5).map((tag, index) => (
+                            {gameInfo.tags.map((tag, index) => (
                                 <p key={index}>{tag.name}</p>
                             ))}
                         </div>
