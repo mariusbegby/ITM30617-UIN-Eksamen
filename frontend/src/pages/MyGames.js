@@ -25,7 +25,7 @@ export default function MyGames() {
             <header>
                 <h1>My Games</h1>
             </header>
-            <section class='gameslist'>
+            <section className='gameslist'>
                 {myGames.map((game) => {
                     return (
                         <GameCard key={game.id} gameObject={game}></GameCard>

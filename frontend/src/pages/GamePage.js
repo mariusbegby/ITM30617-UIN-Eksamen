@@ -1,5 +1,5 @@
 // Route: /game/[gametitle-as-slug]
-import React, { useState, useMemo, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
 import { useParams } from 'react-router-dom';
 import { apiKey } from '../apiKey';
@@ -20,19 +20,12 @@ export default function GamePage() {
     const [isFavorited, setIsFavorited] = useState(false);
     const { favourites, setFavourites } = useContext(FavouritesContext);
 
-    useMemo(async () => {
-        let result = await getGameInfo(id);
-        setGameInfo(result);
-        console.log(result);
-    }, [id]);
-
     useEffect(() => {
         setIsFavorited(!!favourites.find((game) => game.slug === id));
 
         const fetchGameInfo = async () => {
             let result = await getGameInfo(id);
             setGameInfo(result);
-            console.log(result);
         };
     
         fetchGameInfo();

@@ -22,7 +22,7 @@ export default function GameShopWidget() {
     return (
         <section id='gameshop-widget'>
             <header>
-                <h2>Gameshop</h2>
+                <h2>Gameshop - Latest releases</h2>
                 <a href='/gameshop' className='link-button'>
                     Visit Shop
                 </a>
@@ -30,7 +30,7 @@ export default function GameShopWidget() {
             <div id='gameshop-widget-gameslist' className='gameslist'>
                 {recentGames.map((game) => {
                     return (
-                        <GameCard key={game.id} gameObject={game}></GameCard>
+                        <GameCard key={game.id} gameObject={game} canBePurchased={true}></GameCard>
                     );
                 })}
             </div>
