@@ -37,7 +37,7 @@
             }
         }
 
-        &:hover img {
+        &:hover img, &:focus-within img {
             transform: scale($zoom-size);
             box-shadow: 4px 4px 12px #c9c9c9,
                         -4px -4px 12px #dfdfdf;
