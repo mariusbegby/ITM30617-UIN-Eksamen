@@ -11,7 +11,7 @@ export default function MyFavourites() {
             <header>
                 <h1>My Favourites</h1>
             </header>
-            <section class='gameslist'>
+            <section className='gameslist'>
                 {favourites.map((game) => {
                     return (
                         <GameCard key={game.id} gameObject={game}></GameCard>
