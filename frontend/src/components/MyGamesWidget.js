@@ -23,6 +23,9 @@ export default function MyGamesWidget() {
         <section id='mygames-widget'>
             <header>
                 <h2>My Games-Library - ? Games</h2>
+                <a href='/mygames' className='link-button'>
+                    View All
+                </a>
             </header>
             <div className='gameslist'>
                 {myGames.map((game) => {
