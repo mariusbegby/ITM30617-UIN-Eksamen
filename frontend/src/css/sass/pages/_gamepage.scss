@@ -19,7 +19,7 @@
             object-fit: fill;
             border-radius: $radius-big;
             box-shadow: 8px 8px 12px #c9c9c9,
-                    -8px -8px 12px #dfdfdf;
+                -8px -8px 12px #dfdfdf;
         }
     }
 
@@ -87,7 +87,7 @@
     }
 }
 
-@media only screen and (min-width: 1300px) {
+@media only screen and (min-width: 1400px) {
     #game-page {
         header {
             flex-direction: row;
@@ -95,8 +95,7 @@
             gap: 1rem;
 
             h1 {
-                
-        margin-bottom: 0;
+                margin-bottom: 0;
             }
         }
     }
