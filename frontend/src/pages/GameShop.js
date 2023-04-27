@@ -24,7 +24,7 @@ export default function GameShop() {
     return (
         <main id='gameshop-page'>
             <header>
-                <h1>Gameshop</h1>
+                <h1>Gameshop - Latest Updates</h1>
             </header>
             <section className='gameslist'>
                 {recentGames.map((game) => {
