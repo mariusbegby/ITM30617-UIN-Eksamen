@@ -1,4 +1,4 @@
-export default function DesktopNav() {
+export default function DesktopNav({ loggedInUser }) {
     return (
         <>
             <section id='header-left'>
@@ -16,20 +16,25 @@ export default function DesktopNav() {
                 </ul>
             </section>
             <section id='header-right'>
-                {' '}
                 <ul>
                     <li>
                         <a href='/gameshop'>Shop</a>
                     </li>
-                    <li>
-                        <a href='/mygames'>My Games</a>
-                    </li>
-                    <li>
-                        <a href='/favourites'>Favourites</a>
-                    </li>
-                    <li>
-                        <a href='/login'>Login</a>
-                    </li>
+
+                    {loggedInUser ? (
+                        <>
+                            <li>
+                                <a href='/mygames'>My Games</a>
+                            </li>
+                            <li>
+                                <a href='/favourites'>Favourites</a>
+                            </li>
+                        </>
+                    ) : (
+                        <li>
+                            <a href='/login'>Login</a>
+                        </li>
+                    )}
                 </ul>
             </section>
         </>
