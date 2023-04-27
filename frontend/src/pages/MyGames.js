@@ -20,6 +20,7 @@ export default function MyGames() {
                         game.gameRef.gameSlug
                     );
                     return {
+                        apiId: game.gameRef.gameApiId,
                         name: game.gameRef.gameTitle,
                         slug: game.gameRef.gameSlug,
                         genres: game.gameRef.gameGenres.map((genre) => {
