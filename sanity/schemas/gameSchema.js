@@ -4,8 +4,8 @@ export default {
   type: 'document',
   fields: [
     {
-      title: 'Game ID',
-      name: 'gameId',
+      title: 'Game API ID',
+      name: 'gameApiId',
       type: 'number',
     },
     {
@@ -22,7 +22,12 @@ export default {
       title: 'Game Genres',
       name: 'gameGenres',
       type: 'array',
-      of: [{type: 'genre'}],
+      of: [
+        {
+          type: 'object',
+          fields: [{title: 'Genre Reference', name: 'genreRef', type: 'reference', to: [{type: 'genre'}]}],
+        },
+      ],
     },
   ],
 }

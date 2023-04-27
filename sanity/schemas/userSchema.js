@@ -4,11 +4,6 @@ export default {
   type: 'document',
   fields: [
     {
-      title: 'User ID',
-      name: 'userId',
-      type: 'string',
-    },
-    {
       title: 'User email',
       name: 'userEmail',
       type: 'string',
@@ -22,8 +17,8 @@ export default {
           type: 'object',
           fields: [
             {
-              title: 'Game',
-              name: 'game',
+              title: 'Game Reference',
+              name: 'gameRef',
               type: 'reference',
               to: [{type: 'game'}],
             },
