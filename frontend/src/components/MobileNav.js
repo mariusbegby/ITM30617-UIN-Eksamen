@@ -1,4 +1,4 @@
-export default function MobileNav() {
+export default function MobileNav({loggedInUser}) {
     return (
         <section id='header-centered'>
             <ul>
@@ -14,15 +14,21 @@ export default function MobileNav() {
                 <li>
                     <a href='/gameshop'>Shop</a>
                 </li>
-                <li>
-                    <a href='/mygames'>My Games</a>
-                </li>
-                <li>
-                    <a href='/favourites'>Favourites</a>
-                </li>
-                <li>
-                    <a href='/login'>Login</a>
-                </li>
+
+                {loggedInUser ? (
+                    <>
+                        <li>
+                            <a href='/mygames'>My Games</a>
+                        </li>
+                        <li>
+                            <a href='/favourites'>Favourites</a>
+                        </li>
+                    </>
+                ) : (
+                    <li>
+                        <a href='/login'>Login</a>
+                    </li>
+                )}
             </ul>
         </section>
     );

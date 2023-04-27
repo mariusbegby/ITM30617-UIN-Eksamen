@@ -1,44 +1,67 @@
 // Route: /game/[gametitle-as-slug]
 import React, { useState, useEffect, useContext } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
+import { updateFavouriteStatus, gameExistsInLibrary } from '../sanity/service';
 import { useParams } from 'react-router-dom';
-import { apiKey } from '../apiKey';
+import { LoginContext } from '../contexts/LoginContext';
 
-const getGameInfo = async (slug) => {
-    const response = await fetch(
-        'https://rawg.io/api/games/' + slug + '?key=' + apiKey
-    );
-    const data = await response.json();
-
-    return data;
-};
+import { fetchGameInfo } from '../utilities/fetchGameInfo';
 
 export default function GamePage() {
+    const { loggedInUser } = useContext(LoginContext);
     const { id } = useParams();
 
     const [gameInfo, setGameInfo] = useState(null);
+    const [inLibrary, setInLibrary] = useState(false);
     const [isFavorited, setIsFavorited] = useState(false);
     const { favourites, setFavourites } = useContext(FavouritesContext);
 
     useEffect(() => {
         setIsFavorited(!!favourites.find((game) => game.slug === id));
 
-        const fetchGameInfo = async () => {
-            let result = await getGameInfo(id);
+        const initializeGameInfo = async () => {
+            let result = await fetchGameInfo(id);
             setGameInfo(result);
         };
-    
-        fetchGameInfo();
+
+        initializeGameInfo();
     }, [id, favourites]);
 
-    const toggleFavourite = async () => {
-        setFavourites((prevFavourites) => {
-            if (prevFavourites.find((game) => game.id === gameInfo.id)) {
-                return prevFavourites.filter((game) => game.id !== gameInfo.id);
-            } else {
-                return [...prevFavourites, gameInfo];
+    useEffect(() => {
+        const checkIfGameInLibrary = async () => {
+            if (gameInfo) {
+                let result = await gameExistsInLibrary(
+                    loggedInUser,
+                    gameInfo.id
+                );
+                console.log('result: ', result);
+                setInLibrary(result);
             }
-        });
+        };
+
+        checkIfGameInLibrary();
+    }, [loggedInUser, gameInfo]);
+
+    const toggleFavourite = async () => {
+        const existingGame = favourites.find((game) => game.id === gameInfo.id);
+
+        if (existingGame) {
+            setFavourites((prevFavourites) => {
+                return prevFavourites.filter((game) => game.id !== gameInfo.id);
+            });
+            await updateFavouriteStatus(loggedInUser, gameInfo.id, false);
+        } else {
+            setFavourites((prevFavourites) => {
+                return [
+                    ...prevFavourites,
+                    {
+                        ...gameInfo,
+                        gameId: gameInfo.id,
+                        isFavourite: true
+                    }
+                ];
+            });
+        }
     };
 
     return (
@@ -64,29 +87,34 @@ export default function GamePage() {
                                 <span className='textfont-strong rating-tag'>
                                     ★ {gameInfo.rating}
                                 </span>
-                                <button
-                                    className={
-                                        isFavorited
-                                            ? 'textfont-strong favourite-button favourited'
-                                            : 'textfont-strong favourite-button'
-                                    }
-                                    onClick={toggleFavourite}>
-                                    {isFavorited
-                                        ? '❤ Favourited'
-                                        : '❤ Favourite'}
-                                </button>
+                                {loggedInUser && inLibrary ? (
+                                    <button
+                                        className={
+                                            isFavorited
+                                                ? 'textfont-strong favourite-button favourited'
+                                                : 'textfont-strong favourite-button'
+                                        }
+                                        onClick={toggleFavourite}>
+                                        {isFavorited
+                                            ? '❤ Favourited'
+                                            : '❤ Favourite'}
+                                    </button>
+                                ) : (
+                                    <span className='textfont-strong notinlibrary-tag'>
+                                        Not in library
+                                    </span>
+                                )}
                             </div>
                         </header>
                         <p>
                             <i>{gameInfo.description_raw}</i>
                         </p>
-                        <p>
-                            <span className='textfont-strong'>Genres: </span>{' '}
-                            {gameInfo.genres
-                                .slice(0, 5)
-                                .map((genre) => genre.name)
-                                .join(', ')}
-                        </p>
+                        <div className='tag-section'>
+                            <span className='textfont-strong'>Genres: </span>
+                            {gameInfo.genres.map((genre, index) => (
+                                <p key={index}>{genre.name}</p>
+                            ))}
+                        </div>
                         <p>
                             <span className='textfont-strong'>Published: </span>
                             {new Date(gameInfo.released).toLocaleDateString(
@@ -111,16 +139,17 @@ export default function GamePage() {
                                 .map((platform) => platform.platform.name)
                                 .join(', ')}
                         </p>
-                        <div className='tag-section'>
-                            <span className='textfont-strong'>Tags: </span>
-                            {gameInfo.tags.slice(0, 5).map((tag, index) => (
-                                <p key={index}>{tag.name}</p>
-                            ))}
-                        </div>
-
-                        <a href={gameInfo.storeUrl} className='link-button'>
-                            Buy
-                        </a>
+                        <p>
+                            <span className='textfont-strong'>Tags: </span>{' '}
+                            {gameInfo.tags.map((tag) => tag.name).join(', ')}
+                        </p>
+                        {inLibrary ? (
+                            <span className='textfont-strong inlibrary-tag'>In Game Library</span>
+                        ) : (
+                            <a href={gameInfo.storeUrl} className='link-button'>
+                                Buy
+                            </a>
+                        )}
                     </section>
                 </>
             ) : (

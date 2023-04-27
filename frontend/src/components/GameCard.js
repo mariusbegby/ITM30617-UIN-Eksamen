@@ -14,8 +14,8 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                 <section>
                     <h3>{gameObject.name}</h3>
                     <div className='tag-section'>
-                        {gameObject.tags.slice(0, 5).map((tag, index) => (
-                            <p key={index}>{tag.name}</p>
+                        {gameObject.genres.slice(0, 5).map((genre, index) => (
+                            <p key={index}>{genre.name}</p>
                         ))}
                     </div>
                     {canBePurchased ? (

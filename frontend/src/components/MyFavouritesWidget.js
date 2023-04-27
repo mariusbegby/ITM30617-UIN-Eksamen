@@ -1,21 +1,46 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
-import GameCard from './GameCard';
+import { getFavouritedGames } from '../sanity/service';
+import GameCard from '../components/GameCard';
+import { fetchGameInfo } from '../utilities/fetchGameInfo';
 
-export default function MyFavouritesWidget() {
+export default function MyFavouritesWidget({ loggedInUser }) {
     const { favourites, setFavourites } = useContext(FavouritesContext);
 
+    useEffect(() => {
+        const fetchFavourites = async () => {
+            const favouriteList = await getFavouritedGames(loggedInUser);
+
+            let completeGameObjects = await Promise.all(
+                favouriteList.map(async (game) => {
+                    let gameInfoFromApi = await fetchGameInfo(
+                        game.gameRef.gameSlug
+                    );
+                    return gameInfoFromApi;
+                })
+            );
+
+            setFavourites(completeGameObjects);
+        };
+        fetchFavourites();
+    }, [loggedInUser, setFavourites]);
     return (
         <section id='myfavourites-widget'>
             <header>
-                <h2>My Favourites</h2>
+                <h2>My Favourites ({favourites.length})</h2>
             </header>
             <div id='myfavourites-widget-gameslist'>
-                {favourites.map((game) => {
-                    return (
-                        <GameCard key={game.id} gameObject={game}></GameCard>
-                    );
-                })}
+                {favourites.length > 0 ? (
+                    favourites.map((game) => {
+                        return (
+                            <GameCard
+                                key={game.slug}
+                                gameObject={game}></GameCard>
+                        );
+                    })
+                ) : (
+                    <h3>You have no favourites.</h3>
+                )}
             </div>
         </section>
     );

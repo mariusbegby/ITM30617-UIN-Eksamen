@@ -4,7 +4,7 @@ import { apiKey } from '../apiKey';
 
 const getRecentGames = async () => {
     const response = await fetch(
-        'https://rawg.io/api/games?stores=1&page_size=3&ordering=-released&key=' + apiKey
+        'https://rawg.io/api/games?stores=1&page_size=3&ordering=-updated&key=' + apiKey
     );
     const data = await response.json();
 
@@ -22,12 +22,13 @@ export default function GameShopWidget() {
     return (
         <section id='gameshop-widget'>
             <header>
-                <h2>Gameshop - Latest releases</h2>
+                <h2>Gameshop - Latest updates</h2>
                 <a href='/gameshop' className='link-button'>
                     Visit Shop
                 </a>
             </header>
             <div id='gameshop-widget-gameslist' className='gameslist'>
+                {recentGames.length > 0 ? '' : <h3>Loading...</h3>}
                 {recentGames.map((game) => {
                     return (
                         <GameCard key={game.id} gameObject={game} canBePurchased={true}></GameCard>
