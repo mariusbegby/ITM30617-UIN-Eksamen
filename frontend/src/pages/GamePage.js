@@ -9,11 +9,13 @@ import {
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
 import { fetchGameInfo } from '../utilities/fetchGameInfo';
+import { TagCloud } from 'react-tagcloud';
 
 export default function GamePage() {
     const { id } = useParams();
     const { loggedInUser } = useContext(LoginContext);
     const [gameInfo, setGameInfo] = useState(null);
+    const [wordcloudData, setWordcloudData] = useState([]);
     const [inLibrary, setInLibrary] = useState(false);
     const [isFavorited, setIsFavorited] = useState(false);
     const { favourites, setFavourites } = useContext(FavouritesContext);
@@ -90,6 +92,15 @@ export default function GamePage() {
         }
     };
 
+    useEffect(() => {
+        if (gameInfo && gameInfo.tags) {
+            const data = gameInfo.tags.map((tag) => {
+                return { value: tag.name, count: tag.games_count };
+            });
+            setWordcloudData(data);
+        }
+    }, [gameInfo]);
+
     return (
         <main id='game-page'>
             {gameInfo ? (
@@ -132,15 +143,35 @@ export default function GamePage() {
                                 )}
                             </div>
                         </header>
-                        <p>
+                        <p className='margin-bottom'>
                             <i>{gameInfo.description_raw}</i>
                         </p>
-                        <div className='tag-section'>
+                        <p className='margin-bottom'>
+                            {inLibrary ? (
+                                <span className='textfont-strong inlibrary-tag'>
+                                    In Library{' '}
+                                    {gameInfo.hoursPlayed
+                                        ? ' - ' +
+                                          gameInfo.hoursPlayed +
+                                          ' hours'
+                                        : ''}
+                                </span>
+                            ) : (
+                                <a
+                                    href={gameInfo.storeUrl}
+                                    className='link-button'>
+                                    Buy
+                                </a>
+                            )}
+                        </p>
+                        <p>
                             <span className='textfont-strong'>Genres: </span>
-                            {gameInfo.genres.map((genre, index) => (
-                                <p key={index}>{genre.name}</p>
-                            ))}
-                        </div>
+                            {gameInfo.genres?.length > 0
+                                ? gameInfo.genres
+                                      .map((genre) => genre.name)
+                                      .join(', ')
+                                : 'Unknown'}
+                        </p>
                         <p>
                             <span className='textfont-strong'>Published: </span>
                             {new Date(gameInfo.released).toLocaleDateString(
@@ -182,14 +213,6 @@ export default function GamePage() {
                                 : 'Unknown'}
                         </p>
                         <p>
-                            <span className='textfont-strong'>Tags: </span>{' '}
-                            {gameInfo.tags?.length > 0
-                                ? gameInfo.tags
-                                      .map((tag) => tag.name)
-                                      .join(', ')
-                                : 'None'}
-                        </p>
-                        <p>
                             <span className='textfont-strong'>
                                 Available in stores:{' '}
                             </span>{' '}
@@ -199,17 +222,18 @@ export default function GamePage() {
                                       .join(', ')
                                 : 'Unknown'}
                         </p>
-                        {inLibrary ? (
-                            <span className='textfont-strong inlibrary-tag'>
-                                In Library{' '}
-                                {gameInfo.hoursPlayed
-                                    ? ' - ' + gameInfo.hoursPlayed + ' hours'
-                                    : ''}
-                            </span>
+                        <p>
+                            <span className='textfont-strong'>Tags: </span>{' '}
+                        </p>
+                        {gameInfo.tags?.length > 0 ? (
+                            <TagCloud
+                                minSize={10}
+                                maxSize={28}
+                                tags={wordcloudData}
+                                colorOptions={{ luminosity: 'dark' }}
+                            />
                         ) : (
-                            <a href={gameInfo.storeUrl} className='link-button'>
-                                Buy
-                            </a>
+                            'None'
                         )}
                     </section>
                 </>
