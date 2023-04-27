@@ -19,6 +19,7 @@ Jeg har gått for høyeste vanskelighetsgrad, karakter A-krav.
 
 - Ingen større utfordringer.
 - Jeg hadde et problem med flexbox der jeg brukte space-between hvor jeg ikke ønsket å ha space-between på siste rad når den ikke var fylt med elementer. Jeg måtte til slutt benytte internett hvor jeg fant de to linjene med CSS som manglet: `::after { content: ""; flex: auto; }`. Jeg har lagt ved kilde for dette.
+- `react-wordcloud` pakken fungerte ikke for min installasjon av React. Prosjektet ble sist oppdatert for 3 år siden og det er et 3 år gammelt issue på GitHub siden med mitt problem, uløst. Jeg har derfor benyttet en lignedne npm pakke: react-tagcloud: https://www.npmjs.com/package/react-tagcloud. Konseptet og bruk er tilsvarende.
 
 ## Kilder
 
