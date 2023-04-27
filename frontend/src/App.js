@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { MyGamesProvider } from './contexts/MyGamesContext';
 import { FavouritesProvider } from './contexts/FavouritesContext';
 import { LoginProvider } from './contexts/LoginContext';
 import Layout from './pages/Layout';
@@ -13,18 +14,23 @@ import './css/main.css';
 function App() {
     return (
         <LoginProvider>
-            <FavouritesProvider>
-                <Routes>
-                    <Route element={<Layout />}>
-                        <Route index element={<Dashboard />} />
-                        <Route path='/gameshop' element={<GameShop />} />
-                        <Route path='/game/:id' element={<GamePage />} />
-                        <Route path='/mygames' element={<MyGames />} />
-                        <Route path='/favourites' element={<MyFavourites />} />
-                        <Route path='/login' element={<Login />} />
-                    </Route>
-                </Routes>
-            </FavouritesProvider>
+            <MyGamesProvider>
+                <FavouritesProvider>
+                    <Routes>
+                        <Route element={<Layout />}>
+                            <Route index element={<Dashboard />} />
+                            <Route path='/gameshop' element={<GameShop />} />
+                            <Route path='/game/:id' element={<GamePage />} />
+                            <Route path='/mygames' element={<MyGames />} />
+                            <Route
+                                path='/favourites'
+                                element={<MyFavourites />}
+                            />
+                            <Route path='/login' element={<Login />} />
+                        </Route>
+                    </Routes>
+                </FavouritesProvider>
+            </MyGamesProvider>
         </LoginProvider>
     );
 }
