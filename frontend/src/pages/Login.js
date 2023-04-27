@@ -10,7 +10,7 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const query = `*[_type == "user" && userEmail == "${userEmail}"]`;
+        const query = `*[_type == "user" && userEmail == "${userEmail}"]{_id, userEmail}`;
         const result = await client.fetch(query);
 
         console.log(result);
@@ -19,8 +19,7 @@ export default function Login() {
             setMessage('Login successful');
             setLoggedInUser(() => {
                 return {
-                    userId: result[0].userId,
-                    userEmail: result[0].userEmail
+                    email: result[0].userEmail
                 };
             });
         } else {
