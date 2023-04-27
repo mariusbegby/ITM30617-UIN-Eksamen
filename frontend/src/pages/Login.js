@@ -4,7 +4,7 @@ import { LoginContext } from '../contexts/LoginContext';
 import client from '../sanity/client';
 
 export default function Login() {
-    const { loggedInUser, setLoggedInUser } = useContext(LoginContext);
+    const { setLoggedInUser } = useContext(LoginContext);
     const [userEmail, setEmail] = useState('');
     const [message, setMessage] = useState('');
 
