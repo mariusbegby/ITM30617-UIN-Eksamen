@@ -1,46 +1,72 @@
 // Route: /game/[gametitle-as-slug]
 import React, { useState, useEffect, useContext } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
-import { updateFavouriteStatus, gameExistsInLibrary } from '../sanity/service';
+import { MyGamesContext } from '../contexts/MyGamesContext';
+import {
+    updateFavouriteStatus,
+    getSingleGameFromLibrary
+} from '../sanity/service';
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
-
 import { fetchGameInfo } from '../utilities/fetchGameInfo';
 
 export default function GamePage() {
-    const { loggedInUser } = useContext(LoginContext);
     const { id } = useParams();
-
+    const { loggedInUser } = useContext(LoginContext);
     const [gameInfo, setGameInfo] = useState(null);
     const [inLibrary, setInLibrary] = useState(false);
     const [isFavorited, setIsFavorited] = useState(false);
     const { favourites, setFavourites } = useContext(FavouritesContext);
+    const { myGames } = useContext(MyGamesContext);
 
     useEffect(() => {
-        setIsFavorited(!!favourites.find((game) => game.slug === id));
+        const retrieveGameInfo = async () => {
+            const inLibraryLocal = !!myGames.find((game) => game.slug === id);
+            const isFavoritedLocal = !!favourites.find(
+                (game) => game.slug === id
+            );
 
-        const initializeGameInfo = async () => {
-            let result = await fetchGameInfo(id);
-            setGameInfo(result);
-        };
+            setInLibrary(inLibraryLocal);
+            setIsFavorited(isFavoritedLocal);
 
-        initializeGameInfo();
-    }, [id, favourites]);
-
-    useEffect(() => {
-        const checkIfGameInLibrary = async () => {
-            if (gameInfo) {
-                let result = await gameExistsInLibrary(
-                    loggedInUser,
-                    gameInfo.id
+            if (inLibraryLocal) {
+                getSingleGameFromLibrary(loggedInUser, id).then(
+                    async (gameObject) => {
+                        let gameInfoFromApi = await fetchGameInfo(
+                            gameObject.gameData.gameApiId
+                        );
+                        console.log(gameInfoFromApi);
+                        let gameInfoObject = {
+                            id: gameObject.gameData.gameApiId,
+                            name: gameObject.gameData.gameTitle,
+                            slug: gameObject.gameData.gameSlug,
+                            genres: gameObject.gameData.gameGenres.map(
+                                (genre) => {
+                                    return { name: genre.genreRef.genreName };
+                                }
+                            ),
+                            background_image: gameInfoFromApi.background_image,
+                            tags: gameInfoFromApi.tags,
+                            description_raw: gameInfoFromApi.description_raw,
+                            rating: gameInfoFromApi.rating,
+                            publishers: gameInfoFromApi.publishers,
+                            released: gameInfoFromApi.released,
+                            platforms: gameInfoFromApi.platforms,
+                            developers: gameInfoFromApi.developers,
+                            stores: gameInfoFromApi.stores,
+                            hoursPlayed: gameObject.hoursPlayed
+                        };
+                        setGameInfo(gameInfoObject);
+                    }
                 );
-                console.log('result: ', result);
-                setInLibrary(result);
+            } else {
+                let result = await fetchGameInfo(id);
+                setGameInfo(result);
             }
         };
 
-        checkIfGameInLibrary();
-    }, [loggedInUser, gameInfo]);
+        retrieveGameInfo();
+    }, [id, favourites, myGames, loggedInUser]);
 
     const toggleFavourite = async () => {
         const existingGame = favourites.find((game) => game.id === gameInfo.id);
@@ -128,23 +154,58 @@ export default function GamePage() {
                             )}
                         </p>
                         <p>
-                            <span className='textfont-strong'>Publisher: </span>
-                            {gameInfo.publishers[0]?.name
-                                ? gameInfo.publishers[0].name
+                            <span className='textfont-strong'>
+                                Publishers:{' '}
+                            </span>
+                            {gameInfo.publishers?.length > 0
+                                ? gameInfo.publishers
+                                      .map((publisher) => publisher.name)
+                                      .join(', ')
+                                : 'Unknown'}
+                        </p>
+                        <p>
+                            <span className='textfont-strong'>
+                                Developers:{' '}
+                            </span>
+                            {gameInfo.developers?.length > 0
+                                ? gameInfo.developers
+                                      .map((developer) => developer.name)
+                                      .join(', ')
                                 : 'Unknown'}
                         </p>
                         <p>
                             <span className='textfont-strong'>Platforms: </span>
-                            {gameInfo.platforms
-                                .map((platform) => platform.platform.name)
-                                .join(', ')}
+                            {gameInfo.platforms?.length > 0
+                                ? gameInfo.platforms
+                                      .map((platform) => platform.platform.name)
+                                      .join(', ')
+                                : 'Unknown'}
                         </p>
                         <p>
                             <span className='textfont-strong'>Tags: </span>{' '}
-                            {gameInfo.tags.map((tag) => tag.name).join(', ')}
+                            {gameInfo.tags?.length > 0
+                                ? gameInfo.tags
+                                      .map((tag) => tag.name)
+                                      .join(', ')
+                                : 'None'}
+                        </p>
+                        <p>
+                            <span className='textfont-strong'>
+                                Available in stores:{' '}
+                            </span>{' '}
+                            {gameInfo.stores?.length > 0
+                                ? gameInfo.stores
+                                      .map((store) => store.store.name)
+                                      .join(', ')
+                                : 'Unknown'}
                         </p>
                         {inLibrary ? (
-                            <span className='textfont-strong inlibrary-tag'>In Game Library</span>
+                            <span className='textfont-strong inlibrary-tag'>
+                                In Library{' '}
+                                {gameInfo.hoursPlayed
+                                    ? ' - ' + gameInfo.hoursPlayed + ' hours'
+                                    : ''}
+                            </span>
                         ) : (
                             <a href={gameInfo.storeUrl} className='link-button'>
                                 Buy
