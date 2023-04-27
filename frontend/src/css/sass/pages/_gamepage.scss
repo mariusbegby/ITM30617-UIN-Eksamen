@@ -15,8 +15,9 @@
 
         img {
             width: 100%;
+            max-height: 800px;
             height: auto;
-            object-fit: fill;
+            object-fit: cover;
             border-radius: $radius-big;
             box-shadow: 8px 8px 12px #c9c9c9,
                 -8px -8px 12px #dfdfdf;
@@ -39,6 +40,24 @@
 
     .rating-tag {
         background-color: $yellow;
+        padding: 0.25rem 0.5rem;
+        border: 2px solid rgba(0, 0, 0, 0.25);
+        border-radius: $radius;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px;
+        min-width: fit-content;
+    }
+
+    .notinlibrary-tag {
+        background-color: $light-grey;
+        padding: 0.25rem 0.5rem;
+        border: 2px solid rgba(0, 0, 0, 0.25);
+        border-radius: $radius;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px;
+        min-width: fit-content;
+    }
+
+    .inlibrary-tag {
+        background-color: $light-grey;
         padding: 0.25rem 0.5rem;
         border: 2px solid rgba(0, 0, 0, 0.25);
         border-radius: $radius;

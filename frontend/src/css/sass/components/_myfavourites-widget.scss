@@ -4,6 +4,15 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 2rem;
+        h3,
+        p {
+            color: $black;
+        }
+
+        h3 {
+            margin: 0.5rem 0;
+            font-weight: 400;
+        }
 
         article {
             display: flex;
@@ -13,16 +22,6 @@
 
             section {
                 min-width: 175px;
-
-                h3,
-                p {
-                    color: $black;
-                }
-
-                h3 {
-                    margin: 0.5rem 0;
-                    font-weight: 400;
-                }
             }
 
             &:hover img, &:focus-within img {
