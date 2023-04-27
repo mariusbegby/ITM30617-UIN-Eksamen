@@ -28,36 +28,37 @@ export const getFavouritedGames = async (loggedInUser) => {
     return results[0].userGamesList;
 };
 
-export const gameExistsInLibrary = async (loggedInUser, gameId) => {
-    console.log('gameExistsInLibrary called with:', { loggedInUser, gameId });
-    const users = await client.fetch(
+export const getSingleGameFromLibrary = async (loggedInUser, gameSlug) => {
+    console.log('getSingleGameFromLibrary called with:', {
+        loggedInUser,
+        gameSlug
+    });
+
+    const gameResult = await client.fetch(
         `*[_type == "user" && userEmail == "${loggedInUser.email}"]{
-        _id,
-        userGamesList[] { gameRef-> {
-              gameApiId
-            }
-          }
-      }`
+            "game": userGamesList[gameRef->gameSlug == "${gameSlug}"]{
+                  "gameData": gameRef-> {
+                      gameApiId,
+                      gameTitle,
+                      gameSlug,
+                      gameGenres[] {
+                        genreRef-> { genreName }
+                      }
+                  },
+                  hoursPlayed
+                }
+          }[0].game`
     );
-    let user = users[0];
 
-    const gameIndex = user.userGamesList.findIndex(
-        (game) => String(game.gameRef.gameApiId) === String(gameId)
-    );
-
-    if (gameIndex === -1) {
-        return false;
-    }
-
-    return true;
-}
+    const game = gameResult[0];
+    return game;
+};
 
 export const updateFavouriteStatus = async (
     loggedInUser,
     gameId,
     isFavourite
 ) => {
-    
     console.log('updateFavouriteStatus called with:', {
         loggedInUser,
         gameId,
