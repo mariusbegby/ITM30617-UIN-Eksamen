@@ -28,6 +28,7 @@ export default function GameShopWidget() {
                 </a>
             </header>
             <div id='gameshop-widget-gameslist' className='gameslist'>
+                {recentGames.length > 0 ? '' : <h3>Loading...</h3>}
                 {recentGames.map((game) => {
                     return (
                         <GameCard key={game.id} gameObject={game} canBePurchased={true}></GameCard>
