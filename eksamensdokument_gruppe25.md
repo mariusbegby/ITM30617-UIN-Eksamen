@@ -12,6 +12,8 @@ Jeg har gått for høyeste vanskelighetsgrad, karakter A-krav.
 
 - Ved kall til RAWG.io API, har jeg valgt å sende med stores=1 som query-parameter. Dette for å kun hente spill med Steam som butikk. Jeg merket at når jeg ikke filtrerte på Steam som butikk, fikk jeg mange spill med navn "test test test", og mye manglende data på JSON-objektet fra API. Jeg tok derfor avgjørelsen med å legge på dette query-parameteret for å få mer kvalitetsdata fra API.
 - Ved kall til RAWG.io API for å hente "nyeste spill" som følge av kravene, har jeg valgt å definere "nyeste spill" som "sist oppdaterte spill" og ikke "sist utgitte spill". Jeg benytter derfor query parameter "ordering=-updated" istedenfor "ordering=-released". Denne endringen gjør jeg grunnet "ordering=-released" parameteret som gir sist utgitte spill, gir spill i responsen som har utgivelsesdato i fremtiden, slik som år 2033. Disse spillene vil alltid være de samme, men med "ordering=-updated" som parameter istedenfor kan man se at spillene i "GameShop" blir jevnlig oppdatert med andre spill.
+- Når man ikke er logget inn, gir det ingen mening å kunne gå til "My Games" eller "Favourites", så man må logge inn for å kunne gå til/se dette.
+- Jeg har også fjernet muligheten for å legge til favoritter på spill man ikke eier (som er i "My Games"), siden favoritt-status er knyttet til spill på bruker, og brukeren må derfor "eie" spillet for å kunne ha det som favoritt.
 
 ## Utfordinger
 
