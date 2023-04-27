@@ -1,36 +1,72 @@
 // Route: /mygames
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { MyGamesContext } from '../contexts/MyGamesContext';
 import GameCard from '../components/GameCard';
-import { apiKey } from '../apiKey';
-
-const getMyGames = async () => {
-    const response = await fetch(
-        'https://rawg.io/api/games?page_size=20&genres=action&key=' + apiKey
-    );
-    const data = await response.json();
-
-    return data.results;
-};
+import { getMyGames } from '../sanity/service';
+import { LoginContext } from '../contexts/LoginContext';
+import { fetchGameInfo } from '../utilities/fetchGameInfo';
 
 export default function MyGames() {
-    const [myGames, setMyGames] = useState([]);
+    const { loggedInUser } = useContext(LoginContext);
+    const { myGames, setMyGames } = useContext(MyGamesContext);
 
-    useMemo(async () => {
-        let results = await getMyGames();
-        setMyGames(results);
-    }, []);
+    useEffect(() => {
+        const fetchMyGames = async () => {
+            let myGamesResults = await getMyGames(loggedInUser);
 
-    return (
+            let completeGameObjects = await Promise.all(
+                myGamesResults.map(async (game) => {
+                    let gameInfoFromApi = await fetchGameInfo(
+                        game.gameRef.gameSlug
+                    );
+                    return {
+                        name: game.gameRef.gameTitle,
+                        slug: game.gameRef.gameSlug,
+                        genres: game.gameRef.gameGenres.map((genre) => {
+                            return {
+                                name: genre.genreRef.genreName
+                            };
+                        }),
+                        background_image: gameInfoFromApi.background_image
+                    };
+                })
+            );
+
+            console.log('Logging complete game objects for My Games: ');
+            console.log(completeGameObjects);
+
+            setMyGames(completeGameObjects);
+        };
+
+        fetchMyGames();
+    }, [loggedInUser, setMyGames]);
+
+    return loggedInUser ? (
         <main id='mygames-page'>
+            <header>
+                <h1>My Games-Library ({myGames.length})</h1>
+            </header>
+            <section className='gameslist'>
+                {myGames.length > 0 ? (
+                    myGames.map((game) => {
+                        return (
+                            <GameCard
+                                key={game.slug}
+                                gameObject={game}></GameCard>
+                        );
+                    })
+                ) : (
+                    <h3>You have no games in your library.</h3>
+                )}
+            </section>
+        </main>
+    ) : ( 
+        <main>
             <header>
                 <h1>My Games</h1>
             </header>
-            <section className='gameslist'>
-                {myGames.map((game) => {
-                    return (
-                        <GameCard key={game.id} gameObject={game}></GameCard>
-                    );
-                })}
+            <section>
+                <h3>You must be logged in to view this page.</h3>
             </section>
         </main>
     );

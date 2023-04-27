@@ -1,38 +1,63 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { MyGamesContext } from '../contexts/MyGamesContext';
+import { getMyGames } from '../sanity/service';
 import GameCard from './GameCard';
-import { apiKey } from '../apiKey';
+import { fetchGameInfo } from '../utilities/fetchGameInfo';
 
-const getMyGames = async () => {
-    const response = await fetch(
-        'https://rawg.io/api/games?page_size=4&genres=action&key=' + apiKey
-    );
-    const data = await response.json();
+export default function MyGamesWidget({ loggedInUser }) {
+    const { myGames, setMyGames } = useContext(MyGamesContext);
 
-    return data.results;
-};
+    useEffect(() => {
+        const fetchMyGames = async () => {
+            let myGamesResults = await getMyGames(loggedInUser);
 
-export default function MyGamesWidget() {
-    const [myGames, setMyGames] = useState([]);
+            let completeGameObjects = await Promise.all(
+                myGamesResults.map(async (game) => {
+                    let gameInfoFromApi = await fetchGameInfo(
+                        game.gameRef.gameSlug
+                    );
+                    return {
+                        name: game.gameRef.gameTitle,
+                        slug: game.gameRef.gameSlug,
+                        genres: game.gameRef.gameGenres.map((genre) => {
+                            return {
+                                name: genre.genreRef.genreName
+                            };
+                        }),
+                        background_image: gameInfoFromApi.background_image
+                    };
+                })
+            );
 
-    useMemo(async () => {
-        let results = await getMyGames();
-        setMyGames(results);
-    }, []);
+            console.log('Logging complete game objects for My Games: ');
+            console.log(completeGameObjects);
+
+            setMyGames(completeGameObjects);
+        };
+
+        fetchMyGames();
+    }, [loggedInUser, setMyGames]);
 
     return (
         <section id='mygames-widget'>
             <header>
-                <h2>My Games-Library - ? Games</h2>
+                <h2>My Games-Library - {myGames.length} Games</h2>
                 <a href='/mygames' className='link-button'>
                     View All
                 </a>
             </header>
             <div className='gameslist'>
-                {myGames.map((game) => {
-                    return (
-                        <GameCard key={game.id} gameObject={game}></GameCard>
-                    );
-                })}
+                {myGames.length > 0 ? (
+                    myGames.map((game) => {
+                        return (
+                            <GameCard
+                                key={game.slug}
+                                gameObject={game}></GameCard>
+                        );
+                    })
+                ) : (
+                    <h3>You have no games in your library.</h3>
+                )}
             </div>
         </section>
     );
