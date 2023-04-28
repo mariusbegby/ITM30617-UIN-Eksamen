@@ -4,7 +4,9 @@ const apiBaseURL = 'https://rawg.io/api';
 
 // General method for sending request to the RAWG.io API
 const fetchData = async (endpoint, parameters) => {
-    const response = await fetch(`${apiBaseURL}${endpoint}?key=${apiKey}${parameters ? parameters : ''}`);
+    const response = await fetch(
+        `${apiBaseURL}${endpoint}?key=${apiKey}${parameters ? parameters : ''}`
+    );
     const data = await response.json();
     return data;
 };
@@ -13,6 +15,17 @@ const fetchData = async (endpoint, parameters) => {
 export const getGameInfo = async (gameSlugOrId) => {
     const endpoint = `/games/${gameSlugOrId}`;
     return fetchData(endpoint);
+};
+
+// Fetch information about multiple games from the RAWG.io API using list of game slug or ID, and return array of game objects
+export const getMultipleGameInfo = async (listOfGameSlugOrId) => {
+    const listOfGameInfo = await Promise.all(
+        listOfGameSlugOrId.map(async (id) => {
+            let data = await getGameInfo(id);
+            return data;
+        })
+    );
+    return listOfGameInfo || [];
 };
 
 // Fetch a list of stores that list game with given slug or ID and return Steam store URL if exists
