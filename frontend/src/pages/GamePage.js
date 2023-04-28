@@ -34,11 +34,11 @@ export default function GamePage() {
             if (inLibraryLocal) {
                 getSingleGameFromLibraryBySlug(loggedInUser.email, id).then(
                     async (gameObject) => {
-                        let gameInfoFromApi = await getGameInfo(
+                        const gameInfoFromApi = await getGameInfo(
                             gameObject.gameData.gameApiId
                         );
 
-                        let gameInfoObject = {
+                        const gameInfoObject = {
                             id: gameObject.gameData.gameApiId,
                             name: gameObject.gameData.gameTitle,
                             slug: gameObject.gameData.gameSlug,
@@ -62,8 +62,8 @@ export default function GamePage() {
                     }
                 );
             } else {
-                let result = await getGameInfo(id);
-                let steamUrl = await getSteamUrlForGame(id);
+                const result = await getGameInfo(id);
+                const steamUrl = await getSteamUrlForGame(id);
                 result.steamUrl = steamUrl;
                 setGameInfo(result);
             }
