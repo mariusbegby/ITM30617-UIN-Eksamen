@@ -25,3 +25,4 @@ Jeg har gått for høyeste vanskelighetsgrad, karakter A-krav.
 -   Et par linjer kode for å løse problem med space-between for siste rad i flexbox når raden ikke er full: https://stackoverflow.com/questions/18744164/flex-box-align-last-row-to-grid
 -   Sjekke diverse syntax, bruk og oppsett av React-metoder/hooks etc. som f.eks. useEffect: https://react.dev/
 -   Sjekke syntax, bruk og oppsett av Santiy schemas: https://www.sanity.io/docs/schema-types
+-   Løse "blurry image" når man bruker transform scale() på hover: https://stackoverflow.com/questions/36787529/how-to-fix-blurry-image-on-transform-scale
