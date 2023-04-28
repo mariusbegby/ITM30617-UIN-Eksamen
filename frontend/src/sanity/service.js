@@ -54,7 +54,7 @@ export const getSingleGameFromLibraryBySlug = async (email, gameSlug) => {
 
     const gameResult = await client.fetch(query);
     const game = gameResult[0];
-    return game;
+    return game || {};
 };
 
 // Update the favourite status of a single game by game id for user by email
