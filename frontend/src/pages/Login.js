@@ -35,10 +35,21 @@ export default function Login() {
     return (
         <main id='login-page'>
             <header>
+                <img
+                    src='/logo192.png'
+                    id='header-logo'
+                    alt='MACs GameHub logo'
+                />
                 <h1>GameHub Login</h1>
             </header>
-            {loggedInUser && <p className='form-message'>Currently logged in as: {loggedInUser.email}.</p>}
-            {errorMessage && <p className='form-message error-message'>{errorMessage}</p>}
+            {loggedInUser && (
+                <p className='form-message'>
+                    Currently logged in as: {loggedInUser.email}.
+                </p>
+            )}
+            {errorMessage && (
+                <p className='form-message error-message'>{errorMessage}</p>
+            )}
             <form onSubmit={handleLogin} id='login-form'>
                 <label htmlFor='email'>Email:</label>
                 <input
