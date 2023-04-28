@@ -5,7 +5,7 @@ import GamesList from '../components/GamesList';
 import RequiresLoginMessage from '../components/RequiresLoginMessage';
 import { getGamesByUser } from '../services/sanityClient';
 import { LoginContext } from '../contexts/LoginContext';
-import { getGameInfo } from '../services/rawgApiClient';
+import { getMultipleGameInfo } from '../services/rawgApiClient';
 
 export default function MyGames() {
     const { loggedInUser } = useContext(LoginContext);
@@ -13,25 +13,10 @@ export default function MyGames() {
 
     useEffect(() => {
         const fetchMyGames = async () => {
-            let myGamesResults = await getGamesByUser(loggedInUser.email);
+            const myGamesResults = await getGamesByUser(loggedInUser.email);
 
-            let completeGameObjects = await Promise.all(
-                myGamesResults.map(async (game) => {
-                    let gameInfoFromApi = await getGameInfo(
-                        game.gameRef.gameSlug
-                    );
-                    return {
-                        apiId: game.gameRef.gameApiId,
-                        name: game.gameRef.gameTitle,
-                        slug: game.gameRef.gameSlug,
-                        genres: game.gameRef.gameGenres.map((genre) => {
-                            return {
-                                name: genre.genreRef.genreName
-                            };
-                        }),
-                        background_image: gameInfoFromApi.background_image
-                    };
-                })
+            const completeGameObjects = await getMultipleGameInfo(
+                myGamesResults.map((game) => game.gameRef.gameSlug)
             );
 
             setMyGames(completeGameObjects);
@@ -45,7 +30,10 @@ export default function MyGames() {
             <header>
                 <h1>My Games-Library ({myGames.length})</h1>
             </header>
-            <GamesList games={myGames} emptyMessage={'You have no games in your library.'}/>
+            <GamesList
+                games={myGames}
+                emptyMessage={'You have no games in your library.'}
+            />
         </main>
     ) : (
         <RequiresLoginMessage title='My Games' />

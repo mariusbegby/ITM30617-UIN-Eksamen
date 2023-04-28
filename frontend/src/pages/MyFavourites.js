@@ -5,7 +5,7 @@ import { LoginContext } from '../contexts/LoginContext';
 import { getFavouritedGamesByUser } from '../services/sanityClient';
 import RequiresLoginMessage from '../components/RequiresLoginMessage';
 import GamesList from '../components/GamesList';
-import { getGameInfo } from '../services/rawgApiClient';
+import { getMultipleGameInfo } from '../services/rawgApiClient';
 
 export default function MyFavourites() {
     const { loggedInUser } = useContext(LoginContext);
@@ -13,15 +13,12 @@ export default function MyFavourites() {
 
     useEffect(() => {
         const fetchFavourites = async () => {
-            const favouriteList = await getFavouritedGamesByUser(loggedInUser.email);
+            const favouriteList = await getFavouritedGamesByUser(
+                loggedInUser.email
+            );
 
-            let completeGameObjects = await Promise.all(
-                favouriteList.map(async (game) => {
-                    let gameInfoFromApi = await getGameInfo(
-                        game.gameRef.gameSlug
-                    );
-                    return gameInfoFromApi;
-                })
+            const completeGameObjects = await getMultipleGameInfo(
+                favouriteList.map((game) => game.gameRef.gameSlug)
             );
 
             setFavourites(completeGameObjects);
@@ -34,7 +31,10 @@ export default function MyFavourites() {
             <header>
                 <h1>My Favourites ({favourites.length})</h1>
             </header>
-            <GamesList games={favourites} emptyMessage={'You have no favourites.'}/>
+            <GamesList
+                games={favourites}
+                emptyMessage={'You have no favourites.'}
+            />
         </main>
     ) : (
         <RequiresLoginMessage title='My Favourites' />
