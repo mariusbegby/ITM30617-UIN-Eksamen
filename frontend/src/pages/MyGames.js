@@ -4,7 +4,7 @@ import { MyGamesContext } from '../contexts/MyGamesContext';
 import GameCard from '../components/GameCard';
 import { getMyGames } from '../sanity/service';
 import { LoginContext } from '../contexts/LoginContext';
-import { fetchGameInfo } from '../utilities/fetchGameInfo';
+import { fetchGameInfo } from '../utilities/rawgApiHandler';
 
 export default function MyGames() {
     const { loggedInUser } = useContext(LoginContext);

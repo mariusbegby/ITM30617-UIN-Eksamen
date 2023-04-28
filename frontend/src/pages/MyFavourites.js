@@ -4,7 +4,7 @@ import { FavouritesContext } from '../contexts/FavouritesContext';
 import { LoginContext } from '../contexts/LoginContext';
 import { getFavouritedGames } from '../sanity/service';
 import GameCard from '../components/GameCard';
-import { fetchGameInfo } from '../utilities/fetchGameInfo';
+import { fetchGameInfo } from '../utilities/rawgApiHandler';
 
 export default function MyFavourites() {
     const { loggedInUser } = useContext(LoginContext);
