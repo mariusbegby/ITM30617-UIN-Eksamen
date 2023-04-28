@@ -25,7 +25,9 @@ export default {
       of: [
         {
           type: 'object',
-          fields: [{title: 'Genre Reference', name: 'genreRef', type: 'reference', to: [{type: 'genre'}]}],
+          fields: [
+            {title: 'Genre Reference', name: 'genreRef', type: 'reference', to: [{type: 'genre'}]},
+          ],
         },
       ],
     },
