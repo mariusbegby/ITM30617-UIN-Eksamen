@@ -1,7 +1,7 @@
 // Route: /mygames
 import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../contexts/MyGamesContext';
-import GameCard from '../components/GameCard';
+import GamesList from '../components/GamesList';
 import RequiresLoginMessage from '../components/RequiresLoginMessage';
 import { getMyGames } from '../sanity/service';
 import { LoginContext } from '../contexts/LoginContext';
@@ -48,19 +48,7 @@ export default function MyGames() {
             <header>
                 <h1>My Games-Library ({myGames.length})</h1>
             </header>
-            <section className='gameslist'>
-                {myGames.length > 0 ? (
-                    myGames.map((game) => {
-                        return (
-                            <GameCard
-                                key={game.slug}
-                                gameObject={game}></GameCard>
-                        );
-                    })
-                ) : (
-                    <h3>You have no games in your library.</h3>
-                )}
-            </section>
+            <GamesList games={myGames} emptyMessage={'You have no games in your library.'}/>
         </main>
     ) : (
         <RequiresLoginMessage title='My Games' />
