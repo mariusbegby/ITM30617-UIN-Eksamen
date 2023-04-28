@@ -24,7 +24,8 @@ export default function GameShopWidget() {
             <div id='gameshop-widget-gameslist'>
                 <GamesList
                     games={recentGames}
-                    emptyMessage={'Loading...'} canPurchaseGames={true}
+                    emptyMessage={'Loading...'}
+                    canPurchaseGames={true}
                 />
             </div>
         </section>

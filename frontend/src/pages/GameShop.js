@@ -21,9 +21,10 @@ export default function GameShop() {
                 <h1>Gameshop - Latest Updates</h1>
             </header>
             <GamesList
-                    games={recentGames}
-                    emptyMessage={'Loading...'} canPurchaseGames={true}
-                />
+                games={recentGames}
+                emptyMessage={'Loading...'}
+                canPurchaseGames={true}
+            />
         </main>
     );
 }
