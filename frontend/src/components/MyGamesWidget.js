@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../contexts/MyGamesContext';
-import { getGamesByUser } from '../utilities/sanityClient';
+import { getGamesByUser } from '../services/sanityClient';
 import GamesList from '../components/GamesList';
-import { getGameInfo } from '../utilities/rawgApiClient';
+import { getGameInfo } from '../services/rawgApiClient';
 
 export default function MyGamesWidget({ loggedInUser }) {
     const { myGames, setMyGames } = useContext(MyGamesContext);

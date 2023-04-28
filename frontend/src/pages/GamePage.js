@@ -5,10 +5,10 @@ import { MyGamesContext } from '../contexts/MyGamesContext';
 import {
     updateFavouriteStatus,
     getSingleGameFromLibraryBySlug
-} from '../utilities/sanityClient';
+} from '../services/sanityClient';
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
-import { getGameInfo, getSteamUrlForGame } from '../utilities/rawgApiClient';
+import { getGameInfo, getSteamUrlForGame } from '../services/rawgApiClient';
 import { TagCloud } from 'react-tagcloud';
 
 export default function GamePage() {

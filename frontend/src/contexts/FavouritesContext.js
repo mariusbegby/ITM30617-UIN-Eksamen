@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { updateFavouriteStatus } from '../utilities/sanityClient';
+import { updateFavouriteStatus } from '../services/sanityClient';
 import { LoginContext } from '../contexts/LoginContext';
 
 export const FavouritesContext = createContext();

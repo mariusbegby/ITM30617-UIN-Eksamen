@@ -1,7 +1,7 @@
 // Route: /login
 import React, { useState, useContext } from 'react';
 import { LoginContext } from '../contexts/LoginContext';
-import { getUserByEmail } from '../utilities/sanityClient';
+import { getUserByEmail } from '../services/sanityClient';
 
 export default function Login() {
     const { loggedInUser, setLoggedInUser } = useContext(LoginContext);

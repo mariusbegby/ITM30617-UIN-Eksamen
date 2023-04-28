@@ -2,10 +2,10 @@
 import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
 import { LoginContext } from '../contexts/LoginContext';
-import { getFavouritedGamesByUser } from '../utilities/sanityClient';
+import { getFavouritedGamesByUser } from '../services/sanityClient';
 import RequiresLoginMessage from '../components/RequiresLoginMessage';
 import GamesList from '../components/GamesList';
-import { getGameInfo } from '../utilities/rawgApiClient';
+import { getGameInfo } from '../services/rawgApiClient';
 
 export default function MyFavourites() {
     const { loggedInUser } = useContext(LoginContext);

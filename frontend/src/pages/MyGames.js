@@ -3,9 +3,9 @@ import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../contexts/MyGamesContext';
 import GamesList from '../components/GamesList';
 import RequiresLoginMessage from '../components/RequiresLoginMessage';
-import { getGamesByUser } from '../utilities/sanityClient';
+import { getGamesByUser } from '../services/sanityClient';
 import { LoginContext } from '../contexts/LoginContext';
-import { getGameInfo } from '../utilities/rawgApiClient';
+import { getGameInfo } from '../services/rawgApiClient';
 
 export default function MyGames() {
     const { loggedInUser } = useContext(LoginContext);
