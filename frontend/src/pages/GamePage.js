@@ -8,7 +8,10 @@ import {
 } from '../sanity/service';
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
-import { fetchGameInfo } from '../utilities/fetchGameInfo';
+import {
+    fetchGameInfo,
+    fetchSteamUrlForGame
+} from '../utilities/rawgApiHandler';
 import { TagCloud } from 'react-tagcloud';
 
 export default function GamePage() {
@@ -63,6 +66,8 @@ export default function GamePage() {
                 );
             } else {
                 let result = await fetchGameInfo(id);
+                let steamUrl = await fetchSteamUrlForGame(id);
+                result.steamUrl = steamUrl;
                 setGameInfo(result);
             }
         };
@@ -156,12 +161,18 @@ export default function GamePage() {
                                           ' hours'
                                         : ''}
                                 </span>
-                            ) : (
+                            ) : gameInfo.steamUrl ? (
                                 <a
-                                    href={gameInfo.storeUrl}
+                                    href={gameInfo.steamUrl}
+                                    target='_blank'
+                                    rel='noreferrer'
                                     className='link-button'>
                                     Buy
                                 </a>
+                            ) : (
+                                <span className='textfont-strong notinlibrary-tag'>
+                                    No store url
+                                </span>
                             )}
                         </p>
                         <p>
