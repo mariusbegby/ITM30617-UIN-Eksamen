@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../contexts/MyGamesContext';
-import { getGamesByUser } from '../sanity/service';
+import { getGamesByUser } from '../utilities/sanityClient';
 import GamesList from '../components/GamesList';
 import { getGameInfo } from '../utilities/rawgApiClient';
 

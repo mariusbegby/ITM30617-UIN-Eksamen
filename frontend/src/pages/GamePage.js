@@ -5,7 +5,7 @@ import { MyGamesContext } from '../contexts/MyGamesContext';
 import {
     updateFavouriteStatus,
     getSingleGameFromLibraryBySlug
-} from '../sanity/service';
+} from '../utilities/sanityClient';
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
 import { getGameInfo, getSteamUrlForGame } from '../utilities/rawgApiClient';

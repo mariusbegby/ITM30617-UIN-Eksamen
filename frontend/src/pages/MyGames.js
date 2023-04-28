@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../contexts/MyGamesContext';
 import GamesList from '../components/GamesList';
 import RequiresLoginMessage from '../components/RequiresLoginMessage';
-import { getGamesByUser } from '../sanity/service';
+import { getGamesByUser } from '../utilities/sanityClient';
 import { LoginContext } from '../contexts/LoginContext';
 import { getGameInfo } from '../utilities/rawgApiClient';
 

@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
 import { LoginContext } from '../contexts/LoginContext';
-import { getFavouritedGamesByUser } from '../sanity/service';
+import { getFavouritedGamesByUser } from '../utilities/sanityClient';
 import RequiresLoginMessage from '../components/RequiresLoginMessage';
 import GamesList from '../components/GamesList';
 import { getGameInfo } from '../utilities/rawgApiClient';

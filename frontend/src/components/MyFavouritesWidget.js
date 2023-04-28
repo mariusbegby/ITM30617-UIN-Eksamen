@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
-import { getFavouritedGamesByUser } from '../sanity/service';
+import { getFavouritedGamesByUser } from '../utilities/sanityClient';
 import GamesList from '../components/GamesList';
 import { getGameInfo } from '../utilities/rawgApiClient';
 
