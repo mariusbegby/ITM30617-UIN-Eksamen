@@ -17,24 +17,26 @@ import { LoginProvider } from './contexts/LoginContext';
 import './css/main.css';
 
 function App() {
-    const providers = [LoginProvider, MyGamesProvider, FavouritesProvider];
-
-    const AppRoutes = (
-        <Routes>
-            <Route element={<PageLayout />}>
-                <Route index element={<Dashboard />} />
-                <Route path='/gameshop' element={<GameShop />} />
-                <Route path='/game/:id' element={<GamePage />} />
-                <Route path='/mygames' element={<MyGames />} />
-                <Route path='/favourites' element={<MyFavourites />} />
-                <Route path='/login' element={<Login />} />
-            </Route>
-        </Routes>
-    );
-
-    return providers.reduce(
-        (children, Provider) => <Provider>{children}</Provider>,
-        AppRoutes
+    return (
+        <LoginProvider>
+            <MyGamesProvider>
+                <FavouritesProvider>
+                    <Routes>
+                        <Route element={<PageLayout />}>
+                            <Route index element={<Dashboard />} />
+                            <Route path='/gameshop' element={<GameShop />} />
+                            <Route path='/game/:id' element={<GamePage />} />
+                            <Route path='/mygames' element={<MyGames />} />
+                            <Route
+                                path='/favourites'
+                                element={<MyFavourites />}
+                            />
+                            <Route path='/login' element={<Login />} />
+                        </Route>
+                    </Routes>
+                </FavouritesProvider>
+            </MyGamesProvider>
+        </LoginProvider>
     );
 }
 
