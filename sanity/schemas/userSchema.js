@@ -26,11 +26,13 @@ export default {
               title: 'Is Favourite',
               name: 'isFavourite',
               type: 'boolean',
+              initialValue: false,
             },
             {
               title: 'Hours Played',
               name: 'hoursPlayed',
               type: 'number',
+              initialValue: 0,
             },
           ],
         },
