@@ -28,10 +28,13 @@ export default function MyFavouritesWidget({ loggedInUser }) {
         <section id='myfavourites-widget'>
             <header>
                 <h2>My Favourites ({favourites.length})</h2>
+                <a href='/favourites' className='link-button'>
+                    View All
+                </a>
             </header>
             <div id='myfavourites-widget-gameslist'>
                 {favourites.length > 0 ? (
-                    favourites.map((game) => {
+                    favourites.slice(0, 2).map((game) => {
                         return (
                             <GameCard
                                 key={game.slug}
