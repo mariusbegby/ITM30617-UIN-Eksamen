@@ -49,7 +49,7 @@ export default function MyGamesWidget({ loggedInUser }) {
             </header>
             <div className='gameslist'>
                 {myGames.length > 0 ? (
-                    myGames.map((game) => {
+                    myGames.slice(0, 4).map((game) => {
                         return (
                             <GameCard
                                 key={game.slug}
