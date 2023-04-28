@@ -1,24 +1,17 @@
 // Route: /gameshop
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import GameCard from '../components/GameCard';
-import { apiKey } from '../apiKey';
-
-const getRecentGames = async () => {
-    const response = await fetch(
-        'https://rawg.io/api/games?stores=1&page_size=10&ordering=-updated&key=' +
-            apiKey
-    );
-    const data = await response.json();
-
-    return data.results;
-};
+import { getRecentSteamGames } from '../utilities/rawgApiClient';
 
 export default function GameShop() {
     const [recentGames, setRecentGames] = useState([]);
 
-    useMemo(async () => {
-        let results = await getRecentGames();
-        setRecentGames(results);
+    useEffect(() => {
+        const fetchRecentGames = async () => {
+            let results = await getRecentSteamGames(10);
+            setRecentGames(results);
+        };
+        fetchRecentGames();
     }, []);
 
     return (

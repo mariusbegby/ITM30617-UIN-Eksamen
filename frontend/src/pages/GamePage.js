@@ -8,10 +8,7 @@ import {
 } from '../sanity/service';
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
-import {
-    fetchGameInfo,
-    fetchSteamUrlForGame
-} from '../utilities/rawgApiClient';
+import { getGameInfo, getSteamUrlForGame } from '../utilities/rawgApiClient';
 import { TagCloud } from 'react-tagcloud';
 
 export default function GamePage() {
@@ -37,10 +34,10 @@ export default function GamePage() {
             if (inLibraryLocal) {
                 getSingleGameFromLibraryBySlug(loggedInUser.email, id).then(
                     async (gameObject) => {
-                        let gameInfoFromApi = await fetchGameInfo(
+                        let gameInfoFromApi = await getGameInfo(
                             gameObject.gameData.gameApiId
                         );
-                        console.log(gameInfoFromApi);
+
                         let gameInfoObject = {
                             id: gameObject.gameData.gameApiId,
                             name: gameObject.gameData.gameTitle,
@@ -65,8 +62,8 @@ export default function GamePage() {
                     }
                 );
             } else {
-                let result = await fetchGameInfo(id);
-                let steamUrl = await fetchSteamUrlForGame(id);
+                let result = await getGameInfo(id);
+                let steamUrl = await getSteamUrlForGame(id);
                 result.steamUrl = steamUrl;
                 setGameInfo(result);
             }

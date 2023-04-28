@@ -16,16 +16,23 @@ const buildUserQuery = (email, gamesListFilter) => `
 const fetchUserGamesList = async (email, gamesListFilter) => {
     const query = buildUserQuery(email, gamesListFilter);
     const results = await client.fetch(query);
-    return results[0].userGamesList;
+    return results[0].userGamesList || [];
 };
 
 // Fetch a single user by email and return their full object
-export const getMyGames = async (email) => {
+export const getUserByEmail = async (email) => {
+    const query = buildUserQuery(email, '[]');
+    const results = await client.fetch(query);
+    return results[0] || {};
+};
+
+// Fetch a single user by email and return their full list of games
+export const getGamesByUser = async (email) => {
     return fetchUserGamesList(email, '[]');
 };
 
-// Fetch a single user by email and return their object filtered by only games that are favourited
-export const getFavouritedGames = async (email) => {
+// Fetch a single user by email and return their list of games filtered by only favourited
+export const getFavouritedGamesByUser = async (email) => {
     return fetchUserGamesList(email, '[isFavourite == true]');
 };
 
@@ -51,11 +58,7 @@ export const getSingleGameFromLibraryBySlug = async (email, gameSlug) => {
 };
 
 // Update the favourite status of a single game by game id for user by email
-export const updateFavouriteStatus = async (
-    email,
-    gameId,
-    isFavourite
-) => {
+export const updateFavouriteStatus = async (email, gameId, isFavourite) => {
     const users = await client.fetch(
         `*[_type == "user" && userEmail == "${email}"]{
       _id,

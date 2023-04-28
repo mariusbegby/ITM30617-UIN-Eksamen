@@ -2,10 +2,10 @@
 import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
 import { LoginContext } from '../contexts/LoginContext';
-import { getFavouritedGames } from '../sanity/service';
+import { getFavouritedGamesByUser } from '../sanity/service';
 import RequiresLoginMessage from '../components/RequiresLoginMessage';
-import GameCard from '../components/GameCard';
-import { fetchGameInfo } from '../utilities/rawgApiClient';
+import GamesList from '../components/GamesList';
+import { getGameInfo } from '../utilities/rawgApiClient';
 
 export default function MyFavourites() {
     const { loggedInUser } = useContext(LoginContext);
@@ -13,11 +13,11 @@ export default function MyFavourites() {
 
     useEffect(() => {
         const fetchFavourites = async () => {
-            const favouriteList = await getFavouritedGames(loggedInUser.email);
+            const favouriteList = await getFavouritedGamesByUser(loggedInUser.email);
 
             let completeGameObjects = await Promise.all(
                 favouriteList.map(async (game) => {
-                    let gameInfoFromApi = await fetchGameInfo(
+                    let gameInfoFromApi = await getGameInfo(
                         game.gameRef.gameSlug
                     );
                     return gameInfoFromApi;
@@ -34,19 +34,7 @@ export default function MyFavourites() {
             <header>
                 <h1>My Favourites ({favourites.length})</h1>
             </header>
-            <section className='gameslist'>
-                {favourites.length > 0 ? (
-                    favourites.map((game) => {
-                        return (
-                            <GameCard
-                                key={game.slug}
-                                gameObject={game}></GameCard>
-                        );
-                    })
-                ) : (
-                    <h3>You have no favourites.</h3>
-                )}
-            </section>
+            <GamesList games={favourites} emptyMessage={'You have no favourites.'}/>
         </main>
     ) : (
         <RequiresLoginMessage title='My Favourites' />

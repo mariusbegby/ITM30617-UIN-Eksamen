@@ -20,12 +20,10 @@
     #mygames-widget {
         .gameslist {
             article {
-                display: flex;
-                flex-direction: column;
                 flex-basis: 45%;
-                flex-grow: 1;
                 max-width: calc(50% - 1rem);
             }
         }
     }
+
 }

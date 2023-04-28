@@ -1,7 +1,7 @@
 // Route: /login
 import React, { useState, useContext } from 'react';
 import { LoginContext } from '../contexts/LoginContext';
-import client from '../sanity/client';
+import { getUserByEmail } from '../sanity/service';
 
 export default function Login() {
     const { loggedInUser, setLoggedInUser } = useContext(LoginContext);
@@ -10,13 +10,10 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const query = `*[_type == "user" && userEmail == "${userEmail}"]{_id, userEmail}`;
-        const result = await client.fetch(query);
+        const user = await getUserByEmail(userEmail);
 
-        console.log(result);
-
-        if (result.length > 0) {
-            const loggedInEmail = result[0].userEmail;
+        if (user.userEmail) {
+            const loggedInEmail = user.userEmail;
             setErrorMessage(``);
             setLoggedInUser(() => {
                 return {

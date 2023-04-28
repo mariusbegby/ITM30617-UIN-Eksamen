@@ -1,22 +1,16 @@
-import React, { useState, useMemo } from 'react';
-import GameCard from './GameCard';
-import { apiKey } from '../apiKey';
-
-const getRecentGames = async () => {
-    const response = await fetch(
-        'https://rawg.io/api/games?stores=1&page_size=3&ordering=-updated&key=' + apiKey
-    );
-    const data = await response.json();
-
-    return data.results;
-};
+import React, { useState, useEffect } from 'react';
+import GamesList from '../components/GamesList';
+import { getRecentSteamGames } from '../utilities/rawgApiClient';
 
 export default function GameShopWidget() {
     const [recentGames, setRecentGames] = useState([]);
 
-    useMemo(async () => {
-        let results = await getRecentGames();
-        setRecentGames(results);
+    useEffect(() => {
+        const fetchRecentGames = async () => {
+            let results = await getRecentSteamGames(3);
+            setRecentGames(results);
+        };
+        fetchRecentGames();
     }, []);
 
     return (
@@ -27,13 +21,12 @@ export default function GameShopWidget() {
                     Visit Shop
                 </a>
             </header>
-            <div id='gameshop-widget-gameslist' className='gameslist'>
+            <div id='gameshop-widget-gameslist'>
                 {recentGames.length > 0 ? '' : <h3>Loading...</h3>}
-                {recentGames.map((game) => {
-                    return (
-                        <GameCard key={game.id} gameObject={game} canBePurchased={true}></GameCard>
-                    );
-                })}
+                <GamesList
+                    games={recentGames}
+                    emptyMessage={'Could not retrieve any games at the moment.'}
+                />
             </div>
         </section>
     );

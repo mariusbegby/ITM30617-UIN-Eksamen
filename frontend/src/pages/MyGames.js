@@ -3,9 +3,9 @@ import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../contexts/MyGamesContext';
 import GamesList from '../components/GamesList';
 import RequiresLoginMessage from '../components/RequiresLoginMessage';
-import { getMyGames } from '../sanity/service';
+import { getGamesByUser } from '../sanity/service';
 import { LoginContext } from '../contexts/LoginContext';
-import { fetchGameInfo } from '../utilities/rawgApiClient';
+import { getGameInfo } from '../utilities/rawgApiClient';
 
 export default function MyGames() {
     const { loggedInUser } = useContext(LoginContext);
@@ -13,11 +13,11 @@ export default function MyGames() {
 
     useEffect(() => {
         const fetchMyGames = async () => {
-            let myGamesResults = await getMyGames(loggedInUser.email);
+            let myGamesResults = await getGamesByUser(loggedInUser.email);
 
             let completeGameObjects = await Promise.all(
                 myGamesResults.map(async (game) => {
-                    let gameInfoFromApi = await fetchGameInfo(
+                    let gameInfoFromApi = await getGameInfo(
                         game.gameRef.gameSlug
                     );
                     return {
@@ -33,9 +33,6 @@ export default function MyGames() {
                     };
                 })
             );
-
-            console.log('Logging complete game objects for My Games: ');
-            console.log(completeGameObjects);
 
             setMyGames(completeGameObjects);
         };
