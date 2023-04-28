@@ -4,9 +4,9 @@ import { LoginContext } from '../contexts/LoginContext';
 import client from '../sanity/client';
 
 export default function Login() {
-    const { setLoggedInUser } = useContext(LoginContext);
+    const { loggedInUser, setLoggedInUser } = useContext(LoginContext);
     const [userEmail, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -16,40 +16,39 @@ export default function Login() {
         console.log(result);
 
         if (result.length > 0) {
-            setMessage('Login successful');
+            const loggedInEmail = result[0].userEmail;
+            setErrorMessage(``);
             setLoggedInUser(() => {
                 return {
-                    email: result[0].userEmail
+                    email: loggedInEmail
                 };
             });
         } else {
-            setMessage('Email not found');
+            setErrorMessage('User not found with that email.');
             setLoggedInUser(() => {
                 return null;
             });
         }
+        setEmail('');
     };
 
     return (
         <main id='login-page'>
             <header>
-                <h1>Login</h1>
+                <h1>GameHub Login</h1>
             </header>
-            <section id='login-form'>
-                <div>
-                    <form onSubmit={handleLogin}>
-                        <label htmlFor='email'>Email:</label>
-                        <input
-                            type='email'
-                            id='email'
-                            value={userEmail}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <button type='submit'>Login</button>
-                    </form>
-                    {message && <p>{message}</p>}
-                </div>
-            </section>
+            {loggedInUser && <p className='form-message'>Currently logged in as: {loggedInUser.email}.</p>}
+            {errorMessage && <p className='form-message error-message'>{errorMessage}</p>}
+            <form onSubmit={handleLogin} id='login-form'>
+                <label htmlFor='email'>Email:</label>
+                <input
+                    type='email'
+                    id='email'
+                    value={userEmail}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <button type='submit'>Login</button>
+            </form>
         </main>
     );
 }
