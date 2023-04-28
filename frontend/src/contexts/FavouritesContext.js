@@ -21,7 +21,7 @@ export const FavouritesProvider = ({ children }) => {
                 const { gameId, isFavourite } = favourite;
                 if (gameId && typeof isFavourite === 'boolean') {
                     await updateFavouriteStatus(
-                        loggedInUser,
+                        loggedInUser.email,
                         gameId,
                         isFavourite
                     );

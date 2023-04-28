@@ -12,7 +12,7 @@ export default function MyFavourites() {
 
     useEffect(() => {
         const fetchFavourites = async () => {
-            const favouriteList = await getFavouritedGames(loggedInUser);
+            const favouriteList = await getFavouritedGames(loggedInUser.email);
 
             let completeGameObjects = await Promise.all(
                 favouriteList.map(async (game) => {

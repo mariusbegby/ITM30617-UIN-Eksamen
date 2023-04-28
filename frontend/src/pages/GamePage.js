@@ -4,7 +4,7 @@ import { FavouritesContext } from '../contexts/FavouritesContext';
 import { MyGamesContext } from '../contexts/MyGamesContext';
 import {
     updateFavouriteStatus,
-    getSingleGameFromLibrary
+    getSingleGameFromLibraryBySlug
 } from '../sanity/service';
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
@@ -35,7 +35,7 @@ export default function GamePage() {
             setIsFavorited(isFavoritedLocal);
 
             if (inLibraryLocal) {
-                getSingleGameFromLibrary(loggedInUser, id).then(
+                getSingleGameFromLibraryBySlug(loggedInUser.email, id).then(
                     async (gameObject) => {
                         let gameInfoFromApi = await fetchGameInfo(
                             gameObject.gameData.gameApiId
@@ -82,7 +82,7 @@ export default function GamePage() {
             setFavourites((prevFavourites) => {
                 return prevFavourites.filter((game) => game.id !== gameInfo.id);
             });
-            await updateFavouriteStatus(loggedInUser, gameInfo.id, false);
+            await updateFavouriteStatus(loggedInUser.email, gameInfo.id, false);
         } else {
             setFavourites((prevFavourites) => {
                 return [

@@ -12,7 +12,7 @@ export default function MyGames() {
 
     useEffect(() => {
         const fetchMyGames = async () => {
-            let myGamesResults = await getMyGames(loggedInUser);
+            let myGamesResults = await getMyGames(loggedInUser.email);
 
             let completeGameObjects = await Promise.all(
                 myGamesResults.map(async (game) => {

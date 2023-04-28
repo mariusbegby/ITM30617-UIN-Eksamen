@@ -1,5 +1,6 @@
 import client from './client';
 
+// Generalized query builder for fetching a single user by email and their games
 const buildUserQuery = (email, gamesListFilter) => `
 *[_type == "user" && userEmail == "${email}"] {
   _id, userId, userEmail, userGamesList${gamesListFilter} {
@@ -11,22 +12,26 @@ const buildUserQuery = (email, gamesListFilter) => `
   }
 }`;
 
+// Fetch a single user by email and return only their games
 const fetchUserGamesList = async (email, gamesListFilter) => {
     const query = buildUserQuery(email, gamesListFilter);
     const results = await client.fetch(query);
     return results[0].userGamesList;
 };
 
-export const getMyGames = async (loggedInUser) => {
-    return fetchUserGamesList(loggedInUser.email, '[]');
+// Fetch a single user by email and return their full object
+export const getMyGames = async (email) => {
+    return fetchUserGamesList(email, '[]');
 };
 
-export const getFavouritedGames = async (loggedInUser) => {
-    return fetchUserGamesList(loggedInUser.email, '[isFavourite == true]');
+// Fetch a single user by email and return their object filtered by only games that are favourited
+export const getFavouritedGames = async (email) => {
+    return fetchUserGamesList(email, '[isFavourite == true]');
 };
 
-export const getSingleGameFromLibrary = async (loggedInUser, gameSlug) => {
-    const query = `*[_type == "user" && userEmail == "${loggedInUser.email}"]{
+// Fetch a single game by slug and return its full object
+export const getSingleGameFromLibraryBySlug = async (email, gameSlug) => {
+    const query = `*[_type == "user" && userEmail == "${email}"]{
     "game": userGamesList[gameRef->gameSlug == "${gameSlug}"]{
       "gameData": gameRef-> {
         gameApiId,
@@ -45,13 +50,14 @@ export const getSingleGameFromLibrary = async (loggedInUser, gameSlug) => {
     return game;
 };
 
+// Update the favourite status of a single game by game id for user by email
 export const updateFavouriteStatus = async (
-    loggedInUser,
+    email,
     gameId,
     isFavourite
 ) => {
     const users = await client.fetch(
-        `*[_type == "user" && userEmail == "${loggedInUser.email}"]{
+        `*[_type == "user" && userEmail == "${email}"]{
       _id,
       userGamesList[] { gameRef-> {
             gameApiId
