@@ -1,11 +1,13 @@
 
 import GameCard from '../components/GameCard';
 
-export default function GamesList({ games, emptyMessage }) {
+export default function GamesList({ games, emptyMessage, maxItems }) {
+    const displayedGames = maxItems ? games.slice(0, maxItems) : games;
+
     return (
         <section className='gameslist'>
-            {games.length > 0 ? (
-                games.map((game) => {
+            {displayedGames.length > 0 ? (
+                displayedGames.map((game) => {
                     return (
                         <GameCard key={game.slug} gameObject={game}></GameCard>
                     );
