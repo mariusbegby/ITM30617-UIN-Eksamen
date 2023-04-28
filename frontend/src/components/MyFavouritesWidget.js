@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
 import { getFavouritedGames } from '../sanity/service';
 import GameCard from '../components/GameCard';
-import { fetchGameInfo } from '../utilities/rawgApiHandler';
+import { fetchGameInfo } from '../utilities/rawgApiClient';
 
 export default function MyFavouritesWidget({ loggedInUser }) {
     const { favourites, setFavourites } = useContext(FavouritesContext);

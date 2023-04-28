@@ -11,7 +11,7 @@ import { LoginContext } from '../contexts/LoginContext';
 import {
     fetchGameInfo,
     fetchSteamUrlForGame
-} from '../utilities/rawgApiHandler';
+} from '../utilities/rawgApiClient';
 import { TagCloud } from 'react-tagcloud';
 
 export default function GamePage() {
