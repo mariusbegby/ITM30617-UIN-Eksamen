@@ -2,3 +2,12 @@
 * {
     box-sizing: border-box;
 }
+
+// Fix for blurry image on scale() transform
+img {
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}

@@ -4,6 +4,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 2rem;
+
         h3,
         p {
             color: $black;
@@ -24,14 +25,19 @@
                 min-width: 175px;
             }
 
-            &:hover img, &:focus-within img {
+            &:hover img,
+            &:focus-within img {
                 transform: scale($zoom-size);
                 box-shadow: 4px 4px 12px #c9c9c9,
-                        -4px -4px 12px #dfdfdf;
+                    -4px -4px 12px #dfdfdf;
+                opacity: 1;
             }
 
             figure {
                 margin: 0;
+                background-color: $black;
+                border-radius: $radius-big;
+                font-size: 0;
 
                 img {
                     transition: 0.3s;
@@ -41,6 +47,7 @@
                     border-radius: $radius-big;
                     box-shadow: 8px 8px 12px #c9c9c9,
                         -8px -8px 12px #dfdfdf;
+                    opacity: 0.9;
                 }
             }
         }
