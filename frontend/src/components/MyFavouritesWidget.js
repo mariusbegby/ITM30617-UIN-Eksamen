@@ -32,7 +32,7 @@ export default function MyFavouritesWidget({ loggedInUser }) {
                     View All
                 </a>
             </header>
-            <div id='myfavourites-widget-gameslist'>
+            <div  className='gameslist'>
                 {favourites.length > 0 ? (
                     favourites.slice(0, 2).map((game) => {
                         return (

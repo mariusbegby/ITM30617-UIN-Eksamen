@@ -17,7 +17,7 @@
 
     #gameshop-widget-gameslist {
         background-color: $light-grey;
-        padding: 1.5rem;
+        padding: 1rem;
         border-radius: $radius;
     }
 
@@ -30,6 +30,14 @@
                     }
                 }
             }
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    #gameshop-widget {
+        #gameshop-widget-gameslist {
+            padding: 1.5rem;
         }
     }
 }
