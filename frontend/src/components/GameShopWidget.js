@@ -22,7 +22,7 @@ export default function GameShopWidget() {
     return (
         <section id='gameshop-widget'>
             <header>
-                <h2>Gameshop - Latest updates</h2>
+                <h1>Gameshop - Latest updates</h1>
                 <a href='/gameshop' className='link-button'>
                     Visit Shop
                 </a>
