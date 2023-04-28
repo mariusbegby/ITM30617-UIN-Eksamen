@@ -22,10 +22,9 @@ export default function GameShopWidget() {
                 </a>
             </header>
             <div id='gameshop-widget-gameslist'>
-                {recentGames.length > 0 ? '' : <h3>Loading...</h3>}
                 <GamesList
                     games={recentGames}
-                    emptyMessage={'Could not retrieve any games at the moment.'} canPurchaseGames={true}
+                    emptyMessage={'Loading...'} canPurchaseGames={true}
                 />
             </div>
         </section>

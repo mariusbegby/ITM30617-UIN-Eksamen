@@ -9,7 +9,7 @@ export default function GameShop() {
 
     useEffect(() => {
         const fetchRecentGames = async () => {
-            let results = await getRecentSteamGames(10);
+            const results = await getRecentSteamGames(10);
             setRecentGames(results);
         };
         fetchRecentGames();
@@ -22,7 +22,7 @@ export default function GameShop() {
             </header>
             <GamesList
                     games={recentGames}
-                    emptyMessage={'Could not retrieve any games at the moment.'} canPurchaseGames={true}
+                    emptyMessage={'Loading...'} canPurchaseGames={true}
                 />
         </main>
     );
