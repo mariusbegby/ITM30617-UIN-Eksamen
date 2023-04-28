@@ -29,6 +29,9 @@ export default function DesktopNav({ loggedInUser }) {
                             <li>
                                 <a href='/favourites'>Favourites</a>
                             </li>
+                            <li>
+                                <a href='/login'>Account</a>
+                            </li>
                         </>
                     ) : (
                         <li>
