@@ -1,55 +1,46 @@
 import client from './client';
 
-export const getMyGames = async (loggedInUser) => {
-    const query = `*[_type == "user" && userEmail == "${loggedInUser.email}"] {
-        _id, userId, userEmail, userGamesList[] {
-          isFavourite, hoursPlayed, gameRef-> {
-            gameApiId, gameSlug, gameTitle, gameGenres[] {
-              genreRef->
-            }
-          }
-        }
-      }`;
+const buildUserQuery = (email, gamesListFilter) => `
+*[_type == "user" && userEmail == "${email}"] {
+  _id, userId, userEmail, userGamesList${gamesListFilter} {
+    isFavourite, hoursPlayed, gameRef-> {
+      gameApiId, gameSlug, gameTitle, gameGenres[] {
+        genreRef->
+      }
+    }
+  }
+}`;
+
+const fetchUserGamesList = async (email, gamesListFilter) => {
+    const query = buildUserQuery(email, gamesListFilter);
     const results = await client.fetch(query);
     return results[0].userGamesList;
+};
+
+export const getMyGames = async (loggedInUser) => {
+    return fetchUserGamesList(loggedInUser.email, '[]');
 };
 
 export const getFavouritedGames = async (loggedInUser) => {
-    const query = `*[_type == "user" && userEmail == "${loggedInUser.email}"] {
-        _id, userId, userEmail, userGamesList[isFavourite == true] {
-          isFavourite, hoursPlayed, gameRef-> {
-            gameApiId, gameSlug, gameTitle, gameGenres[] {
-              genreRef->
-            }
-          }
-        }
-      }`;
-    const results = await client.fetch(query);
-    return results[0].userGamesList;
+    return fetchUserGamesList(loggedInUser.email, '[isFavourite == true]');
 };
 
 export const getSingleGameFromLibrary = async (loggedInUser, gameSlug) => {
-    console.log('getSingleGameFromLibrary called with:', {
-        loggedInUser,
-        gameSlug
-    });
+    const query = `*[_type == "user" && userEmail == "${loggedInUser.email}"]{
+    "game": userGamesList[gameRef->gameSlug == "${gameSlug}"]{
+      "gameData": gameRef-> {
+        gameApiId,
+        gameTitle,
+        gameSlug,
+        gameGenres[] {
+          genreRef-> { genreName }
+        }
+      },
+      hoursPlayed
+    }
+  }[0].game`;
 
-    const gameResult = await client.fetch(
-        `*[_type == "user" && userEmail == "${loggedInUser.email}"]{
-            "game": userGamesList[gameRef->gameSlug == "${gameSlug}"]{
-                  "gameData": gameRef-> {
-                      gameApiId,
-                      gameTitle,
-                      gameSlug,
-                      gameGenres[] {
-                        genreRef-> { genreName }
-                      }
-                  },
-                  hoursPlayed
-                }
-          }[0].game`
-    );
-
+    const gameResult = await client.fetch(query);
     const game = gameResult[0];
     return game;
 };
@@ -59,20 +50,14 @@ export const updateFavouriteStatus = async (
     gameId,
     isFavourite
 ) => {
-    console.log('updateFavouriteStatus called with:', {
-        loggedInUser,
-        gameId,
-        isFavourite
-    });
-
     const users = await client.fetch(
         `*[_type == "user" && userEmail == "${loggedInUser.email}"]{
-        _id,
-        userGamesList[] { gameRef-> {
-              gameApiId
-            }
+      _id,
+      userGamesList[] { gameRef-> {
+            gameApiId
           }
-      }`
+        }
+    }`
     );
 
     let user = users[0];
