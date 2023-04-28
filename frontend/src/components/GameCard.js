@@ -22,7 +22,7 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                         <button
                             className='link-button'
                             href={'/game/' + gameObject.slug}>
-                            Buy
+                            View or buy
                         </button>
                     ) : (
                         ''
