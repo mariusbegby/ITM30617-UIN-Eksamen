@@ -1,6 +1,5 @@
 // Route: /gameshop
 import React, { useState, useEffect } from 'react';
-
 import GamesList from '../components/GamesList';
 import { getRecentSteamGames } from '../services/rawgApiClient';
 
