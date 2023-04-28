@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
 import { LoginContext } from '../contexts/LoginContext';
 import { getFavouritedGames } from '../sanity/service';
+import RequiresLoginMessage from '../components/RequiresLoginMessage';
 import GameCard from '../components/GameCard';
 import { fetchGameInfo } from '../utilities/rawgApiClient';
 
@@ -25,7 +26,7 @@ export default function MyFavourites() {
 
             setFavourites(completeGameObjects);
         };
-        fetchFavourites();
+        loggedInUser && fetchFavourites();
     }, [loggedInUser, setFavourites]);
 
     return loggedInUser ? (
@@ -48,13 +49,6 @@ export default function MyFavourites() {
             </section>
         </main>
     ) : (
-        <main>
-            <header>
-                <h1>My Favourites</h1>
-            </header>
-            <section>
-                <h3>You must be logged in to view this page.</h3>
-            </section>
-        </main>
+        <RequiresLoginMessage title='My Favourites' />
     );
 }

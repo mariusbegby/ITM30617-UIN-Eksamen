@@ -2,6 +2,7 @@
 import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../contexts/MyGamesContext';
 import GameCard from '../components/GameCard';
+import RequiresLoginMessage from '../components/RequiresLoginMessage';
 import { getMyGames } from '../sanity/service';
 import { LoginContext } from '../contexts/LoginContext';
 import { fetchGameInfo } from '../utilities/rawgApiClient';
@@ -39,7 +40,7 @@ export default function MyGames() {
             setMyGames(completeGameObjects);
         };
 
-        fetchMyGames();
+        loggedInUser && fetchMyGames();
     }, [loggedInUser, setMyGames]);
 
     return loggedInUser ? (
@@ -61,14 +62,7 @@ export default function MyGames() {
                 )}
             </section>
         </main>
-    ) : ( 
-        <main>
-            <header>
-                <h1>My Games</h1>
-            </header>
-            <section>
-                <h3>You must be logged in to view this page.</h3>
-            </section>
-        </main>
+    ) : (
+        <RequiresLoginMessage title='My Games' />
     );
 }
