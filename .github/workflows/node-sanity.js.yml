@@ -1,3 +1,5 @@
+# This workflow will install npm packages from package-lock.json in the /sanity directory to ensure no errors during installation.
+
 name: Node.js Sanity CI
 
 on:
