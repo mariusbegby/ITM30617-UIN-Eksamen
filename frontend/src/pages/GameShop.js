@@ -1,6 +1,7 @@
 // Route: /gameshop
 import React, { useState, useEffect } from 'react';
-import GameCard from '../components/GameCard';
+
+import GamesList from '../components/GamesList';
 import { getRecentSteamGames } from '../services/rawgApiClient';
 
 export default function GameShop() {
@@ -19,13 +20,10 @@ export default function GameShop() {
             <header>
                 <h1>Gameshop - Latest Updates</h1>
             </header>
-            <section className='gameslist'>
-                {recentGames.map((game) => {
-                    return (
-                        <GameCard key={game.id} gameObject={game} canBePurchased={true}></GameCard>
-                    );
-                })}
-            </section>
+            <GamesList
+                    games={recentGames}
+                    emptyMessage={'Could not retrieve any games at the moment.'} canPurchaseGames={true}
+                />
         </main>
     );
 }

@@ -25,7 +25,7 @@ export default function GameShopWidget() {
                 {recentGames.length > 0 ? '' : <h3>Loading...</h3>}
                 <GamesList
                     games={recentGames}
-                    emptyMessage={'Could not retrieve any games at the moment.'}
+                    emptyMessage={'Could not retrieve any games at the moment.'} canPurchaseGames={true}
                 />
             </div>
         </section>
