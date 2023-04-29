@@ -6,10 +6,11 @@ import { getGameInfo } from '../services/rawgApiClient';
 
 export default function MyFavouritesWidget({ loggedInUser }) {
     const { favourites, setFavourites } = useContext(FavouritesContext);
+    const { email } = loggedInUser;
 
     useEffect(() => {
         const fetchFavourites = async () => {
-            const favouriteList = await getFavouritedGamesByUser(loggedInUser.email);
+            const favouriteList = await getFavouritedGamesByUser(email);
 
             let completeGameObjects = await Promise.all(
                 favouriteList.map(async (game) => {
@@ -23,7 +24,8 @@ export default function MyFavouritesWidget({ loggedInUser }) {
             setFavourites(completeGameObjects);
         };
         fetchFavourites();
-    }, [loggedInUser, setFavourites]);
+    }, [email, setFavourites]);
+
     return (
         <section id='myfavourites-widget'>
             <header>
@@ -32,7 +34,11 @@ export default function MyFavouritesWidget({ loggedInUser }) {
                     View All
                 </a>
             </header>
-            <GamesList games={favourites} emptyMessage={'You have no favourites.'} maxItems={2} />
+            <GamesList
+                games={favourites}
+                emptyMessage={'You have no favourites.'}
+                maxItems={2}
+            />
         </section>
     );
 }
