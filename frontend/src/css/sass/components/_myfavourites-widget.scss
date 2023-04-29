@@ -1,48 +1,29 @@
 #myfavourites-widget {
-    #myfavourites-widget-gameslist {
+    header {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
-        gap: 2rem;
-        h3,
-        p {
-            color: $black;
+        align-items: center;
+
+        a {
+            margin-left: 1.25rem;
         }
 
-        h3 {
-            margin: 0.5rem 0;
-            font-weight: 400;
+        h2 {
+            margin: 0;
         }
 
+        margin-bottom: 1rem;
+    }
+}
+
+@media only screen and (min-width: 550px) {
+    #myfavourites-widget {
         article {
             display: flex;
             flex-direction: column;
-            flex-basis: 30%;
+            flex-basis: 45%;
             flex-grow: 1;
-
-            section {
-                min-width: 175px;
-            }
-
-            &:hover img, &:focus-within img {
-                transform: scale($zoom-size);
-                box-shadow: 4px 4px 12px #c9c9c9,
-                        -4px -4px 12px #dfdfdf;
-            }
-
-            figure {
-                margin: 0;
-
-                img {
-                    transition: 0.3s;
-                    width: 100%;
-                    height: auto;
-                    object-fit: fill;
-                    border-radius: $radius-big;
-                    box-shadow: 8px 8px 12px #c9c9c9,
-                        -8px -8px 12px #dfdfdf;
-                }
-            }
+            max-width: calc(50% - 1rem);
         }
     }
 }
@@ -52,12 +33,8 @@
         border-left: 2px solid $dark-grey;
         padding-left: 1rem;
 
-        #myfavourites-widget-gameslist {
-            flex-direction: column;
-
+        .gameslist {
             article {
-                display: flex;
-                flex-direction: column;
                 flex-basis: 100%;
                 flex-grow: 1;
                 max-width: 100%;

@@ -2,9 +2,10 @@
 import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
 import { LoginContext } from '../contexts/LoginContext';
-import { getFavouritedGames } from '../sanity/service';
-import GameCard from '../components/GameCard';
-import { fetchGameInfo } from '../utilities/fetchGameInfo';
+import { getFavouritedGamesByUser } from '../services/sanityClient';
+import RequiresLoginMessage from '../components/RequiresLoginMessage';
+import GamesList from '../components/GamesList';
+import { getMultipleGameInfo } from '../services/rawgApiClient';
 
 export default function MyFavourites() {
     const { loggedInUser } = useContext(LoginContext);
@@ -12,20 +13,17 @@ export default function MyFavourites() {
 
     useEffect(() => {
         const fetchFavourites = async () => {
-            const favouriteList = await getFavouritedGames(loggedInUser);
+            const favouriteList = await getFavouritedGamesByUser(
+                loggedInUser.email
+            );
 
-            let completeGameObjects = await Promise.all(
-                favouriteList.map(async (game) => {
-                    let gameInfoFromApi = await fetchGameInfo(
-                        game.gameRef.gameSlug
-                    );
-                    return gameInfoFromApi;
-                })
+            const completeGameObjects = await getMultipleGameInfo(
+                favouriteList.map((game) => game.gameRef.gameSlug)
             );
 
             setFavourites(completeGameObjects);
         };
-        fetchFavourites();
+        loggedInUser && fetchFavourites();
     }, [loggedInUser, setFavourites]);
 
     return loggedInUser ? (
@@ -33,28 +31,12 @@ export default function MyFavourites() {
             <header>
                 <h1>My Favourites ({favourites.length})</h1>
             </header>
-            <section className='gameslist'>
-                {favourites.length > 0 ? (
-                    favourites.map((game) => {
-                        return (
-                            <GameCard
-                                key={game.slug}
-                                gameObject={game}></GameCard>
-                        );
-                    })
-                ) : (
-                    <h3>You have no favourites.</h3>
-                )}
-            </section>
+            <GamesList
+                games={favourites}
+                emptyMessage={'You have no favourites.'}
+            />
         </main>
     ) : (
-        <main>
-            <header>
-                <h1>My Favourites</h1>
-            </header>
-            <section>
-                <h3>You must be logged in to view this page.</h3>
-            </section>
-        </main>
+        <RequiresLoginMessage title='My Favourites' />
     );
 }

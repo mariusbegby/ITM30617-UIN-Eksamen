@@ -1,5 +1,79 @@
 #login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    header {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        margin-bottom: 1rem;
+        h1 {
+            margin: 0;
+        }
+
+        img {
+            height: 4rem;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+
+        label {
+            font-weight: 700;
+        }
+
+        input {
+            padding: 0.25rem;
+            border: 2px solid $black;
+            border-radius: $radius;
+            font-size: 1em;
+        }
+
+        button {
+            display: inline-block;
+            margin: 0;
+            margin-top: 1rem;
+            border: none;
+            font-size: 1em;
+            padding: 0.25rem 0.75rem;
+            background-color: $black;
+            border-radius: $radius;
+            color: $white;
+            text-decoration: none;
+            font-weight: 700;
+            text-align: center;
+
+            &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .form-message {
+        margin-top: 0;
+        background-color: $light-grey;
+        padding: 0.5rem;
+        width: fit-content;
+        border-radius: $radius;
+    }
+
+    .error-message {
+        background-color: $light-red;
+    }
+
     p {
         color: $black;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    #login-page {
+        justify-content: center;
     }
 }

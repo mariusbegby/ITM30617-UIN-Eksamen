@@ -9,7 +9,10 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
         <article className='gamecard'>
             <Link to={'/game/' + gameObject.slug}>
                 <figure>
-                    <img src={gameImageUrl} alt='' />
+                    <img
+                        src={gameImageUrl}
+                        alt={`Video game poster for ${gameObject.name}`}
+                    />
                 </figure>
                 <section>
                     <h3>{gameObject.name}</h3>
@@ -22,7 +25,7 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                         <button
                             className='link-button'
                             href={'/game/' + gameObject.slug}>
-                            Buy
+                            View or buy
                         </button>
                     ) : (
                         ''

@@ -1,7 +1,7 @@
 export default function DesktopNav({ loggedInUser }) {
     return (
-        <>
-            <section id='header-left'>
+        <nav id='nav-desktop' aria-label='Desktop main navigation'>
+            <div id='header-left'>
                 <ul>
                     <img
                         src='/logo192.png'
@@ -14,8 +14,8 @@ export default function DesktopNav({ loggedInUser }) {
                         </a>
                     </li>
                 </ul>
-            </section>
-            <section id='header-right'>
+            </div>
+            <div id='header-right'>
                 <ul>
                     <li>
                         <a href='/gameshop'>Shop</a>
@@ -29,6 +29,9 @@ export default function DesktopNav({ loggedInUser }) {
                             <li>
                                 <a href='/favourites'>Favourites</a>
                             </li>
+                            <li>
+                                <a href='/login'>Account</a>
+                            </li>
                         </>
                     ) : (
                         <li>
@@ -36,7 +39,7 @@ export default function DesktopNav({ loggedInUser }) {
                         </li>
                     )}
                 </ul>
-            </section>
-        </>
+            </div>
+        </nav>
     );
 }

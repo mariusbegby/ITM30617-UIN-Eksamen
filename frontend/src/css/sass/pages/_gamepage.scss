@@ -1,5 +1,5 @@
 #game-page {
-    padding: 2rem 0;
+    padding: 1rem 0;
 
     h1 {
         margin-top: 2rem;
@@ -85,18 +85,25 @@
     }
 
     .link-button {
-        padding: 0.75rem 1.5rem;
+        padding: 0.5rem 1.25rem;
     }
 }
 
 
 @media only screen and (min-width: 1000px) {
     #game-page {
+        padding: 1rem 10rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    #game-page {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
         gap: 1rem;
+        padding: 1rem 0;
 
         section {
             flex-basis: calc(50% - 1rem);

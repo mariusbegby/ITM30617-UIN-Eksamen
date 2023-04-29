@@ -1,19 +1,20 @@
 import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
-import { getFavouritedGames } from '../sanity/service';
-import GameCard from '../components/GameCard';
-import { fetchGameInfo } from '../utilities/fetchGameInfo';
+import { getFavouritedGamesByUser } from '../services/sanityClient';
+import GamesList from '../components/GamesList';
+import { getGameInfo } from '../services/rawgApiClient';
 
 export default function MyFavouritesWidget({ loggedInUser }) {
     const { favourites, setFavourites } = useContext(FavouritesContext);
+    const { email } = loggedInUser;
 
     useEffect(() => {
         const fetchFavourites = async () => {
-            const favouriteList = await getFavouritedGames(loggedInUser);
+            const favouriteList = await getFavouritedGamesByUser(email);
 
             let completeGameObjects = await Promise.all(
                 favouriteList.map(async (game) => {
-                    let gameInfoFromApi = await fetchGameInfo(
+                    let gameInfoFromApi = await getGameInfo(
                         game.gameRef.gameSlug
                     );
                     return gameInfoFromApi;
@@ -23,25 +24,21 @@ export default function MyFavouritesWidget({ loggedInUser }) {
             setFavourites(completeGameObjects);
         };
         fetchFavourites();
-    }, [loggedInUser, setFavourites]);
+    }, [email, setFavourites]);
+
     return (
         <section id='myfavourites-widget'>
             <header>
                 <h2>My Favourites ({favourites.length})</h2>
+                <a href='/favourites' className='link-button'>
+                    View All
+                </a>
             </header>
-            <div id='myfavourites-widget-gameslist'>
-                {favourites.length > 0 ? (
-                    favourites.map((game) => {
-                        return (
-                            <GameCard
-                                key={game.slug}
-                                gameObject={game}></GameCard>
-                        );
-                    })
-                ) : (
-                    <h3>You have no favourites.</h3>
-                )}
-            </div>
+            <GamesList
+                games={favourites}
+                emptyMessage={'You have no favourites.'}
+                maxItems={2}
+            />
         </section>
     );
 }

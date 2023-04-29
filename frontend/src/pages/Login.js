@@ -1,55 +1,61 @@
 // Route: /login
 import React, { useState, useContext } from 'react';
 import { LoginContext } from '../contexts/LoginContext';
-import client from '../sanity/client';
+import { getUserByEmail } from '../services/sanityClient';
 
 export default function Login() {
-    const { setLoggedInUser } = useContext(LoginContext);
+    const { loggedInUser, setLoggedInUser } = useContext(LoginContext);
     const [userEmail, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const query = `*[_type == "user" && userEmail == "${userEmail}"]{_id, userEmail}`;
-        const result = await client.fetch(query);
+        const user = await getUserByEmail(userEmail);
 
-        console.log(result);
-
-        if (result.length > 0) {
-            setMessage('Login successful');
-            setLoggedInUser(() => {
-                return {
-                    email: result[0].userEmail
-                };
+        if (user.userEmail) {
+            const loggedInEmail = user.userEmail;
+            setErrorMessage(``);
+            setLoggedInUser({
+                email: loggedInEmail
             });
         } else {
-            setMessage('Email not found');
-            setLoggedInUser(() => {
-                return null;
-            });
+            setErrorMessage('User not found with that email.');
+            setLoggedInUser(null);
         }
+        setEmail('');
     };
 
     return (
         <main id='login-page'>
             <header>
-                <h1>Login</h1>
+                <img
+                    src='/logo192.png'
+                    id='header-logo'
+                    alt='MACs GameHub logo'
+                />
+                <h1>GameHub Login</h1>
             </header>
-            <section id='login-form'>
-                <div>
-                    <form onSubmit={handleLogin}>
-                        <label htmlFor='email'>Email:</label>
-                        <input
-                            type='email'
-                            id='email'
-                            value={userEmail}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <button type='submit'>Login</button>
-                    </form>
-                    {message && <p>{message}</p>}
-                </div>
-            </section>
+            {loggedInUser && (
+                <p className='form-message' aria-live='polite'>
+                    Currently logged in as: {loggedInUser.email}.
+                </p>
+            )}
+            {errorMessage && (
+                <p className='form-message error-message' aria-live='polite'>
+                    {errorMessage}
+                </p>
+            )}
+            <form onSubmit={handleLogin} id='login-form'>
+                <label htmlFor='email'>Email:</label>
+                <input
+                    type='email'
+                    id='email'
+                    value={userEmail}
+                    onChange={(e) => setEmail(e.target.value)}
+                    aria-label='Input for entering your email address.'
+                />
+                <button type='submit'>Login</button>
+            </form>
         </main>
     );
 }

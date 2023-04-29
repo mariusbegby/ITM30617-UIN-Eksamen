@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { updateFavouriteStatus } from '../sanity/service';
+import { updateFavouriteStatus } from '../services/sanityClient';
 import { LoginContext } from '../contexts/LoginContext';
 
 export const FavouritesContext = createContext();
@@ -15,13 +15,14 @@ export const FavouritesProvider = ({ children }) => {
         localStorage.setItem('favourites', JSON.stringify(favourites));
     }, [favourites]);
 
+    // Update favourites for logged in user in Sanity when favourites state changes
     useEffect(() => {
         if (loggedInUser) {
             favourites.forEach(async (favourite) => {
                 const { gameId, isFavourite } = favourite;
                 if (gameId && typeof isFavourite === 'boolean') {
                     await updateFavouriteStatus(
-                        loggedInUser,
+                        loggedInUser.email,
                         gameId,
                         isFavourite
                     );
