@@ -11,7 +11,7 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         const user = await getUserByEmail(userEmail);
-    
+
         if (user.userEmail) {
             const loggedInEmail = user.userEmail;
             setErrorMessage(``);
