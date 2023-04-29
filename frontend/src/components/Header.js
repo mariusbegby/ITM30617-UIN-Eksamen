@@ -9,13 +9,9 @@ export default function Header() {
 
     return (
         <header id='navbar-header'>
-            <nav id='nav-mobile'>
-                <MobileNav loggedInUser={loggedInUser}></MobileNav>
-            </nav>
+            <MobileNav loggedInUser={loggedInUser}></MobileNav>
 
-            <nav id='nav-desktop'>
-                <DesktopNav loggedInUser={loggedInUser}></DesktopNav>
-            </nav>
+            <DesktopNav loggedInUser={loggedInUser}></DesktopNav>
         </header>
     );
 }
