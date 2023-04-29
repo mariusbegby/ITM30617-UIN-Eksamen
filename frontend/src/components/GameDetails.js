@@ -14,7 +14,7 @@ export default function GameDetails({
                 <figure>
                     <img
                         src={gameInfo.background_image ?? '/placeholder.png'}
-                        alt=''
+                        alt={`Video game poster for ${gameInfo.name}`}
                     />
                 </figure>
             </section>
