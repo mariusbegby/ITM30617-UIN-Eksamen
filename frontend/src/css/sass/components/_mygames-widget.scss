@@ -16,7 +16,7 @@
     }
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: $query-small) {
     #mygames-widget {
         .gameslist {
             article {
@@ -25,5 +25,4 @@
             }
         }
     }
-
 }

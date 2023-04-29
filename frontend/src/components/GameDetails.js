@@ -42,10 +42,10 @@ export default function GameDetails({
                         )}
                     </div>
                 </header>
-                <p className='margin-bottom'>
+                <p>
                     <i>{gameInfo.description_raw}</i>
                 </p>
-                <p className='margin-bottom'>
+                <p className='library-store'>
                     {inLibrary ? (
                         <span className='textfont-strong inlibrary-tag'>
                             In Library{' '}

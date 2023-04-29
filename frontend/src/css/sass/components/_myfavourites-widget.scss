@@ -16,7 +16,7 @@
     }
 }
 
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: $query-xsmall) {
     #myfavourites-widget {
         article {
             display: flex;
@@ -28,7 +28,7 @@
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: $query-medium) {
     #myfavourites-widget {
         border-left: 2px solid $dark-grey;
         padding-left: 1rem;
@@ -43,7 +43,7 @@
     }
 }
 
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: $query-large) {
     #myfavourites-widget {
         padding-left: 2rem;
     }

@@ -62,7 +62,7 @@
     }
 }
 
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: $query-xsmall) {
     .gameslist {
         article {
             display: flex;
@@ -74,7 +74,7 @@
     }
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: $query-small) {
     .gameslist {
         article {
             display: flex;

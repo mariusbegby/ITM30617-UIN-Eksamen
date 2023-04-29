@@ -15,3 +15,10 @@
         cursor: pointer;
     }
 }
+
+.link-hover-transition {
+    transition: 0.15s;
+    &:hover {
+        filter: brightness(80%);
+    }
+}

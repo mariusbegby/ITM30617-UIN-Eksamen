@@ -1,3 +1,4 @@
+/* Site-wide grid container */
 #grid-container {
     min-height: 100vh;
     position: relative;
@@ -10,6 +11,20 @@
         'footer';
 }
 
+/* Grid layout */
+main {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+}
+
+#navbar-header {
+    grid-area: header;
+}
+
+/* Media queries */
 @media only screen and (min-width: 1000px) {
     #grid-container {
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -20,7 +35,7 @@
     }
 }
 
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: $query-large) {
     #grid-container {
         grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 0.5fr;
         grid-template-areas:
@@ -30,7 +45,7 @@
     }
 }
 
-@media only screen and (min-width: 1950px) {
+@media only screen and (min-width: $query-xlarge) {
     #grid-container {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-areas:

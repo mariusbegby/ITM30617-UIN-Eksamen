@@ -72,7 +72,7 @@
     }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: $query-small) {
     #login-page {
         justify-content: center;
     }
