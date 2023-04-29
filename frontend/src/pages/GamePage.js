@@ -9,7 +9,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
 import { getGameInfo, getSteamUrlForGame } from '../services/rawgApiClient';
-import { TagCloud } from 'react-tagcloud';
+import GameDetails from '../components/GameDetails';
 
 export default function GamePage() {
     const { id } = useParams();
@@ -22,15 +22,9 @@ export default function GamePage() {
     const { myGames } = useContext(MyGamesContext);
 
     useEffect(() => {
+        const inLibraryLocal = !!myGames.find((game) => game.slug === id);
+
         const retrieveGameInfo = async () => {
-            const inLibraryLocal = !!myGames.find((game) => game.slug === id);
-            const isFavoritedLocal = !!favourites.find(
-                (game) => game.slug === id
-            );
-
-            setInLibrary(inLibraryLocal);
-            setIsFavorited(isFavoritedLocal);
-
             if (inLibraryLocal) {
                 getSingleGameFromLibraryBySlug(loggedInUser.email, id).then(
                     async (gameObject) => {
@@ -72,6 +66,23 @@ export default function GamePage() {
         retrieveGameInfo();
     }, [id, favourites, myGames, loggedInUser]);
 
+    useEffect(() => {
+        if (!gameInfo) return;
+
+        const inLibraryLocal = !!myGames.find((game) => game.slug === id);
+        const isFavoritedLocal = !!favourites.find((game) => game.slug === id);
+
+        setInLibrary(inLibraryLocal);
+        setIsFavorited(isFavoritedLocal);
+
+        if (gameInfo.tags) {
+            const data = gameInfo.tags.map((tag) => {
+                return { value: tag.name, count: tag.games_count };
+            });
+            setWordcloudData(data);
+        }
+    }, [gameInfo, myGames, favourites, id]);
+
     const toggleFavourite = async () => {
         const existingGame = favourites.find((game) => game.id === gameInfo.id);
 
@@ -94,157 +105,17 @@ export default function GamePage() {
         }
     };
 
-    useEffect(() => {
-        if (gameInfo && gameInfo.tags) {
-            const data = gameInfo.tags.map((tag) => {
-                return { value: tag.name, count: tag.games_count };
-            });
-            setWordcloudData(data);
-        }
-    }, [gameInfo]);
-
     return (
         <main id='game-page'>
             {gameInfo ? (
-                <>
-                    <section>
-                        <figure>
-                            <img
-                                src={
-                                    gameInfo.background_image
-                                        ? gameInfo.background_image
-                                        : '/placeholder.png'
-                                }
-                                alt=''
-                            />
-                        </figure>
-                    </section>
-                    <section>
-                        <header>
-                            <h1>{gameInfo.name}</h1>
-                            <div id='rating-favourite-section'>
-                                <span className='textfont-strong rating-tag'>
-                                    ★ {gameInfo.rating}
-                                </span>
-                                {loggedInUser && inLibrary ? (
-                                    <button
-                                        className={
-                                            isFavorited
-                                                ? 'textfont-strong favourite-button favourited'
-                                                : 'textfont-strong favourite-button'
-                                        }
-                                        onClick={toggleFavourite}>
-                                        {isFavorited
-                                            ? '❤ Favourited'
-                                            : '❤ Favourite'}
-                                    </button>
-                                ) : (
-                                    <span className='textfont-strong notinlibrary-tag'>
-                                        Not in library
-                                    </span>
-                                )}
-                            </div>
-                        </header>
-                        <p className='margin-bottom'>
-                            <i>{gameInfo.description_raw}</i>
-                        </p>
-                        <p className='margin-bottom'>
-                            {inLibrary ? (
-                                <span className='textfont-strong inlibrary-tag'>
-                                    In Library{' '}
-                                    {gameInfo.hoursPlayed
-                                        ? ' - ' +
-                                          gameInfo.hoursPlayed +
-                                          ' hours'
-                                        : ''}
-                                </span>
-                            ) : gameInfo.steamUrl ? (
-                                <a
-                                    href={gameInfo.steamUrl}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className='link-button'>
-                                    Buy
-                                </a>
-                            ) : (
-                                <span className='textfont-strong notinlibrary-tag'>
-                                    No store url
-                                </span>
-                            )}
-                        </p>
-                        <p>
-                            <span className='textfont-strong'>Genres: </span>
-                            {gameInfo.genres?.length > 0
-                                ? gameInfo.genres
-                                      .map((genre) => genre.name)
-                                      .join(', ')
-                                : 'Unknown'}
-                        </p>
-                        <p>
-                            <span className='textfont-strong'>Published: </span>
-                            {new Date(gameInfo.released).toLocaleDateString(
-                                'en-US',
-                                {
-                                    weekday: 'long',
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                }
-                            )}
-                        </p>
-                        <p>
-                            <span className='textfont-strong'>
-                                Publishers:{' '}
-                            </span>
-                            {gameInfo.publishers?.length > 0
-                                ? gameInfo.publishers
-                                      .map((publisher) => publisher.name)
-                                      .join(', ')
-                                : 'Unknown'}
-                        </p>
-                        <p>
-                            <span className='textfont-strong'>
-                                Developers:{' '}
-                            </span>
-                            {gameInfo.developers?.length > 0
-                                ? gameInfo.developers
-                                      .map((developer) => developer.name)
-                                      .join(', ')
-                                : 'Unknown'}
-                        </p>
-                        <p>
-                            <span className='textfont-strong'>Platforms: </span>
-                            {gameInfo.platforms?.length > 0
-                                ? gameInfo.platforms
-                                      .map((platform) => platform.platform.name)
-                                      .join(', ')
-                                : 'Unknown'}
-                        </p>
-                        <p>
-                            <span className='textfont-strong'>
-                                Available in stores:{' '}
-                            </span>{' '}
-                            {gameInfo.stores?.length > 0
-                                ? gameInfo.stores
-                                      .map((store) => store.store.name)
-                                      .join(', ')
-                                : 'Unknown'}
-                        </p>
-                        <p>
-                            <span className='textfont-strong'>Tags: </span>{' '}
-                        </p>
-                        {gameInfo.tags?.length > 0 ? (
-                            <TagCloud
-                                minSize={10}
-                                maxSize={28}
-                                tags={wordcloudData}
-                                colorOptions={{ luminosity: 'dark' }}
-                            />
-                        ) : (
-                            'None'
-                        )}
-                    </section>
-                </>
+                <GameDetails
+                    gameInfo={gameInfo}
+                    inLibrary={inLibrary}
+                    isFavorited={isFavorited}
+                    toggleFavourite={toggleFavourite}
+                    loggedInUser={loggedInUser}
+                    wordcloudData={wordcloudData}
+                />
             ) : (
                 <></>
             )}
