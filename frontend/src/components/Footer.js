@@ -4,7 +4,8 @@ export default function Footer() {
             <section>
                 <p>
                     Made possible using{' '}
-                    <a href='https://rawg.io/apidocs'>RAWG.io API</a> for video game data and images.
+                    <a href='https://rawg.io/apidocs'>RAWG.io API</a> for video
+                    game data and images.
                 </p>
             </section>
         </footer>
