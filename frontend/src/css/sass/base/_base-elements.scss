@@ -19,7 +19,7 @@ h5,
 h6 {
     color: $black;
     font-family: $headerfont;
-    font-weight: 700;
+    @extend .text-bold;
 }
 
 p {
@@ -44,8 +44,8 @@ footer {
 
 a,
 button {
+    @extend .text-bold;
     color: $white;
-    font-weight: 700;
     font-size: 1em;
     cursor: pointer;
     transition: ease-in-out .4s;

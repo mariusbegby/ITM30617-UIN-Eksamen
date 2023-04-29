@@ -24,7 +24,7 @@
         gap: 0.25rem;
 
         label {
-            font-weight: 700;
+            @extend .text-bold;
         }
 
         input {
@@ -45,7 +45,6 @@
             border-radius: $radius;
             color: $white;
             text-decoration: none;
-            font-weight: 700;
             text-align: center;
 
             &:hover {

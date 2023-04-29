@@ -8,8 +8,8 @@
     border-radius: $radius;
     color: $white;
     text-decoration: none;
-    font-weight: 700;
     text-align: center;
+
     &:hover {
         text-decoration: underline;
         cursor: pointer;
@@ -17,7 +17,8 @@
 }
 
 .link-hover-transition {
-    transition: 0.15s;
+    transition: ease-in-out 0.2s;
+
     &:hover {
         filter: brightness(80%);
     }

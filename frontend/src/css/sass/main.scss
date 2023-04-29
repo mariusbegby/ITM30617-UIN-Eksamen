@@ -1,16 +1,9 @@
-@import "utilities/examvariables";
 @import "utilities/variables";
 @import "base/reset";
 @import "base/base-elements";
 @import "layout/grid-layout";
 @import "layout/header";
 @import "layout/footer";
-@import "pages/dashboard";
-@import "pages/mygames";
-@import "pages/myfavourites";
-@import "pages/gameshop";
-@import "pages/login";
-@import "pages/gamepage";
 @import "components/buttons-and-links";
 @import "components/gameshop-widget";
 @import "components/myfavourites-widget";
@@ -18,3 +11,9 @@
 @import "components/gameslist";
 @import "components/gamecard";
 @import "components/tag-section";
+@import "pages/dashboard";
+@import "pages/mygames";
+@import "pages/myfavourites";
+@import "pages/gameshop";
+@import "pages/login";
+@import "pages/gamepage";
