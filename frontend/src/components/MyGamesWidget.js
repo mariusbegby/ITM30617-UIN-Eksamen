@@ -20,11 +20,9 @@ export default function MyGamesWidget({ loggedInUser }) {
                         apiId: game.gameRef.gameApiId,
                         name: game.gameRef.gameTitle,
                         slug: game.gameRef.gameSlug,
-                        genres: game.gameRef.gameGenres.map((genre) => {
-                            return {
-                                name: genre.genreRef.genreName
-                            };
-                        }),
+                        genres: game.gameRef.gameGenres.map((genre) => ({
+                            name: genre.genreRef.genreName
+                        })),
                         background_image: gameInfoFromApi.background_image
                     };
                 })
@@ -44,7 +42,11 @@ export default function MyGamesWidget({ loggedInUser }) {
                     View All
                 </a>
             </header>
-            <GamesList games={myGames} emptyMessage={'You have no games in your library.'} maxItems={4} />
+            <GamesList
+                games={myGames}
+                emptyMessage={'You have no games in your library.'}
+                maxItems={4}
+            />
         </section>
     );
 }
