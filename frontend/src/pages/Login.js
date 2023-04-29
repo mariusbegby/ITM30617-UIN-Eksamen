@@ -36,12 +36,14 @@ export default function Login() {
                 <h1>GameHub Login</h1>
             </header>
             {loggedInUser && (
-                <p className='form-message'>
+                <p className='form-message' aria-live='polite'>
                     Currently logged in as: {loggedInUser.email}.
                 </p>
             )}
             {errorMessage && (
-                <p className='form-message error-message'>{errorMessage}</p>
+                <p className='form-message error-message' aria-live='polite'>
+                    {errorMessage}
+                </p>
             )}
             <form onSubmit={handleLogin} id='login-form'>
                 <label htmlFor='email'>Email:</label>
@@ -50,6 +52,7 @@ export default function Login() {
                     id='email'
                     value={userEmail}
                     onChange={(e) => setEmail(e.target.value)}
+                    aria-label='Input for entering your email address.'
                 />
                 <button type='submit'>Login</button>
             </form>
