@@ -15,6 +15,7 @@ export const FavouritesProvider = ({ children }) => {
         localStorage.setItem('favourites', JSON.stringify(favourites));
     }, [favourites]);
 
+    // Update favourites for logged in user in Sanity when favourites state changes
     useEffect(() => {
         if (loggedInUser) {
             favourites.forEach(async (favourite) => {
