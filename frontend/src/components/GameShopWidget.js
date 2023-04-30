@@ -15,19 +15,17 @@ export default function GameShopWidget() {
 
     return (
         <section id='gameshop-widget'>
-            <header>
+            <header className='widget-header'>
                 <h1>Gameshop - Latest updates</h1>
                 <a href='/gameshop' className='link-button'>
                     Visit Shop
                 </a>
             </header>
-            <div id='gameshop-widget-gameslist'>
-                <GamesList
-                    games={recentGames}
-                    emptyMessage={'Loading...'}
-                    canPurchaseGames={true}
-                />
-            </div>
+            <GamesList
+                games={recentGames}
+                emptyMessage={'Loading...'}
+                canPurchaseGames={true}
+            />
         </section>
     );
 }

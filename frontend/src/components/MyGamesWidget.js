@@ -36,7 +36,7 @@ export default function MyGamesWidget({ loggedInUser }) {
 
     return (
         <section id='mygames-widget'>
-            <header>
+            <header className='widget-header'>
                 <h2>My Games-Library - {myGames.length} Games</h2>
                 <a href='/mygames' className='link-button'>
                     View All

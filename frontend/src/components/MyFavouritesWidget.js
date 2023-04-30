@@ -28,7 +28,7 @@ export default function MyFavouritesWidget({ loggedInUser }) {
 
     return (
         <section id='myfavourites-widget'>
-            <header>
+            <header className='widget-header'>
                 <h2>My Favourites ({favourites.length})</h2>
                 <a href='/favourites' className='link-button'>
                     View All

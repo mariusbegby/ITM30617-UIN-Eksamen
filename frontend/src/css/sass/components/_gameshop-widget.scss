@@ -1,49 +1,22 @@
 #gameshop-widget {
-    header {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        a {
-            margin-left: 1.25rem;
-        }
-
-        h1 {
-            margin: 0;
-        }
-
-        margin-bottom: 1rem;
-    }
-
-    #gameshop-widget-gameslist {
+    .gameslist {
+        padding: 1rem;
         background-color: $light-grey;
         border-radius: $radius;
-
-        .gameslist {
-            padding: 1rem;
-        }
     }
 
-    .gameslist {
-        article {
-            section {
-                .tag-section {
-                    p {
-                        background-color: $white;
-                    }
-                }
-            }
+    .genre-list {
+        li {
+            background-color: $white;
         }
     }
 }
 
 @media only screen and (min-width: 1000px) {
     #gameshop-widget {
-        #gameshop-widget-gameslist {
-            .gameslist {
-                row-gap: 0;
-                padding: 1.5rem;
-            }
+        .gameslist {
+            row-gap: 0;
+            padding: 1.5rem;
         }
     }
 }
