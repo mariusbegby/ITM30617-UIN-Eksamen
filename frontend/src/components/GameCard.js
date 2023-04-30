@@ -12,6 +12,7 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                     <img
                         src={gameImageUrl}
                         alt={`Video game poster for ${gameObject.name}`}
+                        width={425} height={225}
                     />
                 </figure>
                 <section>

@@ -32,6 +32,8 @@ export default function Login() {
                     src='/logo192.png'
                     id='header-logo'
                     alt='MACs GameHub logo'
+                    width={64}
+                    height={64}
                 />
                 <h1>GameHub Login</h1>
             </header>
@@ -54,7 +56,9 @@ export default function Login() {
                     onChange={(e) => setEmail(e.target.value)}
                     aria-label='Input for entering your email address.'
                 />
-                <button type='submit' className='link-button'>Login</button>
+                <button type='submit' className='link-button'>
+                    Login
+                </button>
             </form>
         </main>
     );

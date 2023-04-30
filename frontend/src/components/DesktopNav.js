@@ -7,6 +7,8 @@ export default function DesktopNav({ loggedInUser }) {
                         src='/logo192.png'
                         id='header-logo'
                         alt='MACs GameHub logo'
+                        width={40}
+                        height={40}
                     />
                     <li>
                         <a href='/' id='logo-title'>

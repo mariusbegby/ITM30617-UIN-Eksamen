@@ -9,6 +9,8 @@ export default function MobileNav({ loggedInUser }) {
                                 src='/logo192.png'
                                 id='header-logo'
                                 alt='MACs GameHub logo'
+                                width={40}
+                                height={40}
                             />
                         </a>
                     </li>
