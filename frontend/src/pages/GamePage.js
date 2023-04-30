@@ -9,7 +9,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { LoginContext } from '../contexts/LoginContext';
 import { getGameInfo, getSteamUrlForGame } from '../services/rawgApiClient';
-import GameDetails from '../components/GameDetails';
+import GameDetails from '../components/gamepage/GameDetails';
 
 export default function GamePage() {
     const { id } = useParams();
