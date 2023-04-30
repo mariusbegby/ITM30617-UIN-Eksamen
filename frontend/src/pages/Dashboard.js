@@ -1,8 +1,8 @@
 // Route: /
 import React, { useContext } from 'react';
-import GameShopWidget from '../components/GameShopWidget';
-import MyGamesWidget from '../components/MyGamesWidget';
-import MyFavouritesWidget from '../components/MyFavouritesWidget';
+import GameShopWidget from '../components/dashboard/GameShopWidget';
+import MyGamesWidget from '../components/dashboard/MyGamesWidget';
+import MyFavouritesWidget from '../components/dashboard/MyFavouritesWidget';
 import { LoginContext } from '../contexts/LoginContext';
 
 export default function Dashboard() {

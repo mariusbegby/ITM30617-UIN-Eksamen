@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { FavouritesContext } from '../contexts/FavouritesContext';
-import { getFavouritedGamesByUser } from '../services/sanityClient';
-import GamesList from '../components/GamesList';
-import { getGameInfo } from '../services/rawgApiClient';
+import { FavouritesContext } from '../../contexts/FavouritesContext';
+import { getFavouritedGamesByUser } from '../../services/sanityClient';
+import GamesList from '../GamesList';
+import { getGameInfo } from '../../services/rawgApiClient';
 
 export default function MyFavouritesWidget({ loggedInUser }) {
     const { favourites, setFavourites } = useContext(FavouritesContext);

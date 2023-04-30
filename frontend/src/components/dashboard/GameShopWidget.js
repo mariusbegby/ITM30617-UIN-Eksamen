@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import GamesList from '../components/GamesList';
-import { getRecentSteamGames } from '../services/rawgApiClient';
+import GamesList from '../GamesList';
+import { getRecentSteamGames } from '../../services/rawgApiClient';
 
 export default function GameShopWidget() {
     const [recentGames, setRecentGames] = useState([]);
