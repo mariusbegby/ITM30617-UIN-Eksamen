@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../../contexts/FavouritesContext';
 import { getFavouritedGamesByUser } from '../../services/sanityClient';
-import GamesList from '../GamesList';
+import GameListContainer from '../GameListContainer';
 import { getGameInfo } from '../../services/rawgApiClient';
 
 export default function MyFavouritesWidget({ loggedInUser }) {
@@ -34,7 +34,7 @@ export default function MyFavouritesWidget({ loggedInUser }) {
                     View All
                 </a>
             </header>
-            <GamesList
+            <GameListContainer
                 games={favourites}
                 emptyMessage={'You have no favourites.'}
                 maxItems={2}

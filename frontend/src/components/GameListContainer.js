@@ -1,6 +1,6 @@
-import GameCard from '../components/GameCard';
+import GameCard from './GameCard';
 
-export default function GamesList({
+export default function GameListContainer({
     games,
     emptyMessage,
     maxItems,

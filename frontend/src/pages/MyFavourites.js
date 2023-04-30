@@ -4,7 +4,7 @@ import { FavouritesContext } from '../contexts/FavouritesContext';
 import { LoginContext } from '../contexts/LoginContext';
 import { getFavouritedGamesByUser } from '../services/sanityClient';
 import RequireLoginPage from '../components/RequireLoginPage';
-import GamesList from '../components/GamesList';
+import GameListContainer from '../components/GameListContainer';
 import { getMultipleGameInfo } from '../services/rawgApiClient';
 
 export default function MyFavourites() {
@@ -31,7 +31,7 @@ export default function MyFavourites() {
             <header>
                 <h1>My Favourites ({favourites.length})</h1>
             </header>
-            <GamesList
+            <GameListContainer
                 games={favourites}
                 emptyMessage={'You have no favourites.'}
             />

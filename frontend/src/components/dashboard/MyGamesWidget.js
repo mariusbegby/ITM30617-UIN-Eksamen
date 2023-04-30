@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../../contexts/MyGamesContext';
 import { getGamesByUser } from '../../services/sanityClient';
-import GamesList from '../GamesList';
+import GameListContainer from '../GameListContainer';
 import { getGameInfo } from '../../services/rawgApiClient';
 
 export default function MyGamesWidget({ loggedInUser }) {
@@ -44,7 +44,7 @@ export default function MyGamesWidget({ loggedInUser }) {
                     View All
                 </a>
             </header>
-            <GamesList
+            <GameListContainer
                 games={myGames}
                 emptyMessage={'You have no games in your library.'}
                 maxItems={4}

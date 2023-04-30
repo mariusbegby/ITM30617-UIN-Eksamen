@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import GamesList from '../GamesList';
+import GameListContainer from '../GameListContainer';
 import { getRecentSteamGames } from '../../services/rawgApiClient';
 
 export default function GameShopWidget() {
@@ -21,7 +21,7 @@ export default function GameShopWidget() {
                     Visit Shop
                 </a>
             </header>
-            <GamesList
+            <GameListContainer
                 games={recentGames}
                 emptyMessage={'Loading...'}
                 canPurchaseGames={true}
