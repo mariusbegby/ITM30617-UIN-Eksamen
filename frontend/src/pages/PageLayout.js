@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import NavHeader from '../components/navigation/NavHeader';
+import Footer from '../components/navigation/Footer';
 
 export default function PageLayout() {
     return (
         <div id='grid-container'>
-            <Header></Header>
+            <NavHeader></NavHeader>
             <Outlet />
             <Footer></Footer>
         </div>
