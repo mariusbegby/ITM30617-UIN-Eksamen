@@ -16,11 +16,11 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                 </figure>
                 <section>
                     <h3>{gameObject.name}</h3>
-                    <div className='genre-list'>
+                    <ul className='genre-list'>
                         {gameObject.genres.slice(0, 5).map((genre, index) => (
-                            <p key={index}>{genre.name}</p>
+                            <li key={index}>{genre.name}</li>
                         ))}
-                    </div>
+                    </ul>
                     {canBePurchased ? (
                         <button
                             className='link-button'

@@ -1,4 +1,4 @@
-.gamecard > a {
+.gamecard>a {
     text-decoration: none;
     color: inherit;
 }
@@ -11,8 +11,10 @@
     margin-bottom: 1rem;
     align-items: center;
     font-weight: 400;
+    padding: 0;
 
-    p {
+    li {
+        list-style: none;
         margin: 0;
         padding: 0.25rem 0.5rem;
         border-radius: $radius;
