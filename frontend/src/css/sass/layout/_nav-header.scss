@@ -61,12 +61,10 @@
     #header-left {
         width: 100%;
         grid-area: header-left;
-        display: flex;
         padding-right: 2rem;
-
-        ul {
-            gap: 1rem;
-        }
+        display: flex;
+        gap: 1rem;
+        align-items: center;
     }
 
     #header-right {
