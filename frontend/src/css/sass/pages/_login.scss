@@ -8,11 +8,13 @@
         gap: 0.5rem;
         align-items: center;
         margin-bottom: 1rem;
+
         h1 {
             margin: 0;
         }
 
         img {
+            width: 4rem;
             height: 4rem;
         }
     }
@@ -24,7 +26,7 @@
         gap: 0.25rem;
 
         label {
-            font-weight: 700;
+            @extend .text-bold;
         }
 
         input {
@@ -32,26 +34,12 @@
             border: 2px solid $black;
             border-radius: $radius;
             font-size: 1em;
+            font-family: $textfont;
+            font-weight: 700;
         }
 
         button {
-            display: inline-block;
-            margin: 0;
             margin-top: 1rem;
-            border: none;
-            font-size: 1em;
-            padding: 0.25rem 0.75rem;
-            background-color: $black;
-            border-radius: $radius;
-            color: $white;
-            text-decoration: none;
-            font-weight: 700;
-            text-align: center;
-
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
         }
     }
 
@@ -67,12 +55,9 @@
         background-color: $light-red;
     }
 
-    p {
-        color: $black;
-    }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: $query-small) {
     #login-page {
         justify-content: center;
     }

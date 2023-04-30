@@ -1,17 +1,21 @@
+.link-hover-transition {
+    transition: ease-in-out 0.2s;
+
+    &:hover {
+        text-decoration: underline;
+        filter: brightness(80%);
+    }
+}
+
 .link-button {
+    @extend .link-hover-transition;
     display: inline-block;
     margin: 0;
     border: none;
-    font-size: 1em;
     padding: 0.25rem 0.75rem;
     background-color: $black;
     border-radius: $radius;
     color: $white;
     text-decoration: none;
-    font-weight: 700;
     text-align: center;
-    &:hover {
-        text-decoration: underline;
-        cursor: pointer;
-    }
 }

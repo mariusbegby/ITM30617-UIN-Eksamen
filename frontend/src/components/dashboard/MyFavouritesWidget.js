@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { FavouritesContext } from '../contexts/FavouritesContext';
-import { getFavouritedGamesByUser } from '../services/sanityClient';
-import GamesList from '../components/GamesList';
-import { getGameInfo } from '../services/rawgApiClient';
+import { FavouritesContext } from '../../contexts/FavouritesContext';
+import { getFavouritedGamesByUser } from '../../services/sanityClient';
+import GameListContainer from '../GameListContainer';
+import { getGameInfo } from '../../services/rawgApiClient';
 
 export default function MyFavouritesWidget({ loggedInUser }) {
     const { favourites, setFavourites } = useContext(FavouritesContext);
@@ -27,14 +27,14 @@ export default function MyFavouritesWidget({ loggedInUser }) {
     }, [email, setFavourites]);
 
     return (
-        <section id='myfavourites-widget'>
-            <header>
-                <h2>My Favourites ({favourites.length})</h2>
+        <section id='myfavourites-widget' aria-labelledby='myfavourites-widget-title'>
+            <header className='widget-header'>
+                <h2 id='myfavourites-widget-title'>My Favourites ({favourites.length})</h2>
                 <a href='/favourites' className='link-button'>
                     View All
                 </a>
             </header>
-            <GamesList
+            <GameListContainer
                 games={favourites}
                 emptyMessage={'You have no favourites.'}
                 maxItems={2}

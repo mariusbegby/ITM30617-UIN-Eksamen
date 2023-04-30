@@ -1,6 +1,6 @@
 // Route: /gameshop
 import React, { useState, useEffect } from 'react';
-import GamesList from '../components/GamesList';
+import GameListContainer from '../components/GameListContainer';
 import { getRecentSteamGames } from '../services/rawgApiClient';
 
 export default function GameShop() {
@@ -19,7 +19,7 @@ export default function GameShop() {
             <header>
                 <h1>Gameshop - Latest Updates</h1>
             </header>
-            <GamesList
+            <GameListContainer
                 games={recentGames}
                 emptyMessage={'Loading...'}
                 canPurchaseGames={true}

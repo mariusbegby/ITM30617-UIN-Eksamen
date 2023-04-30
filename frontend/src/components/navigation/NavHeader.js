@@ -2,9 +2,9 @@
 import React, { useContext } from 'react';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
-import { LoginContext } from '../contexts/LoginContext';
+import { LoginContext } from '../../contexts/LoginContext';
 
-export default function Header() {
+export default function NavHeader() {
     const { loggedInUser } = useContext(LoginContext);
 
     return (

@@ -3,8 +3,8 @@ import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
 import { LoginContext } from '../contexts/LoginContext';
 import { getFavouritedGamesByUser } from '../services/sanityClient';
-import RequiresLoginMessage from '../components/RequiresLoginMessage';
-import GamesList from '../components/GamesList';
+import RequireLoginPage from '../components/RequireLoginPage';
+import GameListContainer from '../components/GameListContainer';
 import { getMultipleGameInfo } from '../services/rawgApiClient';
 
 export default function MyFavourites() {
@@ -31,12 +31,12 @@ export default function MyFavourites() {
             <header>
                 <h1>My Favourites ({favourites.length})</h1>
             </header>
-            <GamesList
+            <GameListContainer
                 games={favourites}
                 emptyMessage={'You have no favourites.'}
             />
         </main>
     ) : (
-        <RequiresLoginMessage title='My Favourites' />
+        <RequireLoginPage title='My Favourites' />
     );
 }

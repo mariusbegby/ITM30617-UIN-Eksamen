@@ -12,25 +12,21 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                     <img
                         src={gameImageUrl}
                         alt={`Video game poster for ${gameObject.name}`}
+                        width={425}
+                        height={225}
                     />
                 </figure>
-                <section>
-                    <h3>{gameObject.name}</h3>
-                    <div className='tag-section'>
-                        {gameObject.genres.slice(0, 5).map((genre, index) => (
-                            <p key={index}>{genre.name}</p>
-                        ))}
-                    </div>
-                    {canBePurchased ? (
-                        <button
-                            className='link-button'
-                            href={'/game/' + gameObject.slug}>
-                            View or buy
-                        </button>
-                    ) : (
-                        ''
-                    )}
-                </section>
+                <h3>{gameObject.name}</h3>
+                <ul className='genre-list'>
+                    {gameObject.genres.slice(0, 5).map((genre, index) => (
+                        <li key={index}>{genre.name}</li>
+                    ))}
+                </ul>
+                {canBePurchased ? (
+                    <span className='link-button'>View or buy</span>
+                ) : (
+                    ''
+                )}
             </Link>
         </article>
     );

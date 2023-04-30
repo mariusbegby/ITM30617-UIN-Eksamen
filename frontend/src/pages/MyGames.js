@@ -1,8 +1,8 @@
 // Route: /mygames
 import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../contexts/MyGamesContext';
-import GamesList from '../components/GamesList';
-import RequiresLoginMessage from '../components/RequiresLoginMessage';
+import GameListContainer from '../components/GameListContainer';
+import RequireLoginPage from '../components/RequireLoginPage';
 import { getGamesByUser } from '../services/sanityClient';
 import { LoginContext } from '../contexts/LoginContext';
 import { getMultipleGameInfo } from '../services/rawgApiClient';
@@ -30,12 +30,12 @@ export default function MyGames() {
             <header>
                 <h1>My Games-Library ({myGames.length})</h1>
             </header>
-            <GamesList
+            <GameListContainer
                 games={myGames}
                 emptyMessage={'You have no games in your library.'}
             />
         </main>
     ) : (
-        <RequiresLoginMessage title='My Games' />
+        <RequireLoginPage title='My Games' />
     );
 }

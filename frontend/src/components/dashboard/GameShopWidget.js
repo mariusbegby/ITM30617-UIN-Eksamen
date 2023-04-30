@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import GamesList from '../components/GamesList';
-import { getRecentSteamGames } from '../services/rawgApiClient';
+import GameListContainer from '../GameListContainer';
+import { getRecentSteamGames } from '../../services/rawgApiClient';
 
 export default function GameShopWidget() {
     const [recentGames, setRecentGames] = useState([]);
@@ -14,20 +14,18 @@ export default function GameShopWidget() {
     }, []);
 
     return (
-        <section id='gameshop-widget'>
-            <header>
-                <h1>Gameshop - Latest updates</h1>
+        <section id='gameshop-widget' aria-labelledby='gameshop-widget-title'>
+            <header className='widget-header'>
+                <h1 id='gameshop-widget-title'>Gameshop - Latest updates</h1>
                 <a href='/gameshop' className='link-button'>
                     Visit Shop
                 </a>
             </header>
-            <div id='gameshop-widget-gameslist'>
-                <GamesList
-                    games={recentGames}
-                    emptyMessage={'Loading...'}
-                    canPurchaseGames={true}
-                />
-            </div>
+            <GameListContainer
+                games={recentGames}
+                emptyMessage={'Loading...'}
+                canPurchaseGames={true}
+            />
         </section>
     );
 }

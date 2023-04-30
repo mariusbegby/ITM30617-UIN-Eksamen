@@ -15,39 +15,41 @@ export default function GameDetails({
                     <img
                         src={gameInfo.background_image ?? '/placeholder.png'}
                         alt={`Video game poster for ${gameInfo.name}`}
+                        width={900}
+                        height={500}
                     />
                 </figure>
             </section>
-            <section>
+            <section id='game-details-section'>
                 <header>
                     <h1>{gameInfo.name}</h1>
                     <div id='rating-favourite-section'>
-                        <span className='textfont-strong rating-tag'>
+                        <span className='text-bold rating-tag'>
                             ★ {gameInfo.rating}
                         </span>
                         {loggedInUser && inLibrary ? (
                             <button
                                 className={
                                     isFavorited
-                                        ? 'textfont-strong favourite-button favourited'
-                                        : 'textfont-strong favourite-button'
+                                        ? 'text-bold favourite-button favourited'
+                                        : 'text-bold favourite-button'
                                 }
                                 onClick={toggleFavourite}>
                                 {isFavorited ? '❤ Favourited' : '❤ Favourite'}
                             </button>
                         ) : (
-                            <span className='textfont-strong notinlibrary-tag'>
+                            <span className='text-bold info-tag'>
                                 Not in library
                             </span>
                         )}
                     </div>
                 </header>
-                <p className='margin-bottom'>
+                <p>
                     <i>{gameInfo.description_raw}</i>
                 </p>
-                <p className='margin-bottom'>
+                <p>
                     {inLibrary ? (
-                        <span className='textfont-strong inlibrary-tag'>
+                        <span className='text-bold info-tag'>
                             In Library{' '}
                             {gameInfo.hoursPlayed
                                 ? ' - ' + gameInfo.hoursPlayed + ' hours'
@@ -58,23 +60,23 @@ export default function GameDetails({
                             href={gameInfo.steamUrl}
                             target='_blank'
                             rel='noreferrer'
-                            className='link-button'>
+                            className='buy-button'>
                             Buy
                         </a>
                     ) : (
-                        <span className='textfont-strong notinlibrary-tag'>
+                        <span className='text-bold info-tag'>
                             No store url
                         </span>
                     )}
                 </p>
                 <p>
-                    <span className='textfont-strong'>Genres: </span>
+                    <span className='text-bold'>Genres: </span>
                     {gameInfo.genres?.length > 0
                         ? gameInfo.genres.map((genre) => genre.name).join(', ')
                         : 'Unknown'}
                 </p>
                 <p>
-                    <span className='textfont-strong'>Published: </span>
+                    <span className='text-bold'>Published: </span>
                     {new Date(gameInfo.released).toLocaleDateString('en-US', {
                         weekday: 'long',
                         year: 'numeric',
@@ -83,7 +85,7 @@ export default function GameDetails({
                     })}
                 </p>
                 <p>
-                    <span className='textfont-strong'>Publishers: </span>
+                    <span className='text-bold'>Publishers: </span>
                     {gameInfo.publishers?.length > 0
                         ? gameInfo.publishers
                               .map((publisher) => publisher.name)
@@ -91,7 +93,7 @@ export default function GameDetails({
                         : 'Unknown'}
                 </p>
                 <p>
-                    <span className='textfont-strong'>Developers: </span>
+                    <span className='text-bold'>Developers: </span>
                     {gameInfo.developers?.length > 0
                         ? gameInfo.developers
                               .map((developer) => developer.name)
@@ -99,7 +101,7 @@ export default function GameDetails({
                         : 'Unknown'}
                 </p>
                 <p>
-                    <span className='textfont-strong'>Platforms: </span>
+                    <span className='text-bold'>Platforms: </span>
                     {gameInfo.platforms?.length > 0
                         ? gameInfo.platforms
                               .map((platform) => platform.platform.name)
@@ -107,9 +109,7 @@ export default function GameDetails({
                         : 'Unknown'}
                 </p>
                 <p>
-                    <span className='textfont-strong'>
-                        Available in stores:{' '}
-                    </span>{' '}
+                    <span className='text-bold'>Available in stores: </span>{' '}
                     {gameInfo.stores?.length > 0
                         ? gameInfo.stores
                               .map((store) => store.store.name)
@@ -117,18 +117,20 @@ export default function GameDetails({
                         : 'Unknown'}
                 </p>
                 <p>
-                    <span className='textfont-strong'>Tags: </span>{' '}
+                    <span className='text-bold'>Tags: </span>{' '}
                 </p>
-                {gameInfo.tags?.length > 0 ? (
-                    <TagCloud
-                        minSize={10}
-                        maxSize={28}
-                        tags={wordcloudData}
-                        colorOptions={{ luminosity: 'dark' }}
-                    />
-                ) : (
-                    'None'
-                )}
+                <p>
+                    {gameInfo.tags?.length > 0 ? (
+                        <TagCloud
+                            minSize={10}
+                            maxSize={28}
+                            tags={wordcloudData}
+                            colorOptions={{ luminosity: 'dark' }}
+                        />
+                    ) : (
+                        'None'
+                    )}
+                </p>
             </section>
         </>
     );

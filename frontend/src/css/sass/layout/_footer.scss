@@ -1,6 +1,4 @@
 footer {
-    grid-area: footer;
-    justify-content: space-between;
     z-index: 999;
     background-color: $black;
     padding: 1rem;
@@ -11,24 +9,17 @@ footer {
     width: 100%;
 
     a {
-        color: $white;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 1em;
-
-        &:hover {
-            text-decoration: underline;
-            filter: brightness(80%);
-            transition: 0.15s;
-        }
+        @extend .link-hover-transition;
     }
 
     p {
         grid-column: 2 / 4;
+        color: $white;
     }
 }
 
-@media only screen and (min-width: 1400px) {
+/* Media queries */
+@media only screen and (min-width: $query-large) {
     footer {
         display: grid;
         grid-template-columns: 0.5fr 2fr 2fr 0.5fr;
@@ -36,7 +27,7 @@ footer {
 
 }
 
-@media only screen and (min-width: 1950px) {
+@media only screen and (min-width: $query-xlarge) {
     footer {
         grid-template-columns: 1fr 2fr 2fr 1fr;
     }

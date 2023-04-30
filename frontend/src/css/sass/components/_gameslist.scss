@@ -50,7 +50,6 @@
 
             img {
                 transition: 0.3s;
-                width: 100%;
                 height: auto;
                 max-height: 400px;
                 border-radius: $radius-big;
@@ -62,7 +61,8 @@
     }
 }
 
-@media only screen and (min-width: 550px) {
+/* Media queries */
+@media only screen and (min-width: $query-xsmall) {
     .gameslist {
         article {
             display: flex;
@@ -74,7 +74,7 @@
     }
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: $query-small) {
     .gameslist {
         article {
             display: flex;

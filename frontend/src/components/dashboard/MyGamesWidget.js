@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
-import { MyGamesContext } from '../contexts/MyGamesContext';
-import { getGamesByUser } from '../services/sanityClient';
-import GamesList from '../components/GamesList';
-import { getGameInfo } from '../services/rawgApiClient';
+import { MyGamesContext } from '../../contexts/MyGamesContext';
+import { getGamesByUser } from '../../services/sanityClient';
+import GameListContainer from '../GameListContainer';
+import { getGameInfo } from '../../services/rawgApiClient';
 
 export default function MyGamesWidget({ loggedInUser }) {
     const { myGames, setMyGames } = useContext(MyGamesContext);
@@ -35,14 +35,16 @@ export default function MyGamesWidget({ loggedInUser }) {
     }, [loggedInUser, setMyGames]);
 
     return (
-        <section id='mygames-widget'>
-            <header>
-                <h2>My Games-Library - {myGames.length} Games</h2>
+        <section id='mygames-widget' aria-labelledby='mygames-widget-title'>
+            <header className='widget-header'>
+                <h2 id='mygames-widget-title'>
+                    My Games-Library - {myGames.length} Games
+                </h2>
                 <a href='/mygames' className='link-button'>
                     View All
                 </a>
             </header>
-            <GamesList
+            <GameListContainer
                 games={myGames}
                 emptyMessage={'You have no games in your library.'}
                 maxItems={4}

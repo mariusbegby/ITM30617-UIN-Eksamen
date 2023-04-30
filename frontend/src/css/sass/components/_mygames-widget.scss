@@ -1,22 +1,5 @@
-#mygames-widget {
-    header {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        a {
-            margin-left: 1.25rem;
-        }
-
-        h2 {
-            margin: 0;
-        }
-
-        margin-bottom: 1rem;
-    }
-}
-
-@media only screen and (min-width: 700px) {
+/* Media queries */
+@media only screen and (min-width: $query-small) {
     #mygames-widget {
         .gameslist {
             article {
@@ -25,5 +8,4 @@
             }
         }
     }
-
 }

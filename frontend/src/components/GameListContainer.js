@@ -1,6 +1,6 @@
-import GameCard from '../components/GameCard';
+import GameCard from './GameCard';
 
-export default function GamesList({
+export default function GameListContainer({
     games,
     emptyMessage,
     maxItems,
@@ -9,7 +9,7 @@ export default function GamesList({
     const displayedGames = maxItems ? games.slice(0, maxItems) : games;
 
     return (
-        <section className='gameslist'>
+        <div className='gameslist'>
             {displayedGames.length > 0 ? (
                 displayedGames.map((game) => {
                     return (
@@ -22,6 +22,6 @@ export default function GamesList({
             ) : (
                 <h3>{emptyMessage}</h3>
             )}
-        </section>
+        </div>
     );
 }

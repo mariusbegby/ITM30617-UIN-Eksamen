@@ -1,9 +1,9 @@
-# Sanity Clean Content Studio
+# UIN23 Eksamen - Gruppe 25 - Sanity studio
 
-Congratulations, you have now installed the Sanity Content Studio, an open source real-time content editing environment connected to the Sanity backend.
+## Installasjon av avhengigheter
 
-Now you can do the following things:
+Kjør kommandoen `npm ci` (foretrekket) eller `npm install` i `/sanity`-mappen for å installere avhengigheter.
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+## Start av applikasjon
+
+Kjør kommandoen `npm run dev` i `/sanity`-mappen for å starte Sanity studio, og åpne `http://localhost:3333` i en nettleser for å se Sanity Studio.

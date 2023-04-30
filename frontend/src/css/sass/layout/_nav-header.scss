@@ -1,16 +1,13 @@
 #navbar-header {
-    grid-area: header;
-    justify-content: space-between;
     position: sticky;
-    height: auto;
     top: 0;
     z-index: 999;
     background-color: $black;
     padding: 1rem;
     min-width: 400px;
 
-    i {
-        color: $white;
+    a {
+        @extend .link-hover-transition;
     }
 
     ul {
@@ -22,29 +19,17 @@
         align-items: center;
     }
 
-    a {
-        color: $white;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 1em;
-
-        &:hover {
-            text-decoration: underline;
-            filter: brightness(80%);
-            transition: 0.15s;
-        }
-    }
-
     h2 {
         margin: 0;
         color: $white;
-        font-size: 1.25em;
+        font-size: 1em;
         text-transform: none;
     }
 
-    #header-logo {
-        height: 2.5rem;
+    .header-logo {
         display: block;
+        width: 2.5rem;
+        height: 2.5rem;
     }
 }
 
@@ -60,7 +45,8 @@
     display: none;
 }
 
-@media only screen and (min-width: 750px) {
+/* Media queries */
+@media only screen and (min-width: $query-small) {
     #nav-mobile {
         display: none;
     }
@@ -75,12 +61,10 @@
     #header-left {
         width: 100%;
         grid-area: header-left;
-        display: flex;
         padding-right: 2rem;
-
-        ul {
-            gap: 1rem;
-        }
+        display: flex;
+        gap: 1rem;
+        align-items: center;
     }
 
     #header-right {
@@ -98,12 +82,12 @@
         font-size: 1.25em;
     }
 
-    #header-logo {
+    .header-logo {
         height: 4rem;
     }
 }
 
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: $query-large) {
     #nav-desktop {
         display: grid;
         grid-template-columns: 0.5fr 2fr 2fr 0.5fr;
@@ -113,7 +97,7 @@
 
 }
 
-@media only screen and (min-width: 1950px) {
+@media only screen and (min-width: $query-xlarge) {
     #nav-desktop {
         grid-template-columns: 1fr 2fr 2fr 1fr;
     }
