@@ -5,11 +5,6 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
         ? gameObject.background_image
         : '/placeholder.png';
 
-    function handleButtonClick(e) {
-        e.preventDefault();
-        window.location.href = `/game/${gameObject.slug}`;
-    }
-
     return (
         <article className='gamecard'>
             <Link to={'/game/' + gameObject.slug}>
@@ -29,11 +24,7 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                         ))}
                     </ul>
                     {canBePurchased ? (
-                        <button
-                            className='link-button'
-                            onClick={handleButtonClick}>
-                            View or buy
-                        </button>
+                        <span className='link-button'>View or buy</span>
                     ) : (
                         ''
                     )}
