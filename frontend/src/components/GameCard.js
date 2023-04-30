@@ -16,19 +16,17 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                         height={225}
                     />
                 </figure>
-                <section>
-                    <h3>{gameObject.name}</h3>
-                    <ul className='genre-list'>
-                        {gameObject.genres.slice(0, 5).map((genre, index) => (
-                            <li key={index}>{genre.name}</li>
-                        ))}
-                    </ul>
-                    {canBePurchased ? (
-                        <span className='link-button'>View or buy</span>
-                    ) : (
-                        ''
-                    )}
-                </section>
+                <h3>{gameObject.name}</h3>
+                <ul className='genre-list'>
+                    {gameObject.genres.slice(0, 5).map((genre, index) => (
+                        <li key={index}>{genre.name}</li>
+                    ))}
+                </ul>
+                {canBePurchased ? (
+                    <span className='link-button'>View or buy</span>
+                ) : (
+                    ''
+                )}
             </Link>
         </article>
     );
