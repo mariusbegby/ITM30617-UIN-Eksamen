@@ -35,22 +35,7 @@
         }
 
         button {
-            display: inline-block;
-            margin: 0;
             margin-top: 1rem;
-            border: none;
-            font-size: 1em;
-            padding: 0.25rem 0.75rem;
-            background-color: $black;
-            border-radius: $radius;
-            color: $white;
-            text-decoration: none;
-            text-align: center;
-
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
         }
     }
 

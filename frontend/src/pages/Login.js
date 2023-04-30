@@ -54,7 +54,7 @@ export default function Login() {
                     onChange={(e) => setEmail(e.target.value)}
                     aria-label='Input for entering your email address.'
                 />
-                <button type='submit'>Login</button>
+                <button type='submit' className='link-button'>Login</button>
             </form>
         </main>
     );
