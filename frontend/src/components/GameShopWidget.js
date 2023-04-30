@@ -14,9 +14,9 @@ export default function GameShopWidget() {
     }, []);
 
     return (
-        <section id='gameshop-widget'>
+        <section id='gameshop-widget' aria-labelledby='gameshop-widget-title'>
             <header className='widget-header'>
-                <h1>Gameshop - Latest updates</h1>
+                <h1 id='gameshop-widget-title'>Gameshop - Latest updates</h1>
                 <a href='/gameshop' className='link-button'>
                     Visit Shop
                 </a>

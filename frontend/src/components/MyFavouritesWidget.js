@@ -27,9 +27,9 @@ export default function MyFavouritesWidget({ loggedInUser }) {
     }, [email, setFavourites]);
 
     return (
-        <section id='myfavourites-widget'>
+        <section id='myfavourites-widget' aria-labelledby='myfavourites-widget-title'>
             <header className='widget-header'>
-                <h2>My Favourites ({favourites.length})</h2>
+                <h2 id='myfavourites-widget-title'>My Favourites ({favourites.length})</h2>
                 <a href='/favourites' className='link-button'>
                     View All
                 </a>

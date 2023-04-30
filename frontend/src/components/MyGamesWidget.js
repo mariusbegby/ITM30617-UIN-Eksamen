@@ -35,9 +35,11 @@ export default function MyGamesWidget({ loggedInUser }) {
     }, [loggedInUser, setMyGames]);
 
     return (
-        <section id='mygames-widget'>
+        <section id='mygames-widget' aria-labelledby='mygames-widget-title'>
             <header className='widget-header'>
-                <h2>My Games-Library - {myGames.length} Games</h2>
+                <h2 id='mygames-widget-title'>
+                    My Games-Library - {myGames.length} Games
+                </h2>
                 <a href='/mygames' className='link-button'>
                     View All
                 </a>
