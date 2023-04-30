@@ -1,4 +1,4 @@
-export default function RequiresLoginMessage({ title }) {
+export default function RequireLoginPage({ title }) {
     return (
         <main>
             <header>

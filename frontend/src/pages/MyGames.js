@@ -2,7 +2,7 @@
 import React, { useEffect, useContext } from 'react';
 import { MyGamesContext } from '../contexts/MyGamesContext';
 import GamesList from '../components/GamesList';
-import RequiresLoginMessage from '../components/RequiresLoginMessage';
+import RequireLoginPage from '../components/RequireLoginPage';
 import { getGamesByUser } from '../services/sanityClient';
 import { LoginContext } from '../contexts/LoginContext';
 import { getMultipleGameInfo } from '../services/rawgApiClient';
@@ -36,6 +36,6 @@ export default function MyGames() {
             />
         </main>
     ) : (
-        <RequiresLoginMessage title='My Games' />
+        <RequireLoginPage title='My Games' />
     );
 }

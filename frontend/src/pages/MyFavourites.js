@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { FavouritesContext } from '../contexts/FavouritesContext';
 import { LoginContext } from '../contexts/LoginContext';
 import { getFavouritedGamesByUser } from '../services/sanityClient';
-import RequiresLoginMessage from '../components/RequiresLoginMessage';
+import RequireLoginPage from '../components/RequireLoginPage';
 import GamesList from '../components/GamesList';
 import { getMultipleGameInfo } from '../services/rawgApiClient';
 
@@ -37,6 +37,6 @@ export default function MyFavourites() {
             />
         </main>
     ) : (
-        <RequiresLoginMessage title='My Favourites' />
+        <RequireLoginPage title='My Favourites' />
     );
 }
