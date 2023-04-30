@@ -5,6 +5,11 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
         ? gameObject.background_image
         : '/placeholder.png';
 
+    function handleButtonClick(e) {
+        e.preventDefault();
+        window.location.href = `/game/${gameObject.slug}`;
+    }
+
     return (
         <article className='gamecard'>
             <Link to={'/game/' + gameObject.slug}>
@@ -12,7 +17,8 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                     <img
                         src={gameImageUrl}
                         alt={`Video game poster for ${gameObject.name}`}
-                        width={425} height={225}
+                        width={425}
+                        height={225}
                     />
                 </figure>
                 <section>
@@ -25,7 +31,7 @@ export default function GameCard({ gameObject, canBePurchased = false }) {
                     {canBePurchased ? (
                         <button
                             className='link-button'
-                            href={'/game/' + gameObject.slug}>
+                            onClick={handleButtonClick}>
                             View or buy
                         </button>
                     ) : (
