@@ -18,7 +18,7 @@ export default function GameDetails({
                     />
                 </figure>
             </section>
-            <section>
+            <section id='game-details-section'>
                 <header>
                     <h1>{gameInfo.name}</h1>
                     <div id='rating-favourite-section'>
@@ -36,7 +36,7 @@ export default function GameDetails({
                                 {isFavorited ? '❤ Favourited' : '❤ Favourite'}
                             </button>
                         ) : (
-                            <span className='text-bold notinlibrary-tag'>
+                            <span className='text-bold info-tag'>
                                 Not in library
                             </span>
                         )}
@@ -45,9 +45,9 @@ export default function GameDetails({
                 <p>
                     <i>{gameInfo.description_raw}</i>
                 </p>
-                <p className='library-store'>
+                <p>
                     {inLibrary ? (
-                        <span className='text-bold inlibrary-tag'>
+                        <span className='text-bold info-tag'>
                             In Library{' '}
                             {gameInfo.hoursPlayed
                                 ? ' - ' + gameInfo.hoursPlayed + ' hours'
@@ -62,7 +62,7 @@ export default function GameDetails({
                             Buy
                         </a>
                     ) : (
-                        <span className='text-bold notinlibrary-tag'>
+                        <span className='text-bold info-tag'>
                             No store url
                         </span>
                     )}
@@ -107,9 +107,7 @@ export default function GameDetails({
                         : 'Unknown'}
                 </p>
                 <p>
-                    <span className='text-bold'>
-                        Available in stores:{' '}
-                    </span>{' '}
+                    <span className='text-bold'>Available in stores: </span>{' '}
                     {gameInfo.stores?.length > 0
                         ? gameInfo.stores
                               .map((store) => store.store.name)
@@ -119,16 +117,18 @@ export default function GameDetails({
                 <p>
                     <span className='text-bold'>Tags: </span>{' '}
                 </p>
-                {gameInfo.tags?.length > 0 ? (
-                    <TagCloud
-                        minSize={10}
-                        maxSize={28}
-                        tags={wordcloudData}
-                        colorOptions={{ luminosity: 'dark' }}
-                    />
-                ) : (
-                    'None'
-                )}
+                <p>
+                    {gameInfo.tags?.length > 0 ? (
+                        <TagCloud
+                            minSize={10}
+                            maxSize={28}
+                            tags={wordcloudData}
+                            colorOptions={{ luminosity: 'dark' }}
+                        />
+                    ) : (
+                        'None'
+                    )}
+                </p>
             </section>
         </>
     );
