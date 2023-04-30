@@ -45,6 +45,7 @@
     display: none;
 }
 
+/* Media queries */
 @media only screen and (min-width: $query-small) {
     #nav-mobile {
         display: none;
@@ -88,7 +89,6 @@
     }
 }
 
-/* Media queries */
 @media only screen and (min-width: $query-large) {
     #nav-desktop {
         display: grid;
