@@ -38,9 +38,13 @@ export default function GameDetails({
                                 onClick={toggleFavourite}>
                                 {isFavorited ? '❤ Favourited' : '❤ Favourite'}
                             </button>
-                        ) : (
+                        ) : loggedInUser ? (
                             <span className='text-bold info-tag'>
                                 Not in library
+                            </span>
+                        ) : (
+                            <span className='text-bold info-tag'>
+                                Not logged in
                             </span>
                         )}
                     </div>
