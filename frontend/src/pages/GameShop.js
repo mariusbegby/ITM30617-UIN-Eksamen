@@ -15,10 +15,12 @@ export default function GameShop() {
     const [recentGames, setRecentGames] = useState([]);
 
     useEffect(() => {
+        // Retrieve the 10 latest updated Steam games from RAWG.io API
         const fetchRecentGames = async () => {
             const results = await getRecentSteamGames(10);
             setRecentGames(results);
         };
+
         fetchRecentGames();
     }, []);
 

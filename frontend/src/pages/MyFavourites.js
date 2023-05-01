@@ -23,19 +23,24 @@ export default function MyFavourites() {
 
     useEffect(() => {
         const fetchFavourites = async () => {
+            // Get list of favourited games from Sanity
             const favouriteList = await getFavouritedGamesByUser(
                 loggedInUser.email
             );
 
-            const completeGameObjects = await getMultipleGameInfo(
+            // Get data about games in favourites from API
+            const favouritesGameDataFromApi = await getMultipleGameInfo(
                 favouriteList.map((game) => game.gameRef.gameSlug)
             );
 
-            setFavourites(completeGameObjects);
+            setFavourites(favouritesGameDataFromApi);
         };
+
+        // Only fetch favourites if user is logged in
         loggedInUser && fetchFavourites();
     }, [loggedInUser, setFavourites]);
 
+    // If user is logged in, display their favourites
     return loggedInUser ? (
         <main id='myfavourites-page'>
             <header>

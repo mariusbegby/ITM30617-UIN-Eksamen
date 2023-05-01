@@ -7,6 +7,8 @@ export default function GameListContainer({
     maxItems,
     canPurchaseGames = false
 }) {
+    // If maxItems is set, only display the first x number of games defined by maxItems
+    // Used to limit amount of games shown for different components
     const displayedGames = maxItems ? games.slice(0, maxItems) : games;
 
     return (

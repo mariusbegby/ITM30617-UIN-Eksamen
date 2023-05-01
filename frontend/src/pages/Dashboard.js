@@ -15,6 +15,8 @@ import MyFavouritesWidget from '../components/dashboard/MyFavouritesWidget';
 
 export default function Dashboard() {
     const { loggedInUser } = useContext(LoginContext);
+
+    // Only render MyGames Widget and Favourites Widget if user is logged in
     return (
         <main id='dashboard-page'>
             <GameShopWidget></GameShopWidget>

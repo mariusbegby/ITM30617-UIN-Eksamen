@@ -23,18 +23,22 @@ export default function MyGames() {
 
     useEffect(() => {
         const fetchMyGames = async () => {
-            const myGamesResults = await getGamesByUser(loggedInUser.email);
+            // Get list of games in user library from Sanity
+            const myGamesList = await getGamesByUser(loggedInUser.email);
 
-            const completeGameObjects = await getMultipleGameInfo(
-                myGamesResults.map((game) => game.gameRef.gameSlug)
+            // Get data about games in library from API
+            const myGamesGameDataFromApi = await getMultipleGameInfo(
+                myGamesList.map((game) => game.gameRef.gameSlug)
             );
 
-            setMyGames(completeGameObjects);
+            setMyGames(myGamesGameDataFromApi);
         };
 
+        // Only fetch games if user is logged in
         loggedInUser && fetchMyGames();
     }, [loggedInUser, setMyGames]);
 
+    // If user is logged in, display their games
     return loggedInUser ? (
         <main id='mygames-page'>
             <header>

@@ -14,7 +14,6 @@ export default function NavHeader() {
     return (
         <header id='navbar-header'>
             <MobileNav loggedInUser={loggedInUser}></MobileNav>
-
             <DesktopNav loggedInUser={loggedInUser}></DesktopNav>
         </header>
     );

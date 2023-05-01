@@ -13,13 +13,17 @@ import { LoginContext } from '../contexts/LoginContext';
 
 export default function Login() {
     const { loggedInUser, setLoggedInUser } = useContext(LoginContext);
+
     const [userEmail, setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        // Get user from Sanity from email provided in form
         const user = await getUserByEmail(userEmail);
 
+        // If a user is found, set the loggedInUser context to user with provided email
         if (user.userEmail) {
             const loggedInEmail = user.userEmail;
             setErrorMessage(``);
@@ -30,6 +34,8 @@ export default function Login() {
             setErrorMessage('User not found with that email.');
             setLoggedInUser(null);
         }
+
+        // Empty email field in form (clear input)
         setEmail('');
     };
 

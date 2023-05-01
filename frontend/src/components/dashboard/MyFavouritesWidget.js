@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 
 /* Import services */
-import { getGameInfo } from '../../services/rawgApiClient';
+import { getMultipleGameInfo } from '../../services/rawgApiClient';
 import { getFavouritedGamesByUser } from '../../services/sanityClient';
 
 /* Import contexts */
@@ -17,19 +17,17 @@ export default function MyFavouritesWidget({ loggedInUser }) {
 
     useEffect(() => {
         const fetchFavourites = async () => {
+            // Get list of favourited games from Sanity
             const favouriteList = await getFavouritedGamesByUser(email);
 
-            let completeGameObjects = await Promise.all(
-                favouriteList.map(async (game) => {
-                    let gameInfoFromApi = await getGameInfo(
-                        game.gameRef.gameSlug
-                    );
-                    return gameInfoFromApi;
-                })
+            // Get data about games in favourites from API
+            const favouritesGameDataFromApi = await getMultipleGameInfo(
+                favouriteList.map((game) => game.gameRef.gameSlug)
             );
 
-            setFavourites(completeGameObjects);
+            setFavourites(favouritesGameDataFromApi);
         };
+
         fetchFavourites();
     }, [email, setFavourites]);
 
