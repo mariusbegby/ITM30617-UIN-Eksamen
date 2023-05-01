@@ -24,5 +24,5 @@ Jeg har gått for høyeste vanskelighetsgrad, karakter A-krav.
 -   Generere ikon/logo (favicon) for nettsiden (for å unngå opphavsrett-trøbbel), med hjelp av AI: https://openai.com/product/dall-e-2
 -   Et par linjer kode for å løse problem med space-between for siste rad i flexbox når raden ikke er full: https://stackoverflow.com/questions/18744164/flex-box-align-last-row-to-grid
 -   Sjekke diverse syntax, bruk og oppsett av React-metoder/hooks etc. som f.eks. useEffect: https://react.dev/
--   Sjekke syntax, bruk og oppsett av Santiy schemas: https://www.sanity.io/docs/schema-types
+-   Sjekke syntax, bruk og oppsett av Sanity schemas: https://www.sanity.io/docs/schema-types
 -   Løse "blurry image" når man bruker transform scale() på hover: https://stackoverflow.com/questions/36787529/how-to-fix-blurry-image-on-transform-scale
