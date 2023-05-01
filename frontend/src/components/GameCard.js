@@ -2,9 +2,10 @@
 import { Link } from 'react-router-dom';
 
 export default function GameCard({ gameObject, canBePurchased = false }) {
+    // If game has no background image specified in object, use placeholder image
     let gameImageUrl = gameObject.background_image
         ? gameObject.background_image
-        : '/placeholder.png';
+        : '/placeholderGameImage.png';
 
     return (
         <article className='gamecard'>
