@@ -1,11 +1,21 @@
-// Route: /favourites
+/*
+  Route: /favourites
+*/
+
+/* Import packages */
 import React, { useContext, useEffect } from 'react';
-import { FavouritesContext } from '../contexts/FavouritesContext';
-import { LoginContext } from '../contexts/LoginContext';
+
+/* Import services */
+import { getMultipleGameInfo } from '../services/rawgApiClient';
 import { getFavouritedGamesByUser } from '../services/sanityClient';
+
+/* Import contexts */
+import { LoginContext } from '../contexts/LoginContext';
+import { FavouritesContext } from '../contexts/FavouritesContext';
+
+/* Import components */
 import RequireLoginPage from '../components/RequireLoginPage';
 import GameListContainer from '../components/GameListContainer';
-import { getMultipleGameInfo } from '../services/rawgApiClient';
 
 export default function MyFavourites() {
     const { loggedInUser } = useContext(LoginContext);
@@ -13,19 +23,24 @@ export default function MyFavourites() {
 
     useEffect(() => {
         const fetchFavourites = async () => {
+            // Get list of favourited games from Sanity
             const favouriteList = await getFavouritedGamesByUser(
                 loggedInUser.email
             );
 
-            const completeGameObjects = await getMultipleGameInfo(
+            // Get data about games in favourites from API
+            const favouritesGameDataFromApi = await getMultipleGameInfo(
                 favouriteList.map((game) => game.gameRef.gameSlug)
             );
 
-            setFavourites(completeGameObjects);
+            setFavourites(favouritesGameDataFromApi);
         };
+
+        // Only fetch favourites if user is logged in
         loggedInUser && fetchFavourites();
     }, [loggedInUser, setFavourites]);
 
+    // If user is logged in, display their favourites
     return loggedInUser ? (
         <main id='myfavourites-page'>
             <header>

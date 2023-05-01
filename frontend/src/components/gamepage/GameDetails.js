@@ -1,3 +1,4 @@
+/* Import packages */
 import { TagCloud } from 'react-tagcloud';
 
 export default function GameDetails({
@@ -37,9 +38,13 @@ export default function GameDetails({
                                 onClick={toggleFavourite}>
                                 {isFavorited ? '❤ Favourited' : '❤ Favourite'}
                             </button>
-                        ) : (
+                        ) : loggedInUser ? (
                             <span className='text-bold info-tag'>
                                 Not in library
+                            </span>
+                        ) : (
+                            <span className='text-bold info-tag'>
+                                Not logged in
                             </span>
                         )}
                     </div>
@@ -64,9 +69,7 @@ export default function GameDetails({
                             Buy
                         </a>
                     ) : (
-                        <span className='text-bold info-tag'>
-                            No store url
-                        </span>
+                        <span className='text-bold info-tag'>No store url</span>
                     )}
                 </p>
                 <p>
@@ -119,18 +122,16 @@ export default function GameDetails({
                 <p>
                     <span className='text-bold'>Tags: </span>{' '}
                 </p>
-                <p>
-                    {gameInfo.tags?.length > 0 ? (
-                        <TagCloud
-                            minSize={10}
-                            maxSize={28}
-                            tags={wordcloudData}
-                            colorOptions={{ luminosity: 'dark' }}
-                        />
-                    ) : (
-                        'None'
-                    )}
-                </p>
+                {gameInfo.tags?.length > 0 ? (
+                    <TagCloud
+                        minSize={10}
+                        maxSize={28}
+                        tags={wordcloudData}
+                        colorOptions={{ luminosity: 'dark' }}
+                    />
+                ) : (
+                    'None'
+                )}
             </section>
         </>
     );

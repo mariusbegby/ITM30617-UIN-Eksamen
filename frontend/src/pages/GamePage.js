@@ -1,31 +1,46 @@
-// Route: /game/[gametitle-as-slug]
+/*
+  Route: /game/:id
+*/
+
+/* Import packages */
 import React, { useState, useEffect, useContext } from 'react';
-import { FavouritesContext } from '../contexts/FavouritesContext';
-import { MyGamesContext } from '../contexts/MyGamesContext';
+import { useParams } from 'react-router-dom';
+
+/* Import services */
+import { getGameInfo, getSteamUrlForGame } from '../services/rawgApiClient';
 import {
     updateFavouriteStatus,
     getSingleGameFromLibraryBySlug
 } from '../services/sanityClient';
-import { useParams } from 'react-router-dom';
+
+/* Import contexts */
 import { LoginContext } from '../contexts/LoginContext';
-import { getGameInfo, getSteamUrlForGame } from '../services/rawgApiClient';
+import { MyGamesContext } from '../contexts/MyGamesContext';
+import { FavouritesContext } from '../contexts/FavouritesContext';
+
+/* Import components */
 import GameDetails from '../components/gamepage/GameDetails';
 
 export default function GamePage() {
+    // Get game slug from URL
     const { id } = useParams();
+
     const { loggedInUser } = useContext(LoginContext);
-    const [gameInfo, setGameInfo] = useState(null);
-    const [wordcloudData, setWordcloudData] = useState([]);
+    const { myGames } = useContext(MyGamesContext);
+    const { favourites, setFavourites } = useContext(FavouritesContext);
+
     const [inLibrary, setInLibrary] = useState(false);
     const [isFavorited, setIsFavorited] = useState(false);
-    const { favourites, setFavourites } = useContext(FavouritesContext);
-    const { myGames } = useContext(MyGamesContext);
+    const [gameInfo, setGameInfo] = useState(null);
+    const [wordcloudData, setWordcloudData] = useState([]);
 
     useEffect(() => {
+        // Local variable to check if game is in user's game library
         const inLibraryLocal = !!myGames.find((game) => game.slug === id);
 
         const retrieveGameInfo = async () => {
             if (inLibraryLocal) {
+                // If game is in library, get game info from Sanity and supplement with data from API.
                 getSingleGameFromLibraryBySlug(loggedInUser.email, id).then(
                     async (gameObject) => {
                         const gameInfoFromApi = await getGameInfo(
@@ -56,10 +71,13 @@ export default function GamePage() {
                     }
                 );
             } else {
-                const result = await getGameInfo(id);
+                // If game is not in library, get all game info API
+                const gameInfoObject = await getGameInfo(id);
+
+                // Retrieve Steam store url for buy button.
                 const steamUrl = await getSteamUrlForGame(id);
-                result.steamUrl = steamUrl;
-                setGameInfo(result);
+                gameInfoObject.steamUrl = steamUrl;
+                setGameInfo(gameInfoObject);
             }
         };
 
@@ -67,14 +85,18 @@ export default function GamePage() {
     }, [id, favourites, myGames, loggedInUser]);
 
     useEffect(() => {
+        // Return if gameInfo does not have a value yet (e.g. still loading)
         if (!gameInfo) return;
 
+        // Local variables to check if game is in users game library and favourites
         const inLibraryLocal = !!myGames.find((game) => game.slug === id);
         const isFavoritedLocal = !!favourites.find((game) => game.slug === id);
 
+        // Set status of inLibrary and isFavorited used to conditionally displaying information
         setInLibrary(inLibraryLocal);
         setIsFavorited(isFavoritedLocal);
 
+        // If gameInfo has tags, create data for wordcloud
         if (gameInfo.tags) {
             const data = gameInfo.tags.map((tag) => {
                 return { value: tag.name, count: tag.games_count };
@@ -83,10 +105,13 @@ export default function GamePage() {
         }
     }, [gameInfo, myGames, favourites, id]);
 
+    // Method to toggle favourite status of game for user
     const toggleFavourite = async () => {
-        const existingGame = favourites.find((game) => game.id === gameInfo.id);
+        // Check if game is already in user's favourites list
+        const inFavourites = favourites.find((game) => game.id === gameInfo.id);
 
-        if (existingGame) {
+        // Toggle favourite status based on current status
+        if (inFavourites) {
             setFavourites((prevFavourites) => {
                 return prevFavourites.filter((game) => game.id !== gameInfo.id);
             });

@@ -1,35 +1,45 @@
+/* Import packages */
 import React, { useContext, useEffect } from 'react';
-import { FavouritesContext } from '../../contexts/FavouritesContext';
+
+/* Import services */
+import { getMultipleGameInfo } from '../../services/rawgApiClient';
 import { getFavouritedGamesByUser } from '../../services/sanityClient';
+
+/* Import contexts */
+import { FavouritesContext } from '../../contexts/FavouritesContext';
+
+/* Import components */
 import GameListContainer from '../GameListContainer';
-import { getGameInfo } from '../../services/rawgApiClient';
 
 export default function MyFavouritesWidget({ loggedInUser }) {
     const { favourites, setFavourites } = useContext(FavouritesContext);
-    const { email } = loggedInUser;
 
     useEffect(() => {
         const fetchFavourites = async () => {
-            const favouriteList = await getFavouritedGamesByUser(email);
-
-            let completeGameObjects = await Promise.all(
-                favouriteList.map(async (game) => {
-                    let gameInfoFromApi = await getGameInfo(
-                        game.gameRef.gameSlug
-                    );
-                    return gameInfoFromApi;
-                })
+            // Get list of favourited games from Sanity
+            const favouriteList = await getFavouritedGamesByUser(
+                loggedInUser.email
             );
 
-            setFavourites(completeGameObjects);
+            // Get data about games in favourites from API
+            const favouritesGameDataFromApi = await getMultipleGameInfo(
+                favouriteList.map((game) => game.gameRef.gameSlug)
+            );
+
+            setFavourites(favouritesGameDataFromApi);
         };
+
         fetchFavourites();
-    }, [email, setFavourites]);
+    }, [loggedInUser, setFavourites]);
 
     return (
-        <section id='myfavourites-widget' aria-labelledby='myfavourites-widget-title'>
+        <section
+            id='myfavourites-widget'
+            aria-labelledby='myfavourites-widget-title'>
             <header className='widget-header'>
-                <h2 id='myfavourites-widget-title'>My Favourites ({favourites.length})</h2>
+                <h2 id='myfavourites-widget-title'>
+                    My Favourites ({favourites.length})
+                </h2>
                 <a href='/favourites' className='link-button'>
                     View All
                 </a>

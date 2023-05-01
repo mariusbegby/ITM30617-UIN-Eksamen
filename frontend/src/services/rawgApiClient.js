@@ -1,5 +1,7 @@
-import { apiKey } from '../apiKey';
+/* Import RAWG.io API authentication key */
+import { apiKey } from '../rawgApiKey';
 
+// Base URL for all requests to the RAWG.io API
 const apiBaseURL = 'https://rawg.io/api';
 
 // General method for sending request to the RAWG.io API

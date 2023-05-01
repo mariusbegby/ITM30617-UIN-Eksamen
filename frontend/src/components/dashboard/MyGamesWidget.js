@@ -1,34 +1,30 @@
+/* Import packages */
 import React, { useEffect, useContext } from 'react';
-import { MyGamesContext } from '../../contexts/MyGamesContext';
+
+/* Import services */
+import { getMultipleGameInfo } from '../../services/rawgApiClient';
 import { getGamesByUser } from '../../services/sanityClient';
+
+/* Import contexts */
+import { MyGamesContext } from '../../contexts/MyGamesContext';
+
+/* Import components */
 import GameListContainer from '../GameListContainer';
-import { getGameInfo } from '../../services/rawgApiClient';
 
 export default function MyGamesWidget({ loggedInUser }) {
     const { myGames, setMyGames } = useContext(MyGamesContext);
 
     useEffect(() => {
         const fetchMyGames = async () => {
-            let myGamesResults = await getGamesByUser(loggedInUser.email);
+            // Get list of games in user library from Sanity
+            let myGamesList = await getGamesByUser(loggedInUser.email);
 
-            let completeGameObjects = await Promise.all(
-                myGamesResults.map(async (game) => {
-                    let gameInfoFromApi = await getGameInfo(
-                        game.gameRef.gameSlug
-                    );
-                    return {
-                        apiId: game.gameRef.gameApiId,
-                        name: game.gameRef.gameTitle,
-                        slug: game.gameRef.gameSlug,
-                        genres: game.gameRef.gameGenres.map((genre) => ({
-                            name: genre.genreRef.genreName
-                        })),
-                        background_image: gameInfoFromApi.background_image
-                    };
-                })
+            // Get data about games in library from API
+            const myGamesGameDataFromApi = await getMultipleGameInfo(
+                myGamesList.map((game) => game.gameRef.gameSlug)
             );
 
-            setMyGames(completeGameObjects);
+            setMyGames(myGamesGameDataFromApi);
         };
 
         fetchMyGames();

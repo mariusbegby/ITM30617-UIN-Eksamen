@@ -1,15 +1,22 @@
+/* Import packages */
 import React, { useState, useEffect } from 'react';
-import GameListContainer from '../GameListContainer';
+
+/* Import services */
 import { getRecentSteamGames } from '../../services/rawgApiClient';
+
+/* Import components */
+import GameListContainer from '../GameListContainer';
 
 export default function GameShopWidget() {
     const [recentGames, setRecentGames] = useState([]);
 
     useEffect(() => {
+        // Retrieve the 3 latest updated Steam games from RAWG.io API
         const fetchRecentGames = async () => {
             let results = await getRecentSteamGames(3);
             setRecentGames(results);
         };
+
         fetchRecentGames();
     }, []);
 
