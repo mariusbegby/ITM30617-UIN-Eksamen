@@ -13,12 +13,13 @@ import GameListContainer from '../GameListContainer';
 
 export default function MyFavouritesWidget({ loggedInUser }) {
     const { favourites, setFavourites } = useContext(FavouritesContext);
-    const { email } = loggedInUser;
 
     useEffect(() => {
         const fetchFavourites = async () => {
             // Get list of favourited games from Sanity
-            const favouriteList = await getFavouritedGamesByUser(email);
+            const favouriteList = await getFavouritedGamesByUser(
+                loggedInUser.email
+            );
 
             // Get data about games in favourites from API
             const favouritesGameDataFromApi = await getMultipleGameInfo(
@@ -29,7 +30,7 @@ export default function MyFavouritesWidget({ loggedInUser }) {
         };
 
         fetchFavourites();
-    }, [email, setFavourites]);
+    }, [loggedInUser, setFavourites]);
 
     return (
         <section
