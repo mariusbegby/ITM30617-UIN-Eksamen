@@ -3,7 +3,7 @@ import {defineConfig, isDev} from 'sanity'
 import {visionTool} from '@sanity/vision'
 import {deskTool} from 'sanity/desk'
 
-/* Import schemas */
+/* Import schemas types */
 import {schemaTypes} from './schemas'
 
 /* Import plugins */
