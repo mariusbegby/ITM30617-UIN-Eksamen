@@ -1,7 +1,15 @@
-// Route: /gameshop
+/*
+  Route: /gameshop
+*/
+
+/* Import packages */
 import React, { useState, useEffect } from 'react';
-import GameListContainer from '../components/GameListContainer';
+
+/* Import services */
 import { getRecentSteamGames } from '../services/rawgApiClient';
+
+/* Import components */
+import GameListContainer from '../components/GameListContainer';
 
 export default function GameShop() {
     const [recentGames, setRecentGames] = useState([]);

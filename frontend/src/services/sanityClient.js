@@ -1,3 +1,4 @@
+/* Import packages */
 import { createClient } from '@sanity/client';
 
 // Create Sanity client

@@ -1,8 +1,15 @@
+/* Import packages */
 import React, { useContext, useEffect } from 'react';
-import { FavouritesContext } from '../../contexts/FavouritesContext';
-import { getFavouritedGamesByUser } from '../../services/sanityClient';
-import GameListContainer from '../GameListContainer';
+
+/* Import services */
 import { getGameInfo } from '../../services/rawgApiClient';
+import { getFavouritedGamesByUser } from '../../services/sanityClient';
+
+/* Import contexts */
+import { FavouritesContext } from '../../contexts/FavouritesContext';
+
+/* Import components */
+import GameListContainer from '../GameListContainer';
 
 export default function MyFavouritesWidget({ loggedInUser }) {
     const { favourites, setFavourites } = useContext(FavouritesContext);
@@ -27,9 +34,13 @@ export default function MyFavouritesWidget({ loggedInUser }) {
     }, [email, setFavourites]);
 
     return (
-        <section id='myfavourites-widget' aria-labelledby='myfavourites-widget-title'>
+        <section
+            id='myfavourites-widget'
+            aria-labelledby='myfavourites-widget-title'>
             <header className='widget-header'>
-                <h2 id='myfavourites-widget-title'>My Favourites ({favourites.length})</h2>
+                <h2 id='myfavourites-widget-title'>
+                    My Favourites ({favourites.length})
+                </h2>
                 <a href='/favourites' className='link-button'>
                     View All
                 </a>

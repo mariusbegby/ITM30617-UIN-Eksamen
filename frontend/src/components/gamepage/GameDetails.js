@@ -1,3 +1,4 @@
+/* Import packages */
 import { TagCloud } from 'react-tagcloud';
 
 export default function GameDetails({
@@ -64,9 +65,7 @@ export default function GameDetails({
                             Buy
                         </a>
                     ) : (
-                        <span className='text-bold info-tag'>
-                            No store url
-                        </span>
+                        <span className='text-bold info-tag'>No store url</span>
                     )}
                 </p>
                 <p>

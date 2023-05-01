@@ -1,7 +1,15 @@
-// Route: /login
+/*
+  Route: /login
+*/
+
+/* Import packages */
 import React, { useState, useContext } from 'react';
-import { LoginContext } from '../contexts/LoginContext';
+
+/* Import services */
 import { getUserByEmail } from '../services/sanityClient';
+
+/* Import contexts */
+import { LoginContext } from '../contexts/LoginContext';
 
 export default function Login() {
     const { loggedInUser, setLoggedInUser } = useContext(LoginContext);

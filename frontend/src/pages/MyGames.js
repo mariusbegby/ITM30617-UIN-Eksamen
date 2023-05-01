@@ -1,11 +1,21 @@
-// Route: /mygames
+/*
+  Route: /mygames
+*/
+
+/* Import packages */
 import React, { useEffect, useContext } from 'react';
-import { MyGamesContext } from '../contexts/MyGamesContext';
-import GameListContainer from '../components/GameListContainer';
-import RequireLoginPage from '../components/RequireLoginPage';
-import { getGamesByUser } from '../services/sanityClient';
-import { LoginContext } from '../contexts/LoginContext';
+
+/* Import services */
 import { getMultipleGameInfo } from '../services/rawgApiClient';
+import { getGamesByUser } from '../services/sanityClient';
+
+/* Import contexts */
+import { LoginContext } from '../contexts/LoginContext';
+import { MyGamesContext } from '../contexts/MyGamesContext';
+
+/* Import components */
+import RequireLoginPage from '../components/RequireLoginPage';
+import GameListContainer from '../components/GameListContainer';
 
 export default function MyGames() {
     const { loggedInUser } = useContext(LoginContext);

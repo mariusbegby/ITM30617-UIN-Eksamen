@@ -1,14 +1,24 @@
-// Route: /game/[gametitle-as-slug]
+/*
+  Route: /game/:id
+*/
+
+/* Import packages */
 import React, { useState, useEffect, useContext } from 'react';
-import { FavouritesContext } from '../contexts/FavouritesContext';
-import { MyGamesContext } from '../contexts/MyGamesContext';
+import { useParams } from 'react-router-dom';
+
+/* Import services */
+import { getGameInfo, getSteamUrlForGame } from '../services/rawgApiClient';
 import {
     updateFavouriteStatus,
     getSingleGameFromLibraryBySlug
 } from '../services/sanityClient';
-import { useParams } from 'react-router-dom';
+
+/* Import contexts */
 import { LoginContext } from '../contexts/LoginContext';
-import { getGameInfo, getSteamUrlForGame } from '../services/rawgApiClient';
+import { MyGamesContext } from '../contexts/MyGamesContext';
+import { FavouritesContext } from '../contexts/FavouritesContext';
+
+/* Import components */
 import GameDetails from '../components/gamepage/GameDetails';
 
 export default function GamePage() {

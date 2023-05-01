@@ -1,8 +1,12 @@
-// Route: /login
+/* Import packages */
 import React, { useContext } from 'react';
+
+/* Import contexts */
+import { LoginContext } from '../../contexts/LoginContext';
+
+/* Import components */
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
-import { LoginContext } from '../../contexts/LoginContext';
 
 export default function NavHeader() {
     const { loggedInUser } = useContext(LoginContext);

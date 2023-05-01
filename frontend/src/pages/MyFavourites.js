@@ -1,11 +1,21 @@
-// Route: /favourites
+/*
+  Route: /favourites
+*/
+
+/* Import packages */
 import React, { useContext, useEffect } from 'react';
-import { FavouritesContext } from '../contexts/FavouritesContext';
-import { LoginContext } from '../contexts/LoginContext';
+
+/* Import services */
+import { getMultipleGameInfo } from '../services/rawgApiClient';
 import { getFavouritedGamesByUser } from '../services/sanityClient';
+
+/* Import contexts */
+import { LoginContext } from '../contexts/LoginContext';
+import { FavouritesContext } from '../contexts/FavouritesContext';
+
+/* Import components */
 import RequireLoginPage from '../components/RequireLoginPage';
 import GameListContainer from '../components/GameListContainer';
-import { getMultipleGameInfo } from '../services/rawgApiClient';
 
 export default function MyFavourites() {
     const { loggedInUser } = useContext(LoginContext);

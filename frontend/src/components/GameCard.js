@@ -1,3 +1,4 @@
+/* Import packages */
 import { Link } from 'react-router-dom';
 
 export default function GameCard({ gameObject, canBePurchased = false }) {

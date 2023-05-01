@@ -1,5 +1,12 @@
-// Import routes and page components
+/* Import packages */
 import { Route, Routes } from 'react-router-dom';
+
+/* Import contexts */
+import { MyGamesProvider } from './contexts/MyGamesContext';
+import { FavouritesProvider } from './contexts/FavouritesContext';
+import { LoginProvider } from './contexts/LoginContext';
+
+/* Import components */
 import PageLayout from './pages/PageLayout';
 import Dashboard from './pages/Dashboard';
 import MyFavourites from './pages/MyFavourites';
@@ -7,11 +14,6 @@ import GameShop from './pages/GameShop';
 import MyGames from './pages/MyGames';
 import GamePage from './pages/GamePage';
 import Login from './pages/Login';
-
-// Import contexts for global state
-import { MyGamesProvider } from './contexts/MyGamesContext';
-import { FavouritesProvider } from './contexts/FavouritesContext';
-import { LoginProvider } from './contexts/LoginContext';
 
 // Import compiled CSS
 import './css/main.css';

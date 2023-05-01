@@ -1,8 +1,15 @@
+/* Import packages */
 import React, { useEffect, useContext } from 'react';
-import { MyGamesContext } from '../../contexts/MyGamesContext';
-import { getGamesByUser } from '../../services/sanityClient';
-import GameListContainer from '../GameListContainer';
+
+/* Import services */
 import { getGameInfo } from '../../services/rawgApiClient';
+import { getGamesByUser } from '../../services/sanityClient';
+
+/* Import contexts */
+import { MyGamesContext } from '../../contexts/MyGamesContext';
+
+/* Import components */
+import GameListContainer from '../GameListContainer';
 
 export default function MyGamesWidget({ loggedInUser }) {
     const { myGames, setMyGames } = useContext(MyGamesContext);
