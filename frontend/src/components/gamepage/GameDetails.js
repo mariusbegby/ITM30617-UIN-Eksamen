@@ -118,18 +118,16 @@ export default function GameDetails({
                 <p>
                     <span className='text-bold'>Tags: </span>{' '}
                 </p>
-                <p>
-                    {gameInfo.tags?.length > 0 ? (
-                        <TagCloud
-                            minSize={10}
-                            maxSize={28}
-                            tags={wordcloudData}
-                            colorOptions={{ luminosity: 'dark' }}
-                        />
-                    ) : (
-                        'None'
-                    )}
-                </p>
+                {gameInfo.tags?.length > 0 ? (
+                    <TagCloud
+                        minSize={10}
+                        maxSize={28}
+                        tags={wordcloudData}
+                        colorOptions={{ luminosity: 'dark' }}
+                    />
+                ) : (
+                    'None'
+                )}
             </section>
         </>
     );
