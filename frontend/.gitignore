@@ -23,6 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # compiled css
-/css
 /src/css/main.css
+/src/css/main.min.css
 /src/css/main.css.map
