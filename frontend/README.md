@@ -10,4 +10,4 @@ Kjør kommandoen `npm start` i `/frontend`-mappen for å starte React-applikasjo
 
 ## Bytte av API-nøkkel
 
-Hvis det er behov for å bytte API-nøkkel til RAWG.io API, kan dette endres i `/frontend/rawgApiKey.js`.
+Hvis det er behov for å endre API-nøkkelen til RAWG.io API, kan dette settes i filen `/frontend/rawgApiKey.js`.
