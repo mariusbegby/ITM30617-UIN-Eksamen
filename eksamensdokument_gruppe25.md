@@ -2,7 +2,7 @@
 
 ## Medlemmer
 
--   Marius Begby
+-   Marius Begby - GitHub alias: [@mariusbegby](https://github.com/mariusbegby)
 
 ## Vanskelighetsgrad
 
